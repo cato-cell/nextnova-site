@@ -83,7 +83,9 @@ img{ max-width:100%; display:block; }
   border-bottom:1px solid var(--line);
 }
 .nn-header .nn-wrap{ display:flex; align-items:center; justify-content:space-between; height:74px; }
-.nn-logo{ font-family:'Fraunces',serif; font-weight:600; font-size:1.4rem; letter-spacing:-0.02em; }
+.nn-logo{ font-family:'Fraunces',serif; font-weight:600; font-size:1.4rem; letter-spacing:-0.02em; display:flex; align-items:center; }
+/* Logobilde i headeren: ca. 34px høyt, bredde auto så det passer i 74px-headeren */
+.nn-logo-img{ height:34px; width:auto; }
 .nn-nav{ display:flex; align-items:center; gap:34px; }
 .nn-nav a.nn-link{ font-size:.95rem; color:var(--muted); transition:color .2s; }
 .nn-nav a.nn-link:hover{ color:var(--ink); }
@@ -191,7 +193,8 @@ img{ max-width:100%; display:block; }
 <!-- ============================ HEADER ============================ -->
 <header class="nn-header">
   <div class="nn-wrap">
-    <a href="#top" class="nn-logo">NextNova</a>
+    <!-- Logo som bilde – lenker tilbake til toppen -->
+    <a href="#top" class="nn-logo"><img src="/NextNova_logo_navy_1024px_transparent.png" alt="NextNova" class="nn-logo-img"></a>
     <nav class="nn-nav">
       <a href="#losning" class="nn-link">Tjenesten</a>
       <a href="#design" class="nn-link">Design</a>
