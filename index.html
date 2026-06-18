@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Mobil-først: sørg for riktig skalering på små skjermer -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NextNova – Profesjonelle nettsider for små bedrifter</title>
+  <meta name="description" content="En profesjonell nettside trenger ikke være stor, dyr eller komplisert. Én god side fra 10.000 kr." />
+
+  <!-- Eneste eksterne avhengighet: Google Fonts (Fraunces til overskrift, Outfit til brødtekst) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===== Designvariabler – samlet på ett sted for enkel justering ===== */
+    :root {
+      --bg: #FAF9F6;          /* Lys, off-white bakgrunn */
+      --tekst: #14110F;       /* Mørk, nesten sort tekst */
+      --tekst-dempet: #5C564F;/* Dempet tekst til undertittel */
+      --aksent: #B4532A;      /* Rolig terrakotta-aksent */
+      --aksent-mork: #97401F; /* Mørkere aksent til hover */
+      --kant: #14110F;        /* Kantfarge til sekundærknapp */
+
+      --maks-bredde: 760px;   /* Maks innholdsbredde for god lesbarhet */
+    }
+
+    /* ===== Grunnleggende reset ===== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%; /* Hindre uventet skalering på iOS */
+    }
+
+    body {
+      font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--tekst);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* ===== Logo-tekst øverst til venstre ===== */
+    .logo {
+      position: absolute;
+      top: clamp(1.5rem, 5vw, 2.5rem);
+      left: clamp(1.5rem, 5vw, 2.5rem);
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.25rem;
+      letter-spacing: -0.01em;
+    }
+
+    /* ===== Hero-seksjon: full høyde, vertikalt sentrert ===== */
+    .hero {
+      min-height: 100svh; /* Bruker svh så mobil-adresselinje ikke kutter innholdet */
+      display: flex;
+      align-items: center;
+      /* Mye luft rundt innholdet, skalerer med skjermbredden */
+      padding: clamp(6rem, 14vw, 9rem) clamp(1.5rem, 5vw, 2.5rem) clamp(3rem, 8vw, 5rem);
+    }
+
+    .hero__innhold {
+      max-width: var(--maks-bredde);
+    }
+
+    /* Prismarkør over overskriften */
+    .pris {
+      display: inline-block;
+      font-weight: 500;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--aksent);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Stor, selvsikker overskrift i serif */
+    .hero__tittel {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      /* Skalerer jevnt fra mobil til stor skjerm */
+      font-size: clamp(2.25rem, 7vw, 4rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      text-wrap: balance; /* Pent linjebrudd der nettleseren støtter det */
+    }
+
+    /* Dempet, luftig undertekst */
+    .hero__undertekst {
+      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+      color: var(--tekst-dempet);
+      max-width: 52ch;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ===== Knapperad ===== */
+    .knapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .knapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 0.9rem 1.75rem;
+      border-radius: 999px; /* Myke, runde knapper */
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease,
+                  border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    /* Primærknapp: fylt med aksentfarge */
+    .knapp--primar {
+      background-color: var(--aksent);
+      color: var(--bg);
+    }
+
+    .knapp--primar:hover {
+      background-color: var(--aksent-mork);
+      transform: translateY(-2px); /* Enkel løft-effekt på hover */
+    }
+
+    /* Sekundærknapp: kun kontur */
+    .knapp--sekundar {
+      background-color: transparent;
+      color: var(--tekst);
+      border-color: var(--kant);
+    }
+
+    .knapp--sekundar:hover {
+      background-color: var(--tekst);
+      color: var(--bg);
+      transform: translateY(-2px);
+    }
+
+    /* Tydelig fokusmarkering for tastaturbrukere (tilgjengelighet) */
+    .knapp:focus-visible {
+      outline: 2px solid var(--aksent);
+      outline-offset: 3px;
+    }
+
+    /* Respekter brukere som har slått av animasjoner */
+    @media (prefers-reduced-motion: reduce) {
+      .knapp {
+        transition: none;
+      }
+      .knapp:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Liten logo-tekst øverst til venstre -->
+  <div class="logo">NextNova</div>
+
+  <!-- Hero: eneste seksjon foreløpig -->
+  <main class="hero">
+    <div class="hero__innhold">
+      <!-- Tydelig prismarkør -->
+      <span class="pris">Fra 10.000 kr</span>
+
+      <h1 class="hero__tittel">En profesjonell nettside trenger ikke være stor, dyr eller komplisert.</h1>
+
+      <p class="hero__undertekst">
+        For mange små bedrifter holder det med én god side som forklarer
+        hvem du er, hva du tilbyr og hvordan kunden tar kontakt.
+      </p>
+
+      <!-- To handlingsknapper -->
+      <div class="knapper">
+        <a href="#tilbud" class="knapp knapp--primar">Be om tilbud</a>
+        <a href="#design" class="knapp knapp--sekundar">Se designforslag</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
