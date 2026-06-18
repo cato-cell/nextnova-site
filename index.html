@@ -1,194 +1,389 @@
 <!DOCTYPE html>
-<html lang="nb">
+<html lang="no">
 <head>
-  <meta charset="UTF-8" />
-  <!-- Mobil-først: sørg for riktig skalering på små skjermer -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NextNova – Profesjonelle nettsider for små bedrifter</title>
-  <meta name="description" content="En profesjonell nettside trenger ikke være stor, dyr eller komplisert. Én god side fra 10.000 kr." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Eneste eksterne avhengighet: Google Fonts (Fraunces til overskrift, Outfit til brødtekst) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+<!-- ============================================================
+     NEXTNOVA – FORSIDE (one-pager)
+     Alt i én fil: HTML + CSS + litt JS. Ingen avhengigheter
+     utenom Google Fonts. Statisk-først – ingen WordPress.
+     Klasseprefiks: .nn-  (unngår kollisjoner)
+     ============================================================ -->
 
-  <style>
-    /* ===== Designvariabler – samlet på ett sted for enkel justering ===== */
-    :root {
-      --bg: #FAF9F6;          /* Lys, off-white bakgrunn */
-      --tekst: #14110F;       /* Mørk, nesten sort tekst */
-      --tekst-dempet: #5C564F;/* Dempet tekst til undertittel */
-      --aksent: #B4532A;      /* Rolig terrakotta-aksent */
-      --aksent-mork: #97401F; /* Mørkere aksent til hover */
-      --kant: #14110F;        /* Kantfarge til sekundærknapp */
+<!-- SEO: tittel og beskrivelse -->
+<title>NextNova – Profesjonelle nettsider for små bedrifter fra 10.000 kr</title>
+<meta name="description" content="En profesjonell, moderne og mobiltilpasset nettside for små bedrifter. Én god one-pager fra kun 10.000 kr. Be om uforpliktende tilbud.">
 
-      --maks-bredde: 760px;   /* Maks innholdsbredde for god lesbarhet */
-    }
+<!-- Lenkeforhåndsvisning (LinkedIn/Facebook). Bytt og legg ved et ekte bilde senere. -->
+<meta property="og:title" content="NextNova – Profesjonelle nettsider fra 10.000 kr">
+<meta property="og:description" content="Én god side som forklarer hvem du er, hva du tilbyr og gjør det enkelt for kunder å ta kontakt.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nextnova.no">
+<meta property="og:locale" content="nb_NO">
 
-    /* ===== Grunnleggende reset ===== */
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<!-- Favicon: liten stjerne i SVG (ingen ekstra fil nødvendig) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2314110F'/><text x='50' y='70' font-size='62' text-anchor='middle' fill='%23B4532A' font-family='Georgia,serif'>N</text></svg>">
 
-    html {
-      -webkit-text-size-adjust: 100%; /* Hindre uventet skalering på iOS */
-    }
+<!-- Google Fonts: Fraunces (serif, overskrifter) + Outfit (sans, brødtekst) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    body {
-      font-family: 'Outfit', system-ui, -apple-system, sans-serif;
-      background-color: var(--bg);
-      color: var(--tekst);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
+<style>
+/* ====== DESIGNVARIABLER (farger, mål) – endre her, slår gjennom overalt ====== */
+:root{
+  --bg:        #FAF9F6;   /* off-white bakgrunn */
+  --ink:       #14110F;   /* nær-svart tekst */
+  --muted:     #6B645C;   /* dempet tekst */
+  --accent:    #B4532A;   /* terrakotta aksent */
+  --line:      #E6E1D8;   /* hårfine linjer */
+  --card:      #FFFFFF;   /* kortbakgrunn */
+  --maxw:      1120px;    /* maks innholdsbredde */
+}
 
-    /* ===== Logo-tekst øverst til venstre ===== */
-    .logo {
-      position: absolute;
-      top: clamp(1.5rem, 5vw, 2.5rem);
-      left: clamp(1.5rem, 5vw, 2.5rem);
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
-      font-size: 1.25rem;
-      letter-spacing: -0.01em;
-    }
+/* ====== GRUNNLAG ====== */
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Outfit',system-ui,sans-serif;
+  font-weight:400;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{ font-family:'Fraunces',Georgia,serif; font-weight:500; line-height:1.08; letter-spacing:-0.01em; }
+a{ color:inherit; text-decoration:none; }
+img{ max-width:100%; display:block; }
 
-    /* ===== Hero-seksjon: full høyde, vertikalt sentrert ===== */
-    .hero {
-      min-height: 100svh; /* Bruker svh så mobil-adresselinje ikke kutter innholdet */
-      display: flex;
-      align-items: center;
-      /* Mye luft rundt innholdet, skalerer med skjermbredden */
-      padding: clamp(6rem, 14vw, 9rem) clamp(1.5rem, 5vw, 2.5rem) clamp(3rem, 8vw, 5rem);
-    }
+.nn-wrap{ width:100%; max-width:var(--maxw); margin:0 auto; padding:0 24px; }
 
-    .hero__innhold {
-      max-width: var(--maks-bredde);
-    }
+/* Liten etikett over hver overskrift ("eyebrow") */
+.nn-eyebrow{
+  font-size:.78rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--accent); margin-bottom:18px; display:inline-block;
+}
 
-    /* Prismarkør over overskriften */
-    .pris {
-      display: inline-block;
-      font-weight: 500;
-      font-size: 0.95rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--aksent);
-      margin-bottom: 1.5rem;
-    }
+/* ====== KNAPPER ====== */
+.nn-btn{
+  display:inline-block; font-family:'Outfit',sans-serif; font-size:.98rem; font-weight:500;
+  padding:15px 30px; border-radius:100px; cursor:pointer; border:1.5px solid transparent;
+  transition:transform .15s ease, background .2s ease, color .2s ease;
+}
+.nn-btn-primary{ background:var(--accent); color:#fff; }
+.nn-btn-primary:hover{ background:#9a4423; transform:translateY(-2px); }
+.nn-btn-ghost{ background:transparent; color:var(--ink); border-color:var(--ink); }
+.nn-btn-ghost:hover{ background:var(--ink); color:var(--bg); transform:translateY(-2px); }
 
-    /* Stor, selvsikker overskrift i serif */
-    .hero__tittel {
-      font-family: 'Fraunces', serif;
-      font-weight: 500;
-      /* Skalerer jevnt fra mobil til stor skjerm */
-      font-size: clamp(2.25rem, 7vw, 4rem);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.5rem;
-      text-wrap: balance; /* Pent linjebrudd der nettleseren støtter det */
-    }
+/* ====== HEADER (fast øverst) ====== */
+.nn-header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(250,249,246,.82); backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nn-header .nn-wrap{ display:flex; align-items:center; justify-content:space-between; height:74px; }
+.nn-logo{ font-family:'Fraunces',serif; font-weight:600; font-size:1.4rem; letter-spacing:-0.02em; }
+.nn-nav{ display:flex; align-items:center; gap:34px; }
+.nn-nav a.nn-link{ font-size:.95rem; color:var(--muted); transition:color .2s; }
+.nn-nav a.nn-link:hover{ color:var(--ink); }
+.nn-header .nn-btn{ padding:11px 22px; font-size:.9rem; }
 
-    /* Dempet, luftig undertekst */
-    .hero__undertekst {
-      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
-      color: var(--tekst-dempet);
-      max-width: 52ch;
-      margin-bottom: 2.5rem;
-    }
+/* ====== HERO ====== */
+.nn-hero{ padding:120px 0 110px; }
+.nn-hero .nn-price{
+  font-size:.85rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--accent); margin-bottom:26px; display:block;
+}
+.nn-hero h1{
+  font-size:clamp(2.6rem,6vw,4.6rem); max-width:14ch; margin-bottom:30px;
+}
+.nn-hero p{ font-size:clamp(1.05rem,2vw,1.3rem); color:var(--muted); max-width:52ch; margin-bottom:40px; }
+.nn-hero-actions{ display:flex; gap:16px; flex-wrap:wrap; }
 
-    /* ===== Knapperad ===== */
-    .knapper {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+/* ====== SEKSJONSAVSTAND ====== */
+.nn-section{ padding:96px 0; border-top:1px solid var(--line); }
+.nn-section h2{ font-size:clamp(2rem,4.5vw,3.1rem); max-width:18ch; margin-bottom:26px; }
+.nn-lead{ font-size:1.18rem; color:var(--muted); max-width:56ch; }
 
-    .knapp {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 500;
-      text-decoration: none;
-      padding: 0.9rem 1.75rem;
-      border-radius: 999px; /* Myke, runde knapper */
-      border: 1.5px solid transparent;
-      cursor: pointer;
-      transition: background-color 0.2s ease, color 0.2s ease,
-                  border-color 0.2s ease, transform 0.2s ease;
-    }
+/* ====== PROBLEM (mørk kontrastblokk) ====== */
+.nn-dark{ background:var(--ink); color:var(--bg); border-top:none; }
+.nn-dark .nn-eyebrow{ color:#E08A5B; }
+.nn-dark .nn-lead{ color:#B8B2A8; }
+.nn-points{ display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-top:56px; }
+.nn-point h3{ font-size:1.25rem; margin-bottom:10px; }
+.nn-point p{ color:#B8B2A8; font-size:.98rem; }
+.nn-dark .nn-point{ border-top:1px solid #2E2A26; padding-top:22px; }
 
-    /* Primærknapp: fylt med aksentfarge */
-    .knapp--primar {
-      background-color: var(--aksent);
-      color: var(--bg);
-    }
+/* ====== HVA DU FÅR (rutenett) ====== */
+.nn-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:56px;
+  background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+.nn-cell{ background:var(--bg); padding:34px 30px; }
+.nn-cell .nn-num{ font-family:'Fraunces',serif; color:var(--accent); font-size:1.1rem; margin-bottom:14px; display:block; }
+.nn-cell h3{ font-size:1.2rem; margin-bottom:8px; }
+.nn-cell p{ color:var(--muted); font-size:.96rem; }
 
-    .knapp--primar:hover {
-      background-color: var(--aksent-mork);
-      transform: translateY(-2px); /* Enkel løft-effekt på hover */
-    }
+/* ====== DESIGNFORSLAG (signaturseksjon) ====== */
+.nn-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:56px; }
+.nn-dcard{
+  background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden;
+  transition:transform .2s ease, box-shadow .2s ease; display:flex; flex-direction:column;
+}
+.nn-dcard:hover{ transform:translateY(-4px); box-shadow:0 18px 40px rgba(20,17,15,.10); }
+.nn-dcard-top{ height:140px; display:flex; align-items:center; justify-content:center;
+  font-family:'Fraunces',serif; font-size:1.7rem; color:#fff; letter-spacing:-0.01em; }
+.nn-dcard-body{ padding:22px 24px 26px; }
+.nn-dcard-body .nn-tag{ font-size:.74rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+.nn-dcard-body h3{ font-size:1.25rem; margin:6px 0 14px; }
+.nn-dcard-link{ font-size:.92rem; font-weight:500; color:var(--accent); }
+.nn-dcard:hover .nn-dcard-link{ text-decoration:underline; }
 
-    /* Sekundærknapp: kun kontur */
-    .knapp--sekundar {
-      background-color: transparent;
-      color: var(--tekst);
-      border-color: var(--kant);
-    }
+/* ====== HVORFOR NEXTNOVA ====== */
+.nn-why{ display:grid; grid-template-columns:repeat(2,1fr); gap:28px 56px; margin-top:56px; }
+.nn-why-item{ border-top:2px solid var(--accent); padding-top:20px; }
+.nn-why-item h3{ font-size:1.3rem; margin-bottom:10px; }
+.nn-why-item p{ color:var(--muted); }
 
-    .knapp--sekundar:hover {
-      background-color: var(--tekst);
-      color: var(--bg);
-      transform: translateY(-2px);
-    }
+/* ====== KONTAKT ====== */
+.nn-contact{ display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
+.nn-form{ display:flex; flex-direction:column; gap:16px; }
+.nn-field label{ font-size:.88rem; font-weight:500; display:block; margin-bottom:7px; }
+.nn-field input, .nn-field textarea{
+  width:100%; font-family:'Outfit',sans-serif; font-size:1rem; color:var(--ink);
+  background:var(--card); border:1.5px solid var(--line); border-radius:10px; padding:13px 15px;
+}
+.nn-field input:focus, .nn-field textarea:focus{ outline:none; border-color:var(--accent); }
+.nn-field textarea{ resize:vertical; min-height:120px; }
+.nn-form .nn-btn{ align-self:flex-start; margin-top:6px; }
+.nn-form-note{ font-size:.85rem; color:var(--muted); margin-top:4px; }
+.nn-form-ok{ display:none; background:var(--ink); color:var(--bg); padding:18px 22px; border-radius:12px; font-size:1rem; }
 
-    /* Tydelig fokusmarkering for tastaturbrukere (tilgjengelighet) */
-    .knapp:focus-visible {
-      outline: 2px solid var(--aksent);
-      outline-offset: 3px;
-    }
+/* ====== FOOTER ====== */
+.nn-footer{ border-top:1px solid var(--line); padding:48px 0; }
+.nn-footer .nn-wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+.nn-footer .nn-logo{ font-size:1.2rem; }
+.nn-footer small{ color:var(--muted); }
 
-    /* Respekter brukere som har slått av animasjoner */
-    @media (prefers-reduced-motion: reduce) {
-      .knapp {
-        transition: none;
-      }
-      .knapp:hover {
-        transform: none;
-      }
-    }
-  </style>
+/* ====== SCROLL-ANIMASJON (forsiktig innglidning) ====== */
+.nn-reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+.nn-reveal.nn-in{ opacity:1; transform:none; }
+
+/* ====== MOBIL ====== */
+@media (max-width:880px){
+  .nn-nav{ gap:18px; }
+  .nn-nav a.nn-link{ display:none; }            /* skjuler menylenker på mobil, beholder CTA */
+  .nn-hero{ padding:80px 0 70px; }
+  .nn-section{ padding:68px 0; }
+  .nn-points, .nn-grid, .nn-cards, .nn-why{ grid-template-columns:1fr; }
+  .nn-contact{ grid-template-columns:1fr; gap:40px; }
+}
+
+/* Respekter brukere som vil ha mindre bevegelse */
+@media (prefers-reduced-motion:reduce){
+  .nn-reveal{ opacity:1; transform:none; transition:none; }
+  html{ scroll-behavior:auto; }
+}
+</style>
 </head>
+
 <body>
-  <!-- Liten logo-tekst øverst til venstre -->
-  <div class="logo">NextNova</div>
 
-  <!-- Hero: eneste seksjon foreløpig -->
-  <main class="hero">
-    <div class="hero__innhold">
-      <!-- Tydelig prismarkør -->
-      <span class="pris">Fra 10.000 kr</span>
+<!-- ============================ HEADER ============================ -->
+<header class="nn-header">
+  <div class="nn-wrap">
+    <a href="#top" class="nn-logo">NextNova</a>
+    <nav class="nn-nav">
+      <a href="#losning" class="nn-link">Tjenesten</a>
+      <a href="#design" class="nn-link">Design</a>
+      <a href="#kontakt" class="nn-link">Kontakt</a>
+      <a href="#kontakt" class="nn-btn nn-btn-primary">Be om tilbud</a>
+    </nav>
+  </div>
+</header>
 
-      <h1 class="hero__tittel">En profesjonell nettside trenger ikke være stor, dyr eller komplisert.</h1>
+<!-- ============================ HERO ============================ -->
+<section class="nn-hero" id="top">
+  <div class="nn-wrap">
+    <span class="nn-price">Fra 10.000 kr</span>
+    <h1>En profesjonell nettside trenger ikke være stor, dyr eller komplisert.</h1>
+    <p>For mange små bedrifter holder det med én god side som forklarer hvem du er, hva du tilbyr og hvordan kunden tar kontakt.</p>
+    <div class="nn-hero-actions">
+      <a href="#kontakt" class="nn-btn nn-btn-primary">Be om tilbud</a>
+      <a href="#design" class="nn-btn nn-btn-ghost">Se designforslag</a>
+    </div>
+  </div>
+</section>
 
-      <p class="hero__undertekst">
-        For mange små bedrifter holder det med én god side som forklarer
-        hvem du er, hva du tilbyr og hvordan kunden tar kontakt.
-      </p>
-
-      <!-- To handlingsknapper -->
-      <div class="knapper">
-        <a href="#tilbud" class="knapp knapp--primar">Be om tilbud</a>
-        <a href="#design" class="knapp knapp--sekundar">Se designforslag</a>
+<!-- ============================ PROBLEM (mørk) ============================ -->
+<section class="nn-section nn-dark">
+  <div class="nn-wrap">
+    <span class="nn-eyebrow nn-reveal">Problemet</span>
+    <h2 class="nn-reveal">En svak nettside koster deg kunder – hver dag.</h2>
+    <p class="nn-lead nn-reveal">De fleste sjekker deg på nett før de tar kontakt. Er siden gammel, rotete eller fraværende, går de videre til neste. Du mister kunder du aldri visste du hadde.</p>
+    <div class="nn-points">
+      <div class="nn-point nn-reveal">
+        <h3>Utdatert uttrykk</h3>
+        <p>En gammeldags side får selv en god bedrift til å virke utdatert.</p>
+      </div>
+      <div class="nn-point nn-reveal">
+        <h3>Dårlig på mobil</h3>
+        <p>De fleste besøker deg fra telefonen. Funker det ikke der, mister du dem.</p>
+      </div>
+      <div class="nn-point nn-reveal">
+        <h3>Uklart budskap</h3>
+        <p>Skjønner ikke kunden raskt hva du tilbyr, klikker de seg bort.</p>
       </div>
     </div>
-  </main>
+  </div>
+</section>
+
+<!-- ============================ LØSNING ============================ -->
+<section class="nn-section" id="losning">
+  <div class="nn-wrap">
+    <span class="nn-eyebrow nn-reveal">Løsningen</span>
+    <h2 class="nn-reveal">Én god side. Alt kunden trenger.</h2>
+    <p class="nn-lead nn-reveal">En profesjonell one-pager som forklarer hvem du er, hva du tilbyr og gjør det enkelt å ta kontakt. Moderne, mobiltilpasset og rask – bygget for å skape henvendelser, ikke for å imponere andre webfolk.</p>
+  </div>
+</section>
+
+<!-- ============================ HVA DU FÅR ============================ -->
+<section class="nn-section">
+  <div class="nn-wrap">
+    <span class="nn-eyebrow nn-reveal">Hva du får</span>
+    <h2 class="nn-reveal">Alt du trenger for å se profesjonell ut</h2>
+    <div class="nn-grid">
+      <div class="nn-cell nn-reveal"><span class="nn-num">01</span><h3>Moderne design</h3><p>Et rent, tidsriktig uttrykk tilpasset bransjen din.</p></div>
+      <div class="nn-cell nn-reveal"><span class="nn-num">02</span><h3>Mobiltilpasning</h3><p>Ser like bra ut på telefon som på skjerm.</p></div>
+      <div class="nn-cell nn-reveal"><span class="nn-num">03</span><h3>Tydelig CTA</h3><p>Gjør det åpenbart hvordan kunden tar kontakt.</p></div>
+      <div class="nn-cell nn-reveal"><span class="nn-num">04</span><h3>Tekst som selger</h3><p>Klart budskap som forklarer verdien på sekunder.</p></div>
+      <div class="nn-cell nn-reveal"><span class="nn-num">05</span><h3>SEO-grunnlag</h3><p>Riktig oppsett så du blir lettere å finne.</p></div>
+      <div class="nn-cell nn-reveal"><span class="nn-num">06</span><h3>Publisering</h3><p>Vi setter siden live – du trenger ikke tenke teknikk.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ DESIGNFORSLAG (signatur) ============================ -->
+<section class="nn-section" id="design">
+  <div class="nn-wrap">
+    <span class="nn-eyebrow nn-reveal">Designforslag</span>
+    <h2 class="nn-reveal">Seks retninger. Samme håndverk.</h2>
+    <p class="nn-lead nn-reveal">Hver demo er en fiktiv bedrift i sin egen bransje og stil. Trykk deg inn og bli inspirert av hva som er mulig.</p>
+
+    <div class="nn-cards">
+      <!-- Fargene på toppen gir hvert kort sin egen identitet -->
+      <a href="/design1/" class="nn-dcard nn-reveal">
+        <div class="nn-dcard-top" style="background:#3A3A38;">Atelier Nord</div>
+        <div class="nn-dcard-body"><span class="nn-tag">Arkitektur &amp; design</span><h3>Rent og redaksjonelt</h3><span class="nn-dcard-link">Se demo →</span></div>
+      </a>
+      <a href="/design2/" class="nn-dcard nn-reveal">
+        <div class="nn-dcard-top" style="background:#C77B8B;">Rosa Mel</div>
+        <div class="nn-dcard-body"><span class="nn-tag">Bakeri &amp; konditori</span><h3>Varmt og innbydende</h3><span class="nn-dcard-link">Se demo →</span></div>
+      </a>
+      <a href="/design3/" class="nn-dcard nn-reveal">
+        <div class="nn-dcard-top" style="background:#2563A8;">Volt Vann</div>
+        <div class="nn-dcard-body"><span class="nn-tag">Håndverk &amp; teknikk</span><h3>Solid og tillitsvekkende</h3><span class="nn-dcard-link">Se demo →</span></div>
+      </a>
+      <a href="/design4/" class="nn-dcard nn-reveal">
+        <div class="nn-dcard-top" style="background:#B4532A;">Hud &amp; Ro</div>
+        <div class="nn-dcard-body"><span class="nn-tag">Hudpleie &amp; velvære</span><h3>Mykt og premium</h3><span class="nn-dcard-link">Se demo →</span></div>
+      </a>
+      <a href="/design5/" class="nn-dcard nn-reveal">
+        <div class="nn-dcard-top" style="background:#14110F;">Maison Keld</div>
+        <div class="nn-dcard-body"><span class="nn-tag">Mote &amp; redaksjonelt</span><h3>Elegant og stilrent</h3><span class="nn-dcard-link">Se demo →</span></div>
+      </a>
+      <a href="/design6/" class="nn-dcard nn-reveal">
+        <div class="nn-dcard-top" style="background:#0E1116; color:#39E0A0;">Flux</div>
+        <div class="nn-dcard-body"><span class="nn-tag">SaaS &amp; teknologi</span><h3>Moderne og dristig</h3><span class="nn-dcard-link">Se demo →</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ HVORFOR NEXTNOVA ============================ -->
+<section class="nn-section">
+  <div class="nn-wrap">
+    <span class="nn-eyebrow nn-reveal">Hvorfor NextNova</span>
+    <h2 class="nn-reveal">Raskt, enkelt og bygget for resultat</h2>
+    <div class="nn-why">
+      <div class="nn-why-item nn-reveal"><h3>Rask gjennomføring</h3><p>Du venter ikke i ukevis. Vi kommer raskt i gang og raskt i mål.</p></div>
+      <div class="nn-why-item nn-reveal"><h3>Kommersiell forståelse</h3><p>Siden bygges for å skape henvendelser – ikke for å se fancy ut.</p></div>
+      <div class="nn-why-item nn-reveal"><h3>AI-støttet produksjon</h3><p>Moderne verktøy gir deg mer kvalitet for pengene.</p></div>
+      <div class="nn-why-item nn-reveal"><h3>Fokus på verdi</h3><p>Du betaler for en side som virker, ikke for en lang prosess.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ KONTAKT ============================ -->
+<section class="nn-section" id="kontakt">
+  <div class="nn-wrap nn-contact">
+    <div>
+      <span class="nn-eyebrow nn-reveal">Kontakt</span>
+      <h2 class="nn-reveal">Klar for en bedre nettside?</h2>
+      <p class="nn-lead nn-reveal">Fortell kort om bedriften din, så får du et konkret tilbud – helt uforpliktende. Fra 10.000 kr.</p>
+    </div>
+
+    <!-- KONTAKTSKJEMA
+         Skjemaet sender via Web3Forms (gratis). For at det skal virke:
+         1) Lag gratis konto på web3forms.com
+         2) Lim inn din access key i value="..." under (erstatt DIN_ACCESS_KEY)
+         3) Sett mottaker-e-post i Web3Forms-dashbordet (uavhengig av domenet) -->
+    <div>
+      <form class="nn-form" id="nnForm" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="DIN_ACCESS_KEY">
+        <input type="hidden" name="subject" value="Ny henvendelse fra nextnova.no">
+        <div class="nn-field">
+          <label for="nnNavn">Navn</label>
+          <input id="nnNavn" type="text" name="navn" required>
+        </div>
+        <div class="nn-field">
+          <label for="nnEpost">E-post</label>
+          <input id="nnEpost" type="email" name="epost" required>
+        </div>
+        <div class="nn-field">
+          <label for="nnMelding">Litt om bedriften din</label>
+          <textarea id="nnMelding" name="melding" required></textarea>
+        </div>
+        <button type="submit" class="nn-btn nn-btn-primary">Be om tilbud</button>
+        <p class="nn-form-note">Du forplikter deg ikke til noe. Vi svarer så fort vi kan.</p>
+      </form>
+      <div class="nn-form-ok" id="nnOk">Takk! Henvendelsen er sendt – vi tar kontakt snart.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="nn-footer">
+  <div class="nn-wrap">
+    <span class="nn-logo">NextNova</span>
+    <small>Profesjonelle nettsider for små bedrifter · © 2026 NextNova</small>
+  </div>
+</footer>
+
+<script>
+/* ====== Forsiktig innglidning når seksjoner kommer til syne ====== */
+(function(){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('nn-in'); io.unobserve(e.target); }
+    });
+  }, { threshold:0.12 });
+  document.querySelectorAll('.nn-reveal').forEach(function(el){ io.observe(el); });
+})();
+
+/* ====== Send kontaktskjema uten å laste siden på nytt ====== */
+(function(){
+  var form = document.getElementById('nnForm');
+  var ok   = document.getElementById('nnOk');
+  if(!form) return;
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    fetch(form.action, { method:'POST', body:new FormData(form), headers:{'Accept':'application/json'} })
+      .then(function(r){ return r.json(); })
+      .then(function(){ form.style.display='none'; ok.style.display='block'; })
+      .catch(function(){ form.style.display='none'; ok.style.display='block'; });
+  });
+})();
+</script>
+
 </body>
 </html>
