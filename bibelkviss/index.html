@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0C141B">
+<meta name="robots" content="noindex, nofollow">
+<title>Bibelreisen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-0:#0C141B; --bg-1:#101E27;
+  --ink:#ECE6D8; --dim:rgba(236,230,216,.52);
+  --gold:#E3B468; --gold-2:#F2D49B;
+  --green:#62D2A2; --coral:#E68A6F;
+  --line:rgba(236,230,216,.11); --line-2:rgba(236,230,216,.18);
+  --surface:rgba(236,230,216,.035);
+  --serif:'Fraunces',Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
+body{
+  font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  min-height:100dvh;overflow-x:hidden;overscroll-behavior:none;
+  display:flex;flex-direction:column;align-items:center;
+  padding:calc(env(safe-area-inset-top) + 12px) calc(env(safe-area-inset-right) + 12px) calc(env(safe-area-inset-bottom) + 14px) calc(env(safe-area-inset-left) + 12px);
+}
+body::before{content:"";position:fixed;inset:0;z-index:-1;
+  background:
+    radial-gradient(135% 70% at 50% -10%, rgba(227,180,104,.17), transparent 58%),
+    radial-gradient(110% 60% at 50% 112%, rgba(98,210,162,.05), transparent 60%),
+    linear-gradient(180deg,#11202A 0%, #0C141B 68%);}
+
+.frame{width:100%;max-width:460px;flex:1;display:flex;flex-direction:column;
+  border:1px solid var(--line);border-radius:26px;background:rgba(236,230,216,.022);
+  box-shadow:0 36px 90px -50px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.045);
+  padding:20px 16px 22px;position:relative;}
+.screen{animation:fade .4s ease;flex:1;display:flex;flex-direction:column;}
+@keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+.hidden{display:none!important;}
+.narrow{width:100%;max-width:480px;margin:0 auto;display:flex;flex-direction:column;flex:1;}
+
+/* større skjerm: bredere ramme for oversikt/troférom */
+@media (min-width:680px){ .frame{max-width:780px;padding:26px 24px 28px;} }
+
+/* ---------- TEKST/KNAPPER ---------- */
+.brand{font-family:var(--serif);font-weight:600;letter-spacing:.2px;line-height:1;}
+.brand span{color:var(--gold);}
+.btn{width:100%;border:none;cursor:pointer;font-family:'Inter';font-size:16px;font-weight:600;letter-spacing:.2px;
+  padding:15px;border-radius:14px;color:#10202B;background:linear-gradient(180deg,var(--gold-2),var(--gold));
+  box-shadow:0 12px 26px -16px rgba(227,180,104,.8);transition:transform .12s ease, filter .12s ease;}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.04);}
+.btn:active{transform:translateY(0);}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);box-shadow:none;font-weight:500;}
+.btn.small{padding:11px;font-size:13px;color:var(--dim);}
+.sub{color:var(--dim);font-weight:400;font-size:14px;line-height:1.6;}
+.backrow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px;}
+.back{background:none;border:none;color:var(--dim);font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px;}
+.back:hover{color:var(--ink);}
+
+/* ---------- INNLOGGING ---------- */
+#login .center{flex:1;display:flex;flex-direction:column;justify-content:center;}
+.logohero{text-align:center;margin-bottom:8px;}
+.logohero .mark{font-size:46px;}
+.logohero .brand{font-size:40px;margin-top:4px;}
+.intro{color:var(--dim);font-weight:400;font-size:14.5px;line-height:1.65;text-align:center;max-width:380px;margin:14px auto 26px;}
+.field{width:100%;max-width:380px;margin:0 auto;}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--gold);letter-spacing:.4px;text-transform:uppercase;margin-bottom:8px;}
+.field input{width:100%;font-family:'Inter';font-size:16px;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line-2);border-radius:13px;padding:14px 16px;outline:none;transition:border-color .15s ease;}
+.field input:focus{border-color:var(--gold);}
+.field .hint{font-size:12px;color:var(--dim);margin-top:8px;line-height:1.5;}
+.userchips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:18px;max-width:420px;margin-left:auto;margin-right:auto;}
+.userchip{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:500;cursor:pointer;color:var(--ink);}
+.userchip:hover{border-color:var(--gold);}
+
+/* ---------- BOK-OVERSIKT ---------- */
+.headrow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:6px;}
+.hello{font-family:var(--serif);font-size:22px;font-weight:600;}
+.hello small{display:block;font-family:'Inter';font-size:12px;color:var(--dim);font-weight:400;margin-top:2px;}
+.booksprog{font-weight:600;color:var(--gold);font-size:12.5px;letter-spacing:.3px;margin:10px 0 4px;}
+.progline{height:4px;border-radius:99px;background:rgba(236,230,216,.08);overflow:hidden;margin-bottom:16px;}
+.progline > i{display:block;height:100%;width:0;background:var(--gold);transition:width .5s ease;}
+.testlabel{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--dim);font-weight:600;margin:14px 2px 10px;}
+.bookgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:9px;}
+.book{position:relative;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 12px 13px;
+  min-height:84px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .12s ease, border-color .12s ease;}
+.book .bnum{font-family:var(--serif);font-size:13px;color:var(--dim);font-weight:500;}
+.book .bname{font-weight:600;font-size:13.5px;line-height:1.25;}
+.book .bstate{position:absolute;top:11px;right:12px;font-size:14px;}
+.book.locked{opacity:.4;}
+.book.coming{opacity:.6;}
+.book.coming .bstate{font-size:9px;letter-spacing:.5px;text-transform:uppercase;color:var(--dim);font-weight:700;}
+.book.open{cursor:pointer;border-color:rgba(227,180,104,.45);background:rgba(227,180,104,.06);}
+.book.open:hover{transform:translateY(-2px);border-color:var(--gold);}
+.book.open .bstate{color:var(--gold);}
+.book.done{cursor:pointer;border-color:rgba(98,210,162,.3);}
+.book.done:hover{transform:translateY(-2px);border-color:var(--green);}
+.book.done .bstate{color:var(--green);}
+
+/* ---------- NIVÅER ---------- */
+.levelgrid{display:flex;flex-direction:column;gap:9px;}
+.lvl{display:flex;align-items:center;gap:13px;border-radius:15px;padding:13px 14px;border:1px solid var(--line);background:var(--surface);transition:transform .12s ease, border-color .12s ease;}
+.lvl .badge{width:40px;height:40px;flex:0 0 40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:600;font-size:18px;}
+.lvl .info{flex:1;min-width:0;}
+.lvl .name{font-weight:600;font-size:15px;}
+.lvl .diff{font-size:11.5px;color:var(--dim);font-weight:400;margin-top:1px;}
+.lvl .state{font-size:18px;color:var(--dim);}
+.lvl.locked{opacity:.42;}
+.lvl.locked .badge{background:rgba(236,230,216,.06);color:var(--dim);}
+.lvl.open{cursor:pointer;border-color:rgba(227,180,104,.45);background:rgba(227,180,104,.07);}
+.lvl.open:hover{transform:translateY(-1px);border-color:var(--gold);}
+.lvl.open .badge{background:linear-gradient(180deg,var(--gold-2),var(--gold));color:#10202B;}
+.lvl.open .state{color:var(--gold);}
+.lvl.done{cursor:pointer;border-color:rgba(98,210,162,.3);}
+.lvl.done .badge{background:rgba(98,210,162,.14);color:var(--green);}
+.lvl.done .state{color:var(--green);}
+
+/* ---------- SPILL ---------- */
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;}
+.scoreboard{display:flex;gap:8px;}
+.chip{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:600;font-size:12px;display:flex;gap:6px;align-items:center;}
+.chip .lbl{color:var(--dim);font-weight:500;text-transform:uppercase;font-size:9px;letter-spacing:1px;}
+.chip .val{font-variant-numeric:tabular-nums;}
+.chip.gold .val{color:var(--gold);}
+.timerwrap{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.timerwrap .num{font-family:var(--serif);font-weight:600;font-size:19px;min-width:36px;text-align:center;color:var(--ink);font-variant-numeric:tabular-nums;transition:color .2s ease,transform .2s ease;}
+.timerwrap .num.low{color:var(--coral);transform:scale(1.12);}
+.timerbar{flex:1;height:6px;border-radius:99px;background:rgba(236,230,216,.08);overflow:hidden;}
+.timerbar > i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--green),var(--gold));transition:width .1s linear;}
+.timerbar > i.low{background:linear-gradient(90deg,var(--coral),var(--gold));}
+.progress{height:3px;border-radius:99px;background:rgba(236,230,216,.07);overflow:hidden;margin-bottom:20px;}
+.progress > i{display:block;height:100%;width:0;background:var(--gold);transition:width .4s ease;}
+.qmeta{font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:12px;}
+.qtext{font-family:var(--serif);font-size:23px;line-height:1.28;font-weight:600;}
+.ref{margin-top:14px;font-size:12.5px;font-weight:500;color:var(--gold);}
+.dropzone{border:1.5px dashed var(--line-2);border-radius:16px;min-height:66px;display:flex;align-items:center;justify-content:center;text-align:center;padding:13px;margin:18px 0 20px;color:var(--dim);font-weight:500;transition:transform .15s ease, border-color .15s ease, background .15s ease;}
+.dropzone .hint{font-size:14px;}
+.dropzone.armed{border-color:var(--gold);background:rgba(227,180,104,.08);transform:scale(1.015);box-shadow:0 0 0 3px rgba(227,180,104,.1);}
+.dropzone.correct{border-style:solid;border-color:var(--green);background:rgba(98,210,162,.1);color:var(--green);}
+.dropzone.wrong{border-style:solid;border-color:var(--coral);background:rgba(230,138,111,.1);color:var(--coral);}
+.verdict{font-family:var(--serif);font-weight:600;font-size:22px;}
+.options{display:flex;flex-direction:column;gap:9px;}
+.opt{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:14px 16px;font-size:15.5px;font-weight:500;color:var(--ink);display:flex;align-items:center;gap:13px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;transition:transform .12s ease, border-color .12s ease, opacity .2s ease;}
+.opt:hover{transform:translateY(-1px);border-color:var(--line-2);}
+.opt .key{width:28px;height:28px;flex:0 0 28px;border-radius:8px;background:rgba(227,180,104,.16);color:var(--gold);font-weight:600;display:flex;align-items:center;justify-content:center;font-size:13px;}
+.opt.dragging{cursor:grabbing;border-color:var(--gold);box-shadow:0 20px 44px -16px rgba(0,0,0,.7);pointer-events:none;background:#15242F;}
+.opt.used{opacity:.16;pointer-events:none;}
+.opt.reveal-correct{border-color:var(--green);background:rgba(98,210,162,.1);opacity:1;}
+.opt.reveal-correct .key{background:rgba(98,210,162,.2);color:var(--green);}
+.autonext{text-align:center;font-weight:500;color:var(--dim);padding:13px;font-size:14px;}
+.autonext b{color:var(--gold);font-variant-numeric:tabular-nums;font-weight:600;}
+
+/* ---------- RESULTAT ---------- */
+.center{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;}
+.scorebig{font-family:var(--serif);font-size:clamp(54px,17vw,92px);line-height:1;color:var(--gold);font-weight:600;}
+.scorebig small{font-size:26px;color:var(--dim);}
+.rank{font-size:17px;font-weight:600;margin:10px 0 14px;}
+
+/* ---------- DIPLOM ---------- */
+.diploma{border:1px solid rgba(227,180,104,.4);border-radius:18px;padding:26px 22px;text-align:center;
+  background:linear-gradient(180deg, rgba(227,180,104,.07), rgba(236,230,216,.02));position:relative;overflow:hidden;}
+.diploma::before,.diploma::after{content:"";position:absolute;width:54px;height:54px;border:1px solid rgba(227,180,104,.4);}
+.diploma::before{top:10px;left:10px;border-right:none;border-bottom:none;border-top-left-radius:10px;}
+.diploma::after{bottom:10px;right:10px;border-left:none;border-top:none;border-bottom-right-radius:10px;}
+.diploma .dseal{font-size:34px;}
+.diploma .dlabel{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700;margin:8px 0 4px;}
+.diploma .dbook{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1.1;margin:4px 0 10px;}
+.diploma .dfor{font-size:13px;color:var(--dim);}
+.diploma .dname{font-family:var(--serif);font-size:21px;font-weight:600;color:var(--ink);margin:3px 0 12px;}
+.diploma .dverse{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--ink);line-height:1.5;border-top:1px solid rgba(227,180,104,.25);padding-top:12px;margin-top:6px;}
+.diploma .ddate{font-size:11px;color:var(--dim);letter-spacing:.5px;margin-top:10px;}
+
+/* ---------- TROFÉROM ---------- */
+.trophygrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;}
+.trophy{border:1px solid rgba(227,180,104,.3);background:rgba(227,180,104,.05);border-radius:14px;padding:16px 12px;text-align:center;cursor:pointer;transition:transform .12s ease;}
+.trophy:hover{transform:translateY(-2px);border-color:var(--gold);}
+.trophy .tseal{font-size:26px;}
+.trophy .tname{font-family:var(--serif);font-weight:600;font-size:14px;margin-top:6px;line-height:1.2;}
+.trophy .tdate{font-size:10.5px;color:var(--dim);margin-top:3px;}
+.emptyroom{text-align:center;color:var(--dim);font-size:14px;line-height:1.6;padding:30px 10px;}
+
+.crown{font-size:48px;}
+.scripture{background:rgba(227,180,104,.06);border:1px solid rgba(227,180,104,.3);border-radius:16px;padding:18px;margin:20px 0;font-family:var(--serif);font-size:15px;line-height:1.5;font-weight:500;font-style:italic;}
+
+@keyframes shake{10%,90%{transform:translateX(-2px);}20%,80%{transform:translateX(3px);}30%,50%,70%{transform:translateX(-6px);}40%,60%{transform:translateX(6px);}}
+.shake{animation:shake .5s;}
+.burst{position:fixed;inset:0;pointer-events:none;z-index:50;}
+.spark{position:absolute;width:9px;height:9px;border-radius:2px;opacity:0;}
+@keyframes pop{0%{opacity:1;transform:translate(0,0) scale(1);}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.3);}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;}}
+</style>
+</head>
+<body>
+<div class="frame">
+
+  <!-- INNLOGGING -->
+  <section id="login" class="screen">
+    <div class="center">
+      <div class="logohero">
+        <div class="mark">📖</div>
+        <div class="brand">Bibel<span>reisen</span></div>
+      </div>
+      <p class="intro">Velkommen til en reise gjennom hele Bibelen – fra 1. Mosebok til Åpenbaringen. Sammen skaffer vi oss litt større kunnskap gjennom lek. Fullfør en bok, og du får et lite diplom i ditt eget troférom.</p>
+      <div class="field">
+        <label for="nameInput">Velg et navn</label>
+        <input id="nameInput" type="text" autocomplete="off" maxlength="20" placeholder="F.eks. Reisende, Løve, Stjerne …">
+        <p class="hint">Bruk gjerne et fritt oppdiktet navn – da lagres ingen personopplysninger. Fremgangen din huskes på denne enheten.</p>
+      </div>
+      <div style="height:18px"></div>
+      <div class="field"><button class="btn" onclick="begin()">Begynn reisen →</button></div>
+      <div class="userchips" id="userList"></div>
+    </div>
+  </section>
+
+  <!-- BOK-OVERSIKT -->
+  <section id="books" class="screen hidden">
+    <div class="headrow">
+      <div class="hello" id="helloName">Hei!<small>Bibelreisen</small></div>
+      <button class="back" onclick="logout()">Bytt bruker</button>
+    </div>
+    <div class="booksprog" id="booksProg">0 av 66 bøker fullført</div>
+    <div class="progline"><i id="booksBar"></i></div>
+    <button class="btn ghost" style="margin-bottom:8px" onclick="showTrophy()">🏆 Åpne troférommet</button>
+    <div id="bookGrid" class="bookgrid"></div>
+  </section>
+
+  <!-- NIVÅER -->
+  <section id="levels" class="screen hidden">
+    <div class="narrow">
+      <div class="backrow">
+        <button class="back" onclick="showBooks()">← Alle bøker</button>
+      </div>
+      <div style="text-align:center;margin-bottom:18px">
+        <div class="qmeta" id="bookTest">Bok</div>
+        <div class="brand" id="bookTitle" style="font-size:30px">…</div>
+      </div>
+      <div class="levelgrid" id="levelGrid"></div>
+    </div>
+  </section>
+
+  <!-- SPILL -->
+  <section id="game" class="screen hidden">
+    <div class="narrow">
+      <div class="topbar">
+        <button class="back" onclick="showLevels()">←</button>
+        <div class="scoreboard">
+          <div class="chip gold"><span class="lbl">Riktig</span><span class="val" id="correctCount">0</span></div>
+          <div class="chip"><span class="lbl">Spm</span><span class="val" id="counter">1/5</span></div>
+        </div>
+      </div>
+      <div class="timerwrap"><div class="num" id="timeNum">20</div><div class="timerbar"><i id="timeBar"></i></div></div>
+      <div class="progress"><i id="bar"></i></div>
+      <div class="qmeta" id="qmeta">…</div>
+      <div class="qtext" id="qtext">…</div>
+      <div class="ref hidden" id="ref"></div>
+      <div class="dropzone" id="drop"><span class="hint">Slipp svaret ditt her</span></div>
+      <div class="options" id="options"></div>
+      <div class="autonext hidden" id="autonext">Neste om <b id="countdown">3</b> …</div>
+    </div>
+  </section>
+
+  <!-- NIVÅRESULTAT -->
+  <section id="levelresult" class="screen hidden">
+    <div class="narrow"><div class="center">
+      <div class="scorebig"><span id="lvlScore">0</span><small> / <span id="lvlMax">5</span></small></div>
+      <div class="rank" id="lvlRank">…</div>
+      <p class="sub" id="lvlLine" style="margin-bottom:24px">…</p>
+      <button class="btn" id="lvlPrimary" onclick="lvlPrimaryAction()">…</button>
+      <div style="height:10px"></div>
+      <button class="btn ghost" onclick="showLevels()">Til nivåene</button>
+    </div></div>
+  </section>
+
+  <!-- DIPLOM -->
+  <section id="diploma" class="screen hidden">
+    <div class="narrow"><div class="center">
+      <div id="diplomaCard"></div>
+      <div style="height:22px"></div>
+      <button class="btn" id="diplomaBtn" onclick="diplomaContinue()">Fortsett reisen →</button>
+    </div></div>
+  </section>
+
+  <!-- TROFÉROM -->
+  <section id="trophy" class="screen hidden">
+    <div class="backrow">
+      <button class="back" onclick="showBooks()">← Tilbake</button>
+      <div class="brand" style="font-size:18px">🏆 Troférom</div>
+    </div>
+    <div id="trophyGrid" class="trophygrid"></div>
+    <div id="trophyEmpty" class="emptyroom hidden">Ingen diplomer ennå.<br>Fullfør en hel bok for å vinne ditt første!</div>
+    <div id="diplomaView" class="hidden" style="margin-top:6px"></div>
+  </section>
+
+</div>
+<div class="burst" id="burst"></div>
+
+<script>
+/* === DATA: bøker og spørsmål (rediger her) === */
+/* ============================================================
+   books.js — alle 66 bibelbøker + spørsmål for Bibelreisen.
+   BOOKS: rekkefølge og navn (Ny verden-oversettelsen).
+   QUESTIONS[bokId] = [ nivå1[], nivå2[], nivå3[], nivå4[] ]
+   Hvert spørsmål: { q, options:[4], correct:0-3, ref }
+   Bøker uten spørsmål vises som «Spørsmål kommer».
+   ============================================================ */
+
+const BOOKS = [
+  {id:'1mos',navn:'1. Mosebok',t:'GT'},   {id:'2mos',navn:'2. Mosebok',t:'GT'},
+  {id:'3mos',navn:'3. Mosebok',t:'GT'},   {id:'4mos',navn:'4. Mosebok',t:'GT'},
+  {id:'5mos',navn:'5. Mosebok',t:'GT'},   {id:'josva',navn:'Josva',t:'GT'},
+  {id:'dommerne',navn:'Dommerne',t:'GT'}, {id:'rut',navn:'Rut',t:'GT'},
+  {id:'1sam',navn:'1. Samuelsbok',t:'GT'},{id:'2sam',navn:'2. Samuelsbok',t:'GT'},
+  {id:'1kong',navn:'1. Kongebok',t:'GT'}, {id:'2kong',navn:'2. Kongebok',t:'GT'},
+  {id:'1kron',navn:'1. Krønikebok',t:'GT'},{id:'2kron',navn:'2. Krønikebok',t:'GT'},
+  {id:'esra',navn:'Esra',t:'GT'},         {id:'nehemja',navn:'Nehemja',t:'GT'},
+  {id:'ester',navn:'Ester',t:'GT'},       {id:'job',navn:'Job',t:'GT'},
+  {id:'salmene',navn:'Salmene',t:'GT'},   {id:'ordsprakene',navn:'Ordspråkene',t:'GT'},
+  {id:'forkynneren',navn:'Forkynneren',t:'GT'},{id:'hoysangen',navn:'Høysangen',t:'GT'},
+  {id:'jesaja',navn:'Jesaja',t:'GT'},     {id:'jeremia',navn:'Jeremia',t:'GT'},
+  {id:'klagesangene',navn:'Klagesangene',t:'GT'},{id:'esekiel',navn:'Esekiel',t:'GT'},
+  {id:'daniel',navn:'Daniel',t:'GT'},     {id:'hosea',navn:'Hosea',t:'GT'},
+  {id:'joel',navn:'Joel',t:'GT'},         {id:'amos',navn:'Amos',t:'GT'},
+  {id:'obadja',navn:'Obadja',t:'GT'},     {id:'jona',navn:'Jona',t:'GT'},
+  {id:'mika',navn:'Mika',t:'GT'},         {id:'nahum',navn:'Nahum',t:'GT'},
+  {id:'habakkuk',navn:'Habakkuk',t:'GT'}, {id:'sefanja',navn:'Sefanja',t:'GT'},
+  {id:'haggai',navn:'Haggai',t:'GT'},     {id:'sakarja',navn:'Sakarja',t:'GT'},
+  {id:'malaki',navn:'Malaki',t:'GT'},     {id:'matteus',navn:'Matteus',t:'NT'},
+  {id:'markus',navn:'Markus',t:'NT'},     {id:'lukas',navn:'Lukas',t:'NT'},
+  {id:'johannes',navn:'Johannes',t:'NT'}, {id:'apg',navn:'Apostlenes gjerninger',t:'NT'},
+  {id:'romerne',navn:'Romerne',t:'NT'},   {id:'1kor',navn:'1. Korinter',t:'NT'},
+  {id:'2kor',navn:'2. Korinter',t:'NT'},  {id:'galaterne',navn:'Galaterne',t:'NT'},
+  {id:'efeserne',navn:'Efeserne',t:'NT'}, {id:'filipperne',navn:'Filipperne',t:'NT'},
+  {id:'kolosserne',navn:'Kolosserne',t:'NT'},{id:'1tess',navn:'1. Tessaloniker',t:'NT'},
+  {id:'2tess',navn:'2. Tessaloniker',t:'NT'},{id:'1tim',navn:'1. Timoteus',t:'NT'},
+  {id:'2tim',navn:'2. Timoteus',t:'NT'},  {id:'titus',navn:'Titus',t:'NT'},
+  {id:'filemon',navn:'Filemon',t:'NT'},   {id:'hebreerne',navn:'Hebreerne',t:'NT'},
+  {id:'jakob',navn:'Jakob',t:'NT'},       {id:'1pet',navn:'1. Peter',t:'NT'},
+  {id:'2pet',navn:'2. Peter',t:'NT'},     {id:'1joh',navn:'1. Johannes',t:'NT'},
+  {id:'2joh',navn:'2. Johannes',t:'NT'},  {id:'3joh',navn:'3. Johannes',t:'NT'},
+  {id:'judas',navn:'Judas',t:'NT'},       {id:'apenbaringen',navn:'Åpenbaringen',t:'NT'},
+];
+
+const LEVELNAVN = ['Lett','Middels','Vanskelig','Ekspert'];
+
+const QUESTIONS = {
+  '1mos':[
+    /* Nivå 1 – Lett */[
+      {q:"Hvem skapte himmelen og jorden?",options:["Jehova Gud","Englene","Mennesket","Naturen selv"],correct:0,ref:"1. Mosebok 1:1"},
+      {q:"Hva het den første mannen?",options:["Adam","Set","Kain","Enok"],correct:0,ref:"1. Mosebok 2:20"},
+      {q:"Hva het den første kvinnen?",options:["Eva","Sara","Hagar","Rebekka"],correct:0,ref:"1. Mosebok 3:20"},
+      {q:"Hvor mange skaperdager beskrives før Gud hvilte?",options:["5","6","7","10"],correct:1,ref:"1. Mosebok 1:31–2:2"},
+      {q:"Hva het hagen Gud plantet til mennesket?",options:["Getsemane","Eden","Nod","Kanaan"],correct:1,ref:"1. Mosebok 2:8"},
+    ],
+    /* Nivå 2 – Middels */[
+      {q:"Hvem forledet Eva til å spise av den forbudte frukten?",options:["Slangen","Kain","En engel","Lamek"],correct:0,ref:"1. Mosebok 3:1-5"},
+      {q:"Hva het Adams og Evas tredje sønn?",options:["Abel","Set","Henok","Jared"],correct:1,ref:"1. Mosebok 4:25"},
+      {q:"Hva fikk Noah beskjed om å bygge?",options:["Et tempel","Et alter","En ark","En by"],correct:2,ref:"1. Mosebok 6:14"},
+      {q:"Hvor mange mennesker var med i arken?",options:["4","6","8","10"],correct:2,ref:"1. Mosebok 7:13"},
+      {q:"Hvilket tegn ga Gud som løfte etter vannflommen?",options:["En stjerne","Regnbuen","En due","Et lyn"],correct:1,ref:"1. Mosebok 9:13"},
+    ],
+    /* Nivå 3 – Vanskelig */[
+      {q:"Hva het tårnet der Gud forvirret menneskenes språk?",options:["Sion","Babel","Ai","Penuel"],correct:1,ref:"1. Mosebok 11:9"},
+      {q:"Hva het Abrams kone?",options:["Saraj","Hagar","Milka","Ketura"],correct:0,ref:"1. Mosebok 11:29"},
+      {q:"Hvem var Abrams nevø som dro med ham?",options:["Lot","Nahor","Elieser","Betuel"],correct:0,ref:"1. Mosebok 12:5"},
+      {q:"Hva het Abrahams sønn med Hagar?",options:["Isak","Ismael","Esau","Midjan"],correct:1,ref:"1. Mosebok 16:15"},
+      {q:"Hvilke to byer ødela Gud med ild og svovel?",options:["Babel og Ur","Sodoma og Gomorra","Ninive og Tyrus","Betel og Ai"],correct:1,ref:"1. Mosebok 19:24"},
+    ],
+    /* Nivå 4 – Ekspert */[
+      {q:"Hvor gammel var Abraham da Isak ble født?",options:["75","90","100","120"],correct:2,ref:"1. Mosebok 21:5"},
+      {q:"På hvilket sted ba Gud Abraham om å ofre Isak?",options:["Sinai","Moria","Karmel","Nebo"],correct:1,ref:"1. Mosebok 22:2"},
+      {q:"Hvilket nytt navn fikk Jakob etter at han brøt med engelen?",options:["Edom","Israel","Levi","Juda"],correct:1,ref:"1. Mosebok 32:28"},
+      {q:"Hvor mange sønner fikk Jakob?",options:["7","10","12","14"],correct:2,ref:"1. Mosebok 35:22b"},
+      {q:"Hvilken av Jakobs sønner ble solgt og endte som styrer i Egypt?",options:["Juda","Ruben","Josef","Benjamin"],correct:2,ref:"1. Mosebok 41:41"},
+    ],
+  ],
+};
+
+</script>
+<script>
+/* ============================================================
+   Bibelreisen — app-logikk. Data ligger i books.js.
+   ============================================================ */
+const TIME = 20, KEYS = ['A','B','C','D'];
+const PASS_RATIO = 0.8;   /* andel riktige som kreves for å bestå et nivå (0.8 = 80 %) */
+
+/* ---------- LAGRING (lokalt, GDPR-rent) ---------- */
+const STORE = 'bibelreisen_v1';
+let data = loadStore();
+let user = null, prog = null;
+function loadStore(){ try{ return JSON.parse(localStorage.getItem(STORE)) || {users:{}}; }catch(e){ return {users:{}}; } }
+function saveStore(){ try{ localStorage.setItem(STORE, JSON.stringify(data)); }catch(e){} }
+
+/* ---------- SPILL-TILSTAND ---------- */
+let curBook=null, curLevel=0, order=[], idx=0, correctCount=0, locked=false;
+let timeLeft=TIME, timerId=null, advanceId=null;
+
+const $ = id => document.getElementById(id);
+const screens = ['login','books','levels','game','levelresult','diploma','trophy'];
+function show(name){ screens.forEach(s=> $(s).classList.toggle('hidden', s!==name)); }
+
+/* ---------- PROGRESJON-HJELPERE ---------- */
+function bk(id){ if(!prog.books[id]) prog.books[id]={levels:[false,false,false,false],done:false}; return prog.books[id]; }
+function bookHasQuestions(id){ const q=QUESTIONS[id]; return q && q.length===4 && q.every(l=>l&&l.length>0); }
+function bookDone(id){ return prog.books[id] && prog.books[id].done; }
+function bookOpen(i){ return i===0 || bookDone(BOOKS[i-1].id); }   /* sekvensiell opplåsing */
+
+/* ---------- INNLOGGING ---------- */
+function showLogin(){
+  const list=$('userList'); list.innerHTML='';
+  Object.values(data.users).forEach(u=>{
+    const c=document.createElement('div'); c.className='userchip';
+    c.textContent=u.name; c.onclick=()=>{ $('nameInput').value=u.name; begin(); };
+    list.appendChild(c);
+  });
+  show('login');
+}
+function begin(){
+  const raw=$('nameInput').value.trim();
+  if(!raw){ $('nameInput').focus(); return; }
+  const key=raw.toLowerCase();
+  if(!data.users[key]) data.users[key]={name:raw, books:{}, diplomas:[]};
+  user=data.users[key].name; prog=data.users[key];
+  if(!prog.books) prog.books={}; if(!prog.diplomas) prog.diplomas=[];
+  saveStore(); showBooks();
+}
+function logout(){ user=null; prog=null; $('nameInput').value=''; showLogin(); }
+
+/* ---------- BOK-OVERSIKT ---------- */
+function showBooks(){
+  stopTimer(); clearAutoNext();
+  $('helloName').innerHTML = 'Hei, '+esc(user)+'!<small>Velg en bok å reise gjennom</small>';
+  const done = BOOKS.filter(b=>bookDone(b.id)).length;
+  $('booksProg').textContent = done+' av 66 bøker fullført';
+  $('booksBar').style.width = (done/66*100)+'%';
+
+  const grid=$('bookGrid'); grid.innerHTML='';
+  let lastT=null;
+  BOOKS.forEach((b,i)=>{
+    if(b.t!==lastT){ lastT=b.t;
+      const h=document.createElement('div'); h.className='testlabel';
+      h.style.gridColumn='1 / -1';
+      h.textContent = b.t==='GT' ? 'De hebraiske skriftene' : 'De kristne greske skriftene';
+      grid.appendChild(h);
+    }
+    const open=bookOpen(i), has=bookHasQuestions(b.id), done=bookDone(b.id);
+    let cls,icon;
+    if(done){ cls='done'; icon='✓'; }
+    else if(open && has){ cls='open'; icon='▶'; }
+    else if(open && !has){ cls='coming'; icon='kommer'; }
+    else { cls='locked'; icon='🔒'; }
+    const el=document.createElement('div');
+    el.className='book '+cls;
+    el.innerHTML='<div class="bnum">'+(i+1)+'</div><div class="bname">'+b.navn+'</div><div class="bstate">'+icon+'</div>';
+    if((open&&has)||done) el.onclick=()=>openBook(i);
+    grid.appendChild(el);
+  });
+  show('books');
+}
+
+/* ---------- NIVÅER ---------- */
+function openBook(i){
+  curBook=BOOKS[i];
+  $('bookTest').textContent = curBook.t==='GT'?'Hebraiske skriftene':'Greske skriftene';
+  $('bookTitle').textContent = curBook.navn;
+  showLevels();
+}
+function showLevels(){
+  stopTimer(); clearAutoNext();
+  const b=bk(curBook.id);
+  const grid=$('levelGrid'); grid.innerHTML='';
+  for(let L=0;L<4;L++){
+    const passed=b.levels[L];
+    const open = L===0 || b.levels[L-1];
+    const cls = passed?'done':(open?'open':'locked');
+    const icon= passed?'✓':(open?'▶':'🔒');
+    const el=document.createElement('div');
+    el.className='lvl '+cls;
+    el.innerHTML='<div class="badge">'+(L+1)+'</div><div class="info"><div class="name">Nivå '+(L+1)+'</div><div class="diff">'+LEVELNAVN[L]+'</div></div><div class="state">'+icon+'</div>';
+    if(passed||open) el.onclick=()=>startLevel(L);
+    grid.appendChild(el);
+  }
+  show('levels');
+}
+
+/* ---------- SPILL ---------- */
+function startLevel(L){
+  curLevel=L;
+  order=[...QUESTIONS[curBook.id][L].keys()].sort(()=>Math.random()-0.5);
+  idx=0; correctCount=0; locked=false;
+  $('correctCount').textContent='0';
+  show('game'); render();
+}
+function render(){
+  locked=false;
+  const q=QUESTIONS[curBook.id][curLevel][order[idx]];
+  $('qmeta').textContent = curBook.navn+' · Nivå '+(curLevel+1)+' · '+LEVELNAVN[curLevel];
+  $('qtext').textContent = q.q;
+  $('counter').textContent=(idx+1)+'/'+order.length;
+  $('bar').style.width=((idx)/order.length*100)+'%';
+  $('ref').classList.add('hidden');
+  const drop=$('drop'); drop.className='dropzone'; drop.innerHTML='<span class="hint">Slipp svaret ditt her</span>';
+  const box=$('options'); box.innerHTML='';
+  q.options.forEach((text,i)=>{
+    const el=document.createElement('div'); el.className='opt'; el.dataset.i=i;
+    el.innerHTML='<span class="key">'+KEYS[i]+'</span><span>'+text+'</span>';
+    attachDrag(el); box.appendChild(el);
+  });
+  $('autonext').classList.add('hidden'); clearAutoNext();
+  startTimer();
+}
+
+/* ---------- TIMER ---------- */
+function startTimer(){ stopTimer(); timeLeft=TIME; paintTimer();
+  timerId=setInterval(()=>{ timeLeft-=0.1;
+    if(timeLeft<=0){ timeLeft=0; paintTimer(); stopTimer(); resolve(-1); } else paintTimer(); },100); }
+function stopTimer(){ if(timerId){ clearInterval(timerId); timerId=null; } }
+function paintTimer(){ $('timeNum').textContent=Math.ceil(timeLeft); $('timeBar').style.width=(timeLeft/TIME*100)+'%';
+  const low=timeLeft<=5; $('timeNum').classList.toggle('low',low); $('timeBar').classList.toggle('low',low); }
+
+/* ---------- DRAG (klone-basert, stabil på mobil) ---------- */
+function attachDrag(el){
+  let clone=null, ox=0, oy=0, started=false;
+  el.addEventListener('pointerdown',e=>{
+    if(locked) return; e.preventDefault(); el.setPointerCapture(e.pointerId);
+    const r=el.getBoundingClientRect(); ox=e.clientX-r.left; oy=e.clientY-r.top;
+    clone=el.cloneNode(true); clone.classList.add('dragging');
+    clone.style.position='fixed'; clone.style.margin='0';
+    clone.style.left=r.left+'px'; clone.style.top=r.top+'px'; clone.style.width=r.width+'px'; clone.style.zIndex='1000';
+    document.body.appendChild(clone); el.style.opacity='0.25'; started=true;
+  });
+  el.addEventListener('pointermove',e=>{
+    if(!started||!clone) return;
+    clone.style.left=(e.clientX-ox)+'px'; clone.style.top=(e.clientY-oy)+'px';
+    const d=$('drop').getBoundingClientRect();
+    const over=e.clientX>d.left&&e.clientX<d.right&&e.clientY>d.top&&e.clientY<d.bottom;
+    $('drop').classList.toggle('armed',over&&!locked);
+  });
+  function end(e,cancel){
+    if(!started) return; started=false;
+    const d=$('drop').getBoundingClientRect();
+    const over=!cancel&&e.clientX>d.left&&e.clientX<d.right&&e.clientY>d.top&&e.clientY<d.bottom;
+    if(clone){ clone.remove(); clone=null; }
+    el.style.opacity=''; $('drop').classList.remove('armed');
+    if(over&&!locked) resolve(parseInt(el.dataset.i));
+  }
+  el.addEventListener('pointerup',e=>end(e,false));
+  el.addEventListener('pointercancel',e=>end(e,true));
+}
+
+/* ---------- FASIT ---------- */
+function resolve(chosen){
+  if(locked) return; locked=true; stopTimer();
+  const q=QUESTIONS[curBook.id][curLevel][order[idx]];
+  const drop=$('drop'); const correct=chosen===q.correct;
+  document.querySelectorAll('.opt').forEach(o=>{ const i=parseInt(o.dataset.i); o.classList.add('used'); if(i===q.correct) o.classList.add('reveal-correct'); });
+  if(correct){ correctCount++; $('correctCount').textContent=correctCount;
+    drop.classList.add('correct'); drop.innerHTML='<span class="verdict">✓ RIKTIG</span>'; sparkle(true);
+  } else {
+    drop.classList.add('wrong'); drop.innerHTML='<span class="verdict">'+(chosen===-1?'⏰ TIDEN UTE':'✗ FEIL')+'</span>';
+    drop.classList.add('shake'); sparkle(false);
+  }
+  if(q.ref){ $('ref').textContent='📖 '+q.ref+' (Ny verden-oversettelsen)'; $('ref').classList.remove('hidden'); }
+  $('bar').style.width=((idx+1)/order.length*100)+'%';
+  startAutoNext(correct?1.25:2);
+}
+function startAutoNext(seconds){
+  clearAutoNext(); const last=(idx+1>=order.length); const box=$('autonext'); let left=seconds;
+  box.innerHTML=(last?'Resultat om ':'Neste om ')+'<b id="countdown">'+Math.ceil(left)+'</b> …'; box.classList.remove('hidden');
+  advanceId=setInterval(()=>{ left-=0.1; if(left<=0){ clearAutoNext(); nextQuestion(); return; }
+    const cd=document.getElementById('countdown'); if(cd) cd.textContent=Math.ceil(left); },100);
+}
+function clearAutoNext(){ if(advanceId){ clearInterval(advanceId); advanceId=null; } }
+function nextQuestion(){ idx++; if(idx<order.length) render(); else finishLevel(); }
+
+/* ---------- NIVÅRESULTAT + DIPLOM ---------- */
+function finishLevel(){
+  stopTimer(); clearAutoNext();
+  const need=Math.ceil(order.length*PASS_RATIO);
+  const passed=correctCount>=need;
+  const b=bk(curBook.id);
+  if(passed && !b.levels[curLevel]){ b.levels[curLevel]=true; saveStore(); }
+
+  // ble hele boken nettopp fullført?
+  if(passed && b.levels.every(Boolean) && !b.done){
+    b.done=true;
+    const date=new Date().toLocaleDateString('no-NO',{day:'numeric',month:'long',year:'numeric'});
+    prog.diplomas.push({book:curBook.id, navn:curBook.navn, date});
+    saveStore();
+    showDiploma(curBook.navn, date, false);
+    return;
+  }
+
+  $('lvlScore').textContent=correctCount; $('lvlMax').textContent=order.length;
+  const btn=$('lvlPrimary');
+  if(passed){
+    const perfect=correctCount===order.length;
+    $('lvlRank').textContent=(perfect?'★ Full pott! · ':'✓ ')+'Nivå '+(curLevel+1)+' bestått';
+    if(curLevel<3){ $('lvlLine').textContent='Nivå '+(curLevel+2)+' ('+LEVELNAVN[curLevel+1]+') er låst opp.';
+      btn.textContent='Spill nivå '+(curLevel+2)+' →'; btn.dataset.action='next'; }
+    else { $('lvlLine').textContent='Du har klart siste nivå i denne boken!'; btn.textContent='Fullfør boken →'; btn.dataset.action='levels'; }
+    sparkle(true);
+  } else {
+    $('lvlRank').textContent='Nesten der';
+    $('lvlLine').textContent='Du trenger minst '+need+' av '+order.length+' riktige for å bestå. Prøv igjen!';
+    btn.textContent='Prøv nivå '+(curLevel+1)+' igjen'; btn.dataset.action='retry';
+  }
+  show('levelresult');
+}
+function lvlPrimaryAction(){
+  const a=$('lvlPrimary').dataset.action;
+  if(a==='next') startLevel(curLevel+1);
+  else if(a==='retry') startLevel(curLevel);
+  else showLevels();
+}
+
+/* ---------- DIPLOM-VISNING ---------- */
+function diplomaHTML(navn, date){
+  return '<div class="diploma">'+
+    '<div class="dseal">🕊️</div>'+
+    '<div class="dlabel">Diplom</div>'+
+    '<div class="dbook">'+navn+'</div>'+
+    '<div class="dfor">tildelt</div>'+
+    '<div class="dname">'+esc(user)+'</div>'+
+    '<div class="dverse">«Jehova gir visdom; fra hans munn kommer kunnskap og forstand.»<br><span style="font-style:normal;font-size:12px;color:var(--gold)">Ordspråkene 2:6 · Ny verden-oversettelsen</span></div>'+
+    '<div class="ddate">Fullført '+date+' · Bibelreisen</div>'+
+  '</div>';
+}
+let diplomaFromTrophy=false;
+function showDiploma(navn, date, fromTrophy){
+  diplomaFromTrophy=fromTrophy;
+  $('diplomaCard').innerHTML=diplomaHTML(navn,date);
+  $('diplomaBtn').textContent = fromTrophy ? 'Tilbake til troférommet' : 'Fortsett reisen →';
+  show('diploma');
+  if(!fromTrophy){ let n=0; const iv=setInterval(()=>{ sparkle(true); if(++n>=6) clearInterval(iv); },320); }
+}
+function diplomaContinue(){ if(diplomaFromTrophy) showTrophy(); else showBooks(); }
+
+/* ---------- TROFÉROM ---------- */
+function showTrophy(){
+  const grid=$('trophyGrid'); grid.innerHTML='';
+  $('diplomaView').classList.add('hidden');
+  if(!prog.diplomas.length){ grid.classList.add('hidden'); $('trophyEmpty').classList.remove('hidden'); }
+  else{
+    grid.classList.remove('hidden'); $('trophyEmpty').classList.add('hidden');
+    prog.diplomas.forEach(d=>{
+      const el=document.createElement('div'); el.className='trophy';
+      el.innerHTML='<div class="tseal">🕊️</div><div class="tname">'+d.navn+'</div><div class="tdate">'+d.date+'</div>';
+      el.onclick=()=>showDiploma(d.navn, d.date, true);
+      grid.appendChild(el);
+    });
+  }
+  show('trophy');
+}
+
+/* ---------- HJELP ---------- */
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function sparkle(good){
+  const colors=good?['#62D2A2','#E3B468','#F2D49B','#ECE6D8']:['#E68A6F','#E3B468'];
+  const burst=$('burst'); const cx=window.innerWidth/2, cy=window.innerHeight*0.42;
+  for(let i=0;i<(good?26:14);i++){ const s=document.createElement('i'); s.className='spark';
+    s.style.left=cx+'px'; s.style.top=cy+'px'; s.style.background=colors[i%colors.length];
+    const ang=Math.random()*Math.PI*2, dist=80+Math.random()*200;
+    s.style.setProperty('--dx',(Math.cos(ang)*dist)+'px'); s.style.setProperty('--dy',(Math.sin(ang)*dist)+'px');
+    s.style.animation='pop '+(0.6+Math.random()*0.4)+'s ease-out forwards';
+    burst.appendChild(s); setTimeout(()=>s.remove(),1100); }
+}
+
+/* enter-tast på navnefeltet */
+document.getElementById('nameInput').addEventListener('keydown',e=>{ if(e.key==='Enter') begin(); });
+
+/* ---------- START ---------- */
+showLogin();
+</script>
+</body>
+</html>
