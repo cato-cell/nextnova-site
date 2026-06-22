@@ -72,10 +72,25 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;
   border:1px solid var(--line-2);border-radius:13px;padding:14px 16px;outline:none;transition:border-color .15s ease;}
 .field input:focus{border-color:var(--gold);}
 .field .hint{font-size:12px;color:var(--dim);margin-top:8px;line-height:1.5;}
-.returnhint{font-size:12px;color:var(--dim);text-align:center;margin-top:22px;}
-.userchips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px;max-width:420px;margin-left:auto;margin-right:auto;}
-.userchip{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:500;cursor:pointer;color:var(--ink);}
-.userchip:hover{border-color:var(--gold);}
+/* ---------- PROFILVALG (tilbakevendende brukere) ---------- */
+.loginlabel{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold);font-weight:700;text-align:center;margin-bottom:12px;}
+.profiles{display:flex;flex-direction:column;gap:10px;max-width:380px;margin:0 auto;width:100%;}
+.profile{display:flex;align-items:center;gap:14px;width:100%;text-align:left;cursor:pointer;font-family:'Inter';
+  border:1px solid rgba(227,180,104,.42);border-radius:16px;padding:13px 15px;
+  background:linear-gradient(180deg, rgba(227,180,104,.12), rgba(236,230,216,.03));
+  box-shadow:0 12px 26px -20px rgba(227,180,104,.7);transition:transform .12s ease, border-color .12s ease, filter .12s ease;}
+.profile:hover{transform:translateY(-2px);border-color:var(--gold);filter:brightness(1.03);}
+.profile:active{transform:translateY(0);}
+.profile .pav{flex:0 0 46px;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-weight:600;font-size:21px;color:#10202B;background:linear-gradient(180deg,var(--gold-2),var(--gold));}
+.profile .pinfo{flex:1;min-width:0;display:flex;flex-direction:column;}
+.profile .pname{font-family:var(--serif);font-weight:600;font-size:18px;line-height:1.15;display:flex;align-items:center;gap:7px;}
+.profile .pmeta{font-size:12px;color:var(--dim);margin-top:3px;}
+.profile .parrow{color:var(--gold);font-size:22px;font-weight:600;flex:0 0 auto;}
+.profile .ptag{font-size:9px;letter-spacing:.6px;text-transform:uppercase;font-weight:700;color:#10202B;background:var(--gold);border-radius:999px;padding:2px 7px;}
+.logindiv{display:flex;align-items:center;gap:12px;max-width:380px;margin:20px auto 16px;color:var(--dim);font-size:12px;}
+.logindiv::before,.logindiv::after{content:"";flex:1;height:1px;background:var(--line);}
+.loginsub{max-width:380px;margin:0 auto;}
 
 /* ---------- BOK-OVERSIKT ---------- */
 .headrow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:6px;}
@@ -204,16 +219,27 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;
         <div class="mark">📖</div>
         <div class="brand">Bibel<span>reisen</span></div>
       </div>
-      <p class="intro">Velkommen til en reise gjennom hele Bibelen – fra 1. Mosebok til Åpenbaringen. Sammen skaffer vi oss litt større kunnskap gjennom lek. Fullfør en bok, og du får et lite diplom i ditt eget troférom.</p>
-      <div class="field">
-        <label for="nameInput">Velg et navn</label>
-        <input id="nameInput" type="text" autocomplete="off" maxlength="20" placeholder="F.eks. Reisende, Løve, Stjerne …">
-        <p class="hint">Bruk gjerne et fritt oppdiktet navn – da lagres ingen personopplysninger. Skriv inn det samme navnet senere, så fortsetter du der du slapp.</p>
+      <!-- VELG PROFIL: vises når det finnes lagrede brukere på enheten -->
+      <div id="loginReturning" class="hidden">
+        <p class="intro">Velkommen tilbake! Trykk på profilen din for å fortsette der du slapp.</p>
+        <div class="loginlabel">Fortsett som</div>
+        <div class="profiles" id="profileList"></div>
+        <div class="logindiv">eller</div>
+        <button class="btn ghost loginsub" onclick="showNewUser()">+ Lag ny bruker</button>
       </div>
-      <div style="height:18px"></div>
-      <div class="field"><button class="btn" onclick="begin()">Begynn reisen →</button></div>
-      <p class="returnhint hidden" id="returnHint">Har du vært her før? Trykk på navnet ditt for å fortsette:</p>
-      <div class="userchips" id="userList"></div>
+
+      <!-- NY BRUKER: førstegangsbruker eller den som vil lage en ny profil -->
+      <div id="loginNew">
+        <p class="intro">Velkommen til en reise gjennom hele Bibelen – fra 1. Mosebok til Åpenbaringen. Sammen skaffer vi oss litt større kunnskap gjennom lek. Fullfør en bok, og du får et lite diplom i ditt eget troférom.</p>
+        <div class="field">
+          <label for="nameInput">Velg et navn</label>
+          <input id="nameInput" type="text" autocomplete="off" maxlength="20" placeholder="F.eks. Reisende, Løve, Stjerne …">
+          <p class="hint">Bruk gjerne et fritt oppdiktet navn – da lagres ingen personopplysninger. Skriv inn det samme navnet senere, så fortsetter du der du slapp.</p>
+        </div>
+        <div style="height:18px"></div>
+        <div class="field"><button class="btn" onclick="begin()">Begynn reisen →</button></div>
+        <button class="btn ghost loginsub hidden" id="backToProfiles" style="margin-top:12px" onclick="showReturning()">← Tilbake til profiler</button>
+      </div>
     </div>
   </section>
 
@@ -1547,22 +1573,48 @@ function bookDone(id){ return prog.books[id] && prog.books[id].done; }
 function bookOpen(i){ return isAdmin || i===0 || bookDone(BOOKS[i-1].id); }   /* admin åpner alt; ellers sekvensiell opplåsing */
 
 /* ---------- INNLOGGING ---------- */
-function showLogin(prefill){
-  const list=$('userList'); list.innerHTML='';
-  const users=Object.values(data.users);
-  users.forEach(u=>{
-    const c=document.createElement('div'); c.className='userchip';
-    c.textContent=u.name; c.onclick=()=>{ $('nameInput').value=u.name; begin(); };
-    list.appendChild(c);
-  });
-  /* Vis tidligere brukere; ved oppstart forhåndsutfylles sist brukte navn så man enkelt fortsetter */
-  $('returnHint').classList.toggle('hidden', users.length===0);
-  const last = prefill && data.lastUser && data.users[data.lastUser] ? data.users[data.lastUser].name : '';
-  $('nameInput').value = last;
+function showLogin(){
+  /* Har man brukere på enheten: vis profilvalg (fortsett). Ellers: ny bruker. */
+  if(Object.keys(data.users).length) showReturning();
+  else showNewUser();
   show('login');
 }
-function begin(){
-  const raw=$('nameInput').value.trim();
+/* Vis lagrede profiler som tydelige «fortsett»-kort */
+function renderProfiles(){
+  const list=$('profileList'); list.innerHTML='';
+  /* sist brukte profil øverst */
+  const keys=Object.keys(data.users).sort((a,b)=> (b===data.lastUser?1:0)-(a===data.lastUser?1:0));
+  keys.forEach(key=>{
+    const u=data.users[key];
+    const done = u.books ? Object.values(u.books).filter(b=>b&&b.done).length : 0;
+    const dip  = u.diplomas ? u.diplomas.length : 0;
+    const admin = ADMIN_NAMES.includes(key);
+    const el=document.createElement('button'); el.className='profile'; el.type='button';
+    el.innerHTML =
+      '<span class="pav">'+esc((u.name.trim()[0]||'?').toUpperCase())+'</span>'+
+      '<span class="pinfo">'+
+        '<span class="pname">'+esc(u.name)+(admin?'<span class="ptag">Admin</span>':'')+'</span>'+
+        '<span class="pmeta">'+done+' av 66 bøker · '+dip+' diplom'+(dip===1?'':'er')+'</span>'+
+      '</span>'+
+      '<span class="parrow">→</span>';
+    el.onclick=()=>begin(u.name);
+    list.appendChild(el);
+  });
+}
+function showReturning(){
+  renderProfiles();
+  $('loginReturning').classList.remove('hidden');
+  $('loginNew').classList.add('hidden');
+}
+function showNewUser(){
+  $('loginReturning').classList.add('hidden');
+  $('loginNew').classList.remove('hidden');
+  /* «Tilbake til profiler» kun synlig når det finnes profiler å gå tilbake til */
+  $('backToProfiles').classList.toggle('hidden', Object.keys(data.users).length===0);
+  $('nameInput').value=''; $('nameInput').focus();
+}
+function begin(name){
+  const raw=(name!==undefined?name:$('nameInput').value).trim();
   if(!raw){ $('nameInput').focus(); return; }
   const key=raw.toLowerCase();
   if(!data.users[key]) data.users[key]={name:raw, books:{}, diplomas:[]};
@@ -1819,7 +1871,7 @@ function sparkle(good){
 document.getElementById('nameInput').addEventListener('keydown',e=>{ if(e.key==='Enter') begin(); });
 
 /* ---------- START ---------- */
-showLogin(true);   /* ved oppstart: forhåndsutfyll sist brukte navn */
+showLogin();
 </script>
 </body>
 </html>
