@@ -72,7 +72,8 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;
   border:1px solid var(--line-2);border-radius:13px;padding:14px 16px;outline:none;transition:border-color .15s ease;}
 .field input:focus{border-color:var(--gold);}
 .field .hint{font-size:12px;color:var(--dim);margin-top:8px;line-height:1.5;}
-.userchips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:18px;max-width:420px;margin-left:auto;margin-right:auto;}
+.returnhint{font-size:12px;color:var(--dim);text-align:center;margin-top:22px;}
+.userchips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px;max-width:420px;margin-left:auto;margin-right:auto;}
 .userchip{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:500;cursor:pointer;color:var(--ink);}
 .userchip:hover{border-color:var(--gold);}
 
@@ -207,10 +208,11 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;
       <div class="field">
         <label for="nameInput">Velg et navn</label>
         <input id="nameInput" type="text" autocomplete="off" maxlength="20" placeholder="F.eks. Reisende, Løve, Stjerne …">
-        <p class="hint">Bruk gjerne et fritt oppdiktet navn – da lagres ingen personopplysninger. Fremgangen din huskes på denne enheten.</p>
+        <p class="hint">Bruk gjerne et fritt oppdiktet navn – da lagres ingen personopplysninger. Skriv inn det samme navnet senere, så fortsetter du der du slapp.</p>
       </div>
       <div style="height:18px"></div>
       <div class="field"><button class="btn" onclick="begin()">Begynn reisen →</button></div>
+      <p class="returnhint hidden" id="returnHint">Har du vært her før? Trykk på navnet ditt for å fortsette:</p>
       <div class="userchips" id="userList"></div>
     </div>
   </section>
@@ -1545,13 +1547,18 @@ function bookDone(id){ return prog.books[id] && prog.books[id].done; }
 function bookOpen(i){ return isAdmin || i===0 || bookDone(BOOKS[i-1].id); }   /* admin åpner alt; ellers sekvensiell opplåsing */
 
 /* ---------- INNLOGGING ---------- */
-function showLogin(){
+function showLogin(prefill){
   const list=$('userList'); list.innerHTML='';
-  Object.values(data.users).forEach(u=>{
+  const users=Object.values(data.users);
+  users.forEach(u=>{
     const c=document.createElement('div'); c.className='userchip';
     c.textContent=u.name; c.onclick=()=>{ $('nameInput').value=u.name; begin(); };
     list.appendChild(c);
   });
+  /* Vis tidligere brukere; ved oppstart forhåndsutfylles sist brukte navn så man enkelt fortsetter */
+  $('returnHint').classList.toggle('hidden', users.length===0);
+  const last = prefill && data.lastUser && data.users[data.lastUser] ? data.users[data.lastUser].name : '';
+  $('nameInput').value = last;
   show('login');
 }
 function begin(){
@@ -1562,6 +1569,7 @@ function begin(){
   user=data.users[key].name; prog=data.users[key];
   if(!prog.books) prog.books={}; if(!prog.diplomas) prog.diplomas=[];
   isAdmin = ADMIN_NAMES.includes(key);
+  data.lastUser = key;   /* husk hvem som var pålogget sist */
   saveStore(); showBooks();
 }
 function logout(){ user=null; prog=null; isAdmin=false; $('nameInput').value=''; showLogin(); }
@@ -1811,7 +1819,7 @@ function sparkle(good){
 document.getElementById('nameInput').addEventListener('keydown',e=>{ if(e.key==='Enter') begin(); });
 
 /* ---------- START ---------- */
-showLogin();
+showLogin(true);   /* ved oppstart: forhåndsutfyll sist brukte navn */
 </script>
 </body>
 </html>
