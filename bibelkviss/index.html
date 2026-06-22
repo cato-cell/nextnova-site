@@ -1524,6 +1524,9 @@ const PASS_RATIO = 0.8;   /* andel riktige som kreves for å bestå et nivå (0.
 const STORE = 'bibelreisen_v1';
 let data = loadStore();
 let user = null, prog = null;
+/* Admin-brukere kan åpne alle bøker og nivåer (for å sjekke at alt er ok) */
+const ADMIN_NAMES = ['bamse'];
+let isAdmin = false;
 function loadStore(){ try{ return JSON.parse(localStorage.getItem(STORE)) || {users:{}}; }catch(e){ return {users:{}}; } }
 function saveStore(){ try{ localStorage.setItem(STORE, JSON.stringify(data)); }catch(e){} }
 
@@ -1539,7 +1542,7 @@ function show(name){ screens.forEach(s=> $(s).classList.toggle('hidden', s!==nam
 function bk(id){ const n=QUESTIONS[id]?QUESTIONS[id].length:4; if(!prog.books[id]) prog.books[id]={levels:Array(n).fill(false),done:false}; else if(prog.books[id].levels.length!==n){ const o=prog.books[id].levels, a=Array(n).fill(false); o.forEach((v,i)=>{if(i<n)a[i]=v;}); prog.books[id].levels=a; } return prog.books[id]; }
 function bookHasQuestions(id){ const q=QUESTIONS[id]; return q && q.length>=1 && q.every(l=>l&&l.length>0); }
 function bookDone(id){ return prog.books[id] && prog.books[id].done; }
-function bookOpen(i){ return i===0 || bookDone(BOOKS[i-1].id); }   /* sekvensiell opplåsing */
+function bookOpen(i){ return isAdmin || i===0 || bookDone(BOOKS[i-1].id); }   /* admin åpner alt; ellers sekvensiell opplåsing */
 
 /* ---------- INNLOGGING ---------- */
 function showLogin(){
@@ -1558,14 +1561,15 @@ function begin(){
   if(!data.users[key]) data.users[key]={name:raw, books:{}, diplomas:[]};
   user=data.users[key].name; prog=data.users[key];
   if(!prog.books) prog.books={}; if(!prog.diplomas) prog.diplomas=[];
+  isAdmin = ADMIN_NAMES.includes(key);
   saveStore(); showBooks();
 }
-function logout(){ user=null; prog=null; $('nameInput').value=''; showLogin(); }
+function logout(){ user=null; prog=null; isAdmin=false; $('nameInput').value=''; showLogin(); }
 
 /* ---------- BOK-OVERSIKT ---------- */
 function showBooks(){
   stopTimer(); clearAutoNext();
-  $('helloName').innerHTML = 'Hei, '+esc(user)+'!<small>Velg en bok å reise gjennom</small>';
+  $('helloName').innerHTML = 'Hei, '+esc(user)+'!'+(isAdmin?' 🔑':'')+'<small>'+(isAdmin?'Admin – alle bøker er åpne':'Velg en bok å reise gjennom')+'</small>';
   const done = BOOKS.filter(b=>bookDone(b.id)).length;
   $('booksProg').textContent = done+' av 66 bøker fullført';
   $('booksBar').style.width = (done/66*100)+'%';
@@ -1608,7 +1612,7 @@ function showLevels(){
   const nLvl=QUESTIONS[curBook.id].length;
   for(let L=0;L<nLvl;L++){
     const passed=b.levels[L];
-    const open = L===0 || b.levels[L-1];
+    const open = isAdmin || L===0 || b.levels[L-1];
     const cls = passed?'done':(open?'open':'locked');
     const icon= passed?'✓':(open?'▶':'🔒');
     const el=document.createElement('div');
