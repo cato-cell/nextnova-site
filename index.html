@@ -98,12 +98,9 @@
       gap: 1.5rem;
       height: 72px;
     }
-    .nn-logo { display: flex; align-items: center; gap: 0.55rem; }
-    .nn-logo__mark { flex: none; }
-    .nn-logo__word {
-      font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.35rem;
-      color: var(--nn-navy); letter-spacing: -0.01em;
-    }
+    .nn-logo { display: flex; align-items: center; }
+    /* Logobilde: fast høyde, bredde auto – fyller headeren pent */
+    .nn-logo__img { height: 36px; width: auto; }
 
     .nn-nav { display: flex; align-items: center; gap: 2rem; }
     .nn-nav a {
@@ -267,11 +264,8 @@
   <header class="nn-header">
     <div class="nn-wrap nn-header__inner">
       <a class="nn-logo" href="/" aria-label="NextNova – til forsiden">
-        <!-- Midlertidig SVG-logo: nova-stjerne + wordmark. Bytt ut når endelig logo er klar. -->
-        <svg class="nn-logo__mark" width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
-          <path d="M16 1 L19 13 L31 16 L19 19 L16 31 L13 19 L1 16 L13 13 Z" fill="#E0A24E"/>
-        </svg>
-        <span class="nn-logo__word">NextNova</span>
+        <!-- Ekte logo (navy, transparent). Høyde 36px så den passer i 72px-headeren. -->
+        <img class="nn-logo__img" src="/NextNova_logo_navy_1024px_transparent.png" alt="NextNova">
       </a>
       <nav class="nn-nav" aria-label="Hovedmeny">
         <a href="#tjenester">Tjenester</a>
