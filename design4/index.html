@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="robots" content="noindex">
+<title>Bord & Brød — Bistro i Oslo</title>
+<meta name="description" content="Bord & Brød — sesongbasert mat, naturvin og godt selskap. Demoside laget av NextNova.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--green:#16271F;--green2:#1E342A;--cream:#F4EDE0;--cream2:#E7DCC7;--brass:#C99A4E;--brass2:#E0B868;--ink:#16271F;--muted:#8C9A8E;--line:rgba(244,237,224,.14)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--green);color:var(--cream);font-family:'Jost',sans-serif;font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;padding-bottom:64px}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;line-height:1.1;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+img{display:block;width:100%;height:100%;object-fit:cover}
+.wrap{width:90%;max-width:1100px;margin:0 auto}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.heroimg img{animation:none!important}}
+
+.promo{background:#16243A;color:#EAEFF6;font-size:.82rem;text-align:center;padding:.55rem 1rem}
+.promo a{color:#E0A24E;font-weight:600}
+
+.nav{position:sticky;top:0;z-index:30;background:rgba(22,39,31,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav__in{display:flex;align-items:center;justify-content:space-between;padding:1.05rem 0}
+.logo{font-family:'Fraunces';font-size:1.55rem;letter-spacing:.01em}
+.logo b{color:var(--brass)}
+.nav__links{display:flex;gap:2rem;font-size:.82rem;color:var(--cream);text-transform:uppercase;letter-spacing:.1em;opacity:.8}
+.nav__links a:hover{color:var(--brass2);opacity:1}
+.nav__cta{border:1px solid var(--brass);color:var(--brass2);padding:.55rem 1.3rem;border-radius:2px;font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;transition:.25s}
+.nav__cta:hover{background:var(--brass);color:var(--green)}
+@media(max-width:760px){.nav__links{display:none}}
+
+.hero{position:relative;min-height:90vh;display:flex;align-items:center;overflow:hidden}
+.heroimg{position:absolute;inset:0;background:linear-gradient(135deg,#24402f,#101d16)}
+.heroimg img{animation:ken 22s ease-out forwards;opacity:.55}
+@keyframes ken{from{transform:scale(1.14)}to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,39,31,.45),rgba(22,39,31,.82))}
+.hero__in{position:relative;z-index:2;text-align:center;width:100%}
+.eyebrow{text-transform:uppercase;letter-spacing:.3em;font-size:.74rem;margin-bottom:1.6rem;color:var(--brass2)}
+.hero h1{font-size:clamp(3rem,10vw,6rem);max-width:14ch;margin:0 auto}
+.hero h1 em{font-style:italic;color:var(--brass2)}
+.hero p{max-width:44ch;margin:1.7rem auto 2.4rem;font-size:1.15rem;color:rgba(244,237,224,.85)}
+.btn{display:inline-block;background:var(--brass);color:var(--green);padding:.95rem 2.2rem;border-radius:2px;font-size:.82rem;text-transform:uppercase;letter-spacing:.12em;font-weight:500;transition:.25s}
+.btn:hover{background:var(--brass2);transform:translateY(-2px)}
+
+.sec{padding:clamp(4rem,10vw,7rem) 0}
+.kicker{text-transform:uppercase;letter-spacing:.24em;font-size:.74rem;color:var(--brass);margin-bottom:1rem;text-align:center}
+.sec h2{font-size:clamp(2.2rem,6vw,3.6rem);text-align:center;margin:0 auto;max-width:18ch}
+.lead{max-width:50ch;margin:1.3rem auto 0;color:rgba(244,237,224,.7);text-align:center;font-size:1.1rem}
+
+/* meny-faner */
+.tabs{display:flex;justify-content:center;gap:.5rem;margin-top:2.8rem;flex-wrap:wrap}
+.tab{background:transparent;border:1px solid var(--line);color:var(--cream);padding:.6rem 1.6rem;border-radius:2px;font-family:'Jost';font-size:.82rem;text-transform:uppercase;letter-spacing:.1em;cursor:pointer;transition:.25s}
+.tab.active{background:var(--brass);color:var(--green);border-color:var(--brass)}
+.menu{max-width:680px;margin:2.6rem auto 0}
+.menu__panel{display:none}
+.menu__panel.active{display:block;animation:fade .5s ease}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.dish{display:flex;align-items:baseline;gap:1rem;padding:1.1rem 0;border-bottom:1px solid var(--line)}
+.dish__name{font-family:'Fraunces';font-size:1.3rem}
+.dish__desc{display:block;font-family:'Jost';font-size:.88rem;color:var(--muted);margin-top:.2rem}
+.dish__dots{flex:1;border-bottom:1px dotted rgba(244,237,224,.3);transform:translateY(-5px)}
+.dish__price{color:var(--brass2);white-space:nowrap;font-weight:400}
+
+/* split */
+.split{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;align-items:center;margin-top:1rem}
+.split__img{aspect-ratio:4/3;border-radius:6px;overflow:hidden;background:linear-gradient(135deg,#2a4a36,#16271F)}
+.split h2,.split .kicker{text-align:left}
+.split .lead{text-align:left;margin-left:0}
+@media(max-width:760px){.split{grid-template-columns:1fr;gap:1.8rem}}
+
+/* booking kort */
+.book{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;background:var(--green2);border:1px solid var(--line);border-radius:8px;padding:clamp(2rem,5vw,3.5rem)}
+.book h3{font-size:1.8rem;margin-bottom:1rem}
+.hours{list-style:none;font-size:.98rem}
+.hours li{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--line);color:rgba(244,237,224,.8)}
+.hours li:last-child{border-bottom:0}
+@media(max-width:760px){.book{grid-template-columns:1fr;gap:1.6rem}}
+
+.band{text-align:center}
+.band .btn{margin-top:.5rem}
+
+.foot{border-top:1px solid var(--line);padding:2.5rem 0;font-size:.85rem;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
+.foot a{color:var(--cream)}
+
+.nnbar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:#16243A;color:#EAEFF6;display:flex;align-items:center;justify-content:center;gap:1rem;padding:.85rem 1rem;font-size:.92rem;box-shadow:0 -6px 24px rgba(0,0,0,.2)}
+.nnbar strong{color:#E0A24E}
+.nnbar a{background:#E0A24E;color:#16243A;padding:.5rem 1.2rem;border-radius:999px;font-weight:600;white-space:nowrap;transition:.2s}
+.nnbar a:hover{transform:translateY(-2px)}
+.nnbar__txt{display:none}
+@media(min-width:640px){.nnbar__txt{display:inline}}
+</style>
+</head>
+<body>
+
+<div class="promo">Demoside laget av <strong>NextNova</strong> — <a href="https://nextnova.no">se hva vi kan lage for deg →</a></div>
+
+<header class="nav"><div class="wrap nav__in">
+  <span class="logo">Bord <b>&</b> Brød</span>
+  <nav class="nav__links"><a href="#meny">Meny</a><a href="#om">Om oss</a><a href="#kontakt">Besøk oss</a></nav>
+  <a href="#kontakt" class="nav__cta">Bestill bord</a>
+</div></header>
+
+<section class="hero">
+  <div class="heroimg"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&q=80" alt="" onerror="this.remove()"></div>
+  <div class="wrap hero__in">
+    <p class="eyebrow">Bistro & vinbar · Oslo</p>
+    <h1>Sesongens mat, <em>delt</em> rundt bordet.</h1>
+    <p>Et lite kjøkken med store ambisjoner — råvarer fra dagen, naturvin og en stemning som inviterer til å bli lenge.</p>
+    <a href="#kontakt" class="btn">Bestill bord</a>
+  </div>
+</section>
+
+<section class="sec" id="meny"><div class="wrap reveal">
+  <p class="kicker">Menyen</p>
+  <h2>Det vi serverer</h2>
+  <div class="tabs">
+    <button class="tab active" data-p="frokost">Frokost</button>
+    <button class="tab" data-p="lunsj">Lunsj</button>
+    <button class="tab" data-p="middag">Middag</button>
+  </div>
+  <div class="menu">
+    <div class="menu__panel active" data-panel="frokost">
+      <div class="dish"><span class="dish__name">Surdeig & egg<span class="dish__desc">Pochert egg, avokado, syrnet smør</span></span><span class="dish__dots"></span><span class="dish__price">165</span></div>
+      <div class="dish"><span class="dish__name">Yoghurt & granola<span class="dish__desc">Husets granola, sesongbær, honning</span></span><span class="dish__dots"></span><span class="dish__price">135</span></div>
+      <div class="dish"><span class="dish__name">Croissant<span class="dish__desc">Bakt samme morgen, smør & syltetøy</span></span><span class="dish__dots"></span><span class="dish__price">75</span></div>
+    </div>
+    <div class="menu__panel" data-panel="lunsj">
+      <div class="dish"><span class="dish__name">Dagens suppe<span class="dish__desc">Spør servitøren — alltid sesong</span></span><span class="dish__dots"></span><span class="dish__price">185</span></div>
+      <div class="dish"><span class="dish__name">Smørbrød med reke<span class="dish__desc">Håndpillede reker, dill, sitron</span></span><span class="dish__dots"></span><span class="dish__price">215</span></div>
+      <div class="dish"><span class="dish__name">Grønn salat<span class="dish__desc">Årstidens grønt, urtedressing</span></span><span class="dish__dots"></span><span class="dish__price">175</span></div>
+    </div>
+    <div class="menu__panel" data-panel="middag">
+      <div class="dish"><span class="dish__name">Dagens fisk<span class="dish__desc">Fra Fiskehallen, brunet smør</span></span><span class="dish__dots"></span><span class="dish__price">325</span></div>
+      <div class="dish"><span class="dish__name">Kortreist biff<span class="dish__desc">Rotgrønnsaker, rødvinssjy</span></span><span class="dish__dots"></span><span class="dish__price">365</span></div>
+      <div class="dish"><span class="dish__name">Delemeny<span class="dish__desc">La kjøkkenet bestemme — 4 retter</span></span><span class="dish__dots"></span><span class="dish__price">545</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="om" style="padding-top:0"><div class="wrap split reveal">
+  <div class="split__img"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&q=80" alt="" loading="lazy" onerror="this.remove()"></div>
+  <div>
+    <p class="kicker">Om oss</p>
+    <h2>Et bord verdt å bli ved.</h2>
+    <p class="lead">Bord & Brød startet med en enkel idé: god mat trenger ikke være komplisert, men den fortjener tid. Vi lager alt fra bunnen, handler lokalt og serverer det vi selv har lyst på.</p>
+  </div>
+</div></section>
+
+<section class="sec" id="kontakt" style="padding-top:0"><div class="wrap reveal">
+  <div class="book">
+    <div>
+      <p class="kicker" style="text-align:left">Besøk oss</p>
+      <h3>Velkommen til bords</h3>
+      <p style="color:rgba(244,237,224,.75)">Storgata 1, Oslo<br>post@bordogbrod.no<br>+47 000 00 000</p>
+      <a href="#" class="btn" style="margin-top:1.5rem">Bestill bord</a>
+    </div>
+    <div>
+      <p class="kicker" style="text-align:left">Åpningstider</p>
+      <ul class="hours">
+        <li><span>Mandag–Torsdag</span><span>11–22</span></li>
+        <li><span>Fredag</span><span>11–24</span></li>
+        <li><span>Lørdag</span><span>10–24</span></li>
+        <li><span>Søndag</span><span>10–18</span></li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec band" style="padding-top:0"><div class="wrap reveal">
+  <p class="kicker">Sulten nå?</p>
+  <h2>Sikre deg et bord i kveld</h2>
+  <p class="lead">Vi har som regel plass, men de beste bordene går fort.</p>
+  <a href="#kontakt" class="btn">Bestill bord</a>
+</div></section>
+
+<footer class="foot"><div class="wrap" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;width:90%">
+  <span>© 2026 Bord & Brød — fiktiv demo</span>
+  <span>Laget av <a href="https://nextnova.no">NextNova</a></span>
+</div></footer>
+
+<div class="nnbar">
+  <span class="nnbar__txt">Vil du ha en side som dette? Fra <strong>14 900 kr</strong>.</span>
+  <a href="https://nextnova.no/#kontakt">Book gratis møte hos NextNova</a>
+</div>
+
+<script>
+/* scroll-reveal */
+const io=new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* meny-faner */
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.menu__panel').forEach(p=>p.classList.remove('active'));
+  t.classList.add('active');
+  document.querySelector('.menu__panel[data-panel="'+t.dataset.p+'"]').classList.add('active');
+}));
+</script>
+
+</body>
+</html>
