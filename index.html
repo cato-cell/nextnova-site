@@ -63,6 +63,9 @@
 
     .nn-wrap { width: 100%; max-width: var(--nn-wrap); margin-inline: auto; padding-inline: var(--nn-gut); }
 
+    /* Kompenser for den faste headeren når man hopper til ankerlenker */
+    main[id], section[id] { scroll-margin-top: 92px; }
+
     /* ================= HEADER ================= */
     .nn-header {
       position: sticky; top: 0; z-index: 50;
