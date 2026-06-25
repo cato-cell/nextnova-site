@@ -1,168 +1,190 @@
 <!DOCTYPE html>
 <html lang="nb">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="light only">
-  <title>Atelier Nord — Interiørarkitektur</title>
-  <meta name="description" content="Atelier Nord tegner rom med ro, lys og varige materialer. Demoside laget av NextNova.">
-  <meta name="robots" content="noindex">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --paper:#F5F1EA; --paper-2:#EDE7DC; --ink:#1F1B17; --muted:#6B6157;
-      --clay:#B4532A; --line:rgba(31,27,23,.12);
-    }
-    *{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
-    .d1-wrap{width:90%;max-width:1080px;margin:0 auto}
-    h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500;line-height:1.1;letter-spacing:-.01em}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="robots" content="noindex">
+<title>Atelier Nord — Interiørarkitektur i Oslo</title>
+<meta name="description" content="Atelier Nord tegner rom med ro, lys og varige materialer. Demoside laget av NextNova.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F5F1EA;--paper2:#EAE3D7;--ink:#1F1B17;--muted:#6B6157;--clay:#B4532A;--line:rgba(31,27,23,.12)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased;padding-bottom:64px}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500;line-height:1.08;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+img{display:block;width:100%;height:100%;object-fit:cover}
+.wrap{width:90%;max-width:1100px;margin:0 auto}
 
-    /* NextNova-stripe */
-    .d1-promo{background:#16243A;color:#EAEFF6;font-size:.82rem;text-align:center;padding:.6rem 1rem}
-    .d1-promo a{color:#E0A24E;font-weight:500}
+/* scroll-reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.heroimg img{animation:none!important}}
 
-    /* Nav */
-    .d1-nav{position:sticky;top:0;z-index:20;background:rgba(245,241,234,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-    .d1-nav__in{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 0}
-    .d1-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;letter-spacing:.02em}
-    .d1-nav__links{display:flex;gap:2rem;font-size:.92rem;color:var(--muted)}
-    .d1-nav__links a:hover{color:var(--ink)}
-    .d1-nav__cta{border:1px solid var(--ink);padding:.5rem 1.1rem;border-radius:999px;font-size:.88rem}
-    .d1-nav__cta:hover{background:var(--ink);color:var(--paper)}
-    @media(max-width:720px){.d1-nav__links{display:none}}
+/* topp-promo */
+.promo{background:#16243A;color:#EAEFF6;font-size:.82rem;text-align:center;padding:.55rem 1rem}
+.promo a{color:#E0A24E;font-weight:600}
 
-    /* Hero */
-    .d1-hero{padding:clamp(4rem,12vw,8rem) 0 clamp(3rem,8vw,5rem)}
-    .d1-eyebrow{text-transform:uppercase;letter-spacing:.22em;font-size:.74rem;color:var(--clay);margin-bottom:1.5rem}
-    .d1-hero h1{font-size:clamp(2.6rem,8vw,5rem)}
-    .d1-hero p{max-width:46ch;margin:1.8rem 0 2.4rem;font-size:1.15rem;color:var(--muted);font-weight:300}
-    .d1-btn{display:inline-block;background:var(--ink);color:var(--paper);padding:.95rem 2rem;border-radius:999px;font-size:.95rem}
-    .d1-btn:hover{background:var(--clay)}
+/* nav */
+.nav{position:sticky;top:0;z-index:30;background:rgba(245,241,234,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav__in{display:flex;align-items:center;justify-content:space-between;padding:1.05rem 0}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.55rem;letter-spacing:.02em}
+.nav__links{display:flex;gap:2rem;font-size:.92rem;color:var(--muted)}
+.nav__links a{position:relative}
+.nav__links a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:1px;background:var(--ink);transition:width .3s}
+.nav__links a:hover::after{width:100%}
+.nav__cta{border:1px solid var(--ink);padding:.5rem 1.15rem;border-radius:999px;font-size:.88rem;transition:.25s}
+.nav__cta:hover{background:var(--ink);color:var(--paper)}
+@media(max-width:760px){.nav__links{display:none}}
 
-    /* Strek-bilde (placeholder) */
-    .d1-band{height:clamp(220px,40vw,420px);margin:1rem 0 0;border-radius:14px;background:linear-gradient(135deg,#D9CFC0,#B9AB97)}
+/* hero */
+.hero{position:relative;min-height:86vh;display:flex;align-items:flex-end;overflow:hidden}
+.heroimg{position:absolute;inset:0;background:linear-gradient(135deg,#C9BCA8,#8d7d64)}
+.heroimg img{animation:ken 18s ease-out forwards}
+@keyframes ken{from{transform:scale(1.12)}to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,17,14,.05),rgba(20,17,14,.62))}
+.hero__in{position:relative;z-index:2;color:var(--paper);padding-bottom:clamp(3rem,7vw,5.5rem)}
+.eyebrow{text-transform:uppercase;letter-spacing:.24em;font-size:.74rem;margin-bottom:1.4rem;color:#E7D9C4}
+.hero h1{font-size:clamp(2.8rem,9vw,5.6rem);max-width:14ch}
+.hero p{max-width:46ch;margin:1.6rem 0 2.2rem;font-size:1.15rem;font-weight:300;color:rgba(245,241,234,.9)}
+.btn{display:inline-block;background:var(--paper);color:var(--ink);padding:.95rem 2.1rem;border-radius:999px;font-size:.95rem;font-weight:500;transition:.25s}
+.btn:hover{background:var(--clay);color:var(--paper);transform:translateY(-2px)}
 
-    /* Seksjon */
-    .d1-sec{padding:clamp(3.5rem,9vw,6rem) 0}
-    .d1-kicker{text-transform:uppercase;letter-spacing:.2em;font-size:.74rem;color:var(--clay);margin-bottom:1rem}
-    .d1-sec h2{font-size:clamp(2rem,5vw,3rem);max-width:18ch}
-    .d1-lead{max-width:52ch;margin-top:1.2rem;color:var(--muted);font-size:1.08rem;font-weight:300}
+/* seksjon */
+.sec{padding:clamp(4rem,10vw,7rem) 0}
+.kicker{text-transform:uppercase;letter-spacing:.2em;font-size:.74rem;color:var(--clay);margin-bottom:1rem}
+.sec h2{font-size:clamp(2.1rem,5.5vw,3.4rem);max-width:18ch}
+.lead{max-width:54ch;margin-top:1.2rem;color:var(--muted);font-size:1.1rem;font-weight:300}
 
-    /* Tjenester */
-    .d1-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-    .d1-card{background:var(--paper-2);border:1px solid var(--line);border-radius:14px;padding:2rem 1.7rem}
-    .d1-card h3{font-size:1.6rem;margin-bottom:.6rem}
-    .d1-card p{color:var(--muted);font-size:.96rem;font-weight:300}
-    .d1-num{font-size:.8rem;color:var(--clay);letter-spacing:.1em;margin-bottom:1.2rem}
-    @media(max-width:720px){.d1-grid{grid-template-columns:1fr}}
+/* tjenester */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:3rem}
+.card{background:var(--paper2);border:1px solid var(--line);border-radius:16px;padding:2.1rem 1.8rem;transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(31,27,23,.12)}
+.num{font-size:.8rem;color:var(--clay);letter-spacing:.12em;margin-bottom:1.1rem}
+.card h3{font-size:1.7rem;margin-bottom:.5rem}
+.card p{color:var(--muted);font-size:.96rem;font-weight:300}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
 
-    /* CTA-band */
-    .d1-cta{background:var(--ink);color:var(--paper);border-radius:18px;padding:clamp(2.5rem,6vw,4rem);text-align:center;margin:1rem 0}
-    .d1-cta h2{font-size:clamp(1.9rem,5vw,2.8rem);color:var(--paper)}
-    .d1-cta p{color:rgba(245,241,234,.7);margin:1rem auto 2rem;max-width:40ch;font-weight:300}
-    .d1-cta .d1-btn{background:var(--clay)}
-    .d1-cta .d1-btn:hover{background:var(--paper);color:var(--ink)}
+/* galleri */
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-top:3rem}
+.gal__i{position:relative;aspect-ratio:3/4;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#C9BCA8,#A8987F)}
+.gal__i img{transition:transform .6s ease}
+.gal__i:hover img{transform:scale(1.07)}
+.gal__i:nth-child(1),.gal__i:nth-child(4){aspect-ratio:3/5}
+@media(max-width:760px){.gal{grid-template-columns:1fr 1fr}.gal__i,.gal__i:nth-child(1),.gal__i:nth-child(4){aspect-ratio:1/1}}
 
-    /* Kontakt */
-    .d1-contact{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
-    .d1-contact a{color:var(--clay)}
-    @media(max-width:720px){.d1-contact{grid-template-columns:1fr;gap:1rem}}
+/* sitat */
+.quote{text-align:center;max-width:30ch;margin:0 auto}
+.quote p{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.25}
+.quote span{display:block;margin-top:1.5rem;font-family:'Inter';font-size:.9rem;color:var(--muted);letter-spacing:.05em}
 
-    /* Footer */
-    .d1-foot{border-top:1px solid var(--line);padding:2.5rem 0;font-size:.85rem;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
-    .d1-foot a{color:var(--ink)}
-  </style>
+/* cta-band */
+.band{background:var(--ink);color:var(--paper);border-radius:20px;padding:clamp(2.8rem,7vw,4.5rem);text-align:center}
+.band h2{font-size:clamp(2rem,5vw,3rem);color:var(--paper)}
+.band p{color:rgba(245,241,234,.72);margin:1rem auto 2rem;max-width:42ch;font-weight:300}
+.band .btn{background:var(--clay);color:var(--paper)}
+.band .btn:hover{background:var(--paper);color:var(--ink)}
+
+/* kontakt */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
+.contact a{color:var(--clay)}
+@media(max-width:760px){.contact{grid-template-columns:1fr;gap:.8rem}}
+
+/* footer */
+.foot{border-top:1px solid var(--line);padding:2.5rem 0;font-size:.85rem;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
+.foot a{color:var(--ink)}
+
+/* FAST NEXTNOVA-CTA (følger alltid med) */
+.nnbar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:#16243A;color:#EAEFF6;display:flex;align-items:center;justify-content:center;gap:1rem;padding:.85rem 1rem;font-size:.92rem;box-shadow:0 -6px 24px rgba(0,0,0,.2)}
+.nnbar strong{color:#E0A24E}
+.nnbar a{background:#E0A24E;color:#16243A;padding:.5rem 1.2rem;border-radius:999px;font-weight:600;white-space:nowrap;transition:.2s}
+.nnbar a:hover{transform:translateY(-2px)}
+.nnbar__txt{display:none}
+@media(min-width:640px){.nnbar__txt{display:inline}}
+</style>
 </head>
 <body>
 
-  <div class="d1-promo">Demoside laget av <strong>NextNova</strong> — <a href="https://nextnova.no">se hva vi kan lage for deg →</a></div>
+<div class="promo">Demoside laget av <strong>NextNova</strong> — <a href="https://nextnova.no">se hva vi kan lage for deg →</a></div>
 
-  <header class="d1-nav">
-    <div class="d1-wrap d1-nav__in">
-      <span class="d1-logo">Atelier Nord</span>
-      <nav class="d1-nav__links">
-        <a href="#arbeid">Arbeid</a>
-        <a href="#tjenester">Tjenester</a>
-        <a href="#om">Om oss</a>
-      </nav>
-      <a href="#kontakt" class="d1-nav__cta">Ta kontakt</a>
-    </div>
-  </header>
+<header class="nav"><div class="wrap nav__in">
+  <span class="logo">Atelier Nord</span>
+  <nav class="nav__links"><a href="#om">Om oss</a><a href="#tjenester">Tjenester</a><a href="#arbeid">Arbeid</a></nav>
+  <a href="#kontakt" class="nav__cta">Ta kontakt</a>
+</div></header>
 
-  <main>
-    <section class="d1-hero">
-      <div class="d1-wrap">
-        <p class="d1-eyebrow">Interiørarkitektur · Oslo</p>
-        <h1>Rom som puster.<br>Lys som varer.</h1>
-        <p>Vi tegner hjem og lokaler med ro, naturlige materialer og en følelse som holder år etter år.</p>
-        <a href="#kontakt" class="d1-btn">Book en samtale</a>
-        <div class="d1-band"></div>
-      </div>
-    </section>
+<section class="hero">
+  <div class="heroimg"><img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=80" alt="" onerror="this.remove()"></div>
+  <div class="wrap hero__in">
+    <p class="eyebrow">Interiørarkitektur · Oslo</p>
+    <h1>Rom som puster. Lys som varer.</h1>
+    <p>Vi tegner hjem og lokaler med ro, naturlige materialer og en følelse som holder år etter år.</p>
+    <a href="#kontakt" class="btn">Book en samtale</a>
+  </div>
+</section>
 
-    <section class="d1-sec" id="om">
-      <div class="d1-wrap">
-        <p class="d1-kicker">Om oss</p>
-        <h2>Færre, men riktigere valg.</h2>
-        <p class="d1-lead">Atelier Nord er et lite studio som tar få prosjekter av gangen. Det gir oss tid til detaljene som gjør forskjellen — lyset, materialene og hvordan rommet faktisk brukes.</p>
-      </div>
-    </section>
+<section class="sec" id="om"><div class="wrap reveal">
+  <p class="kicker">Om oss</p>
+  <h2>Færre prosjekter. Riktigere valg.</h2>
+  <p class="lead">Atelier Nord er et lite studio som tar få oppdrag av gangen. Det gir oss tid til detaljene som betyr noe — lyset, materialene og hvordan rommet faktisk leves i.</p>
+</div></section>
 
-    <section class="d1-sec" id="tjenester" style="padding-top:0">
-      <div class="d1-wrap">
-        <p class="d1-kicker">Tjenester</p>
-        <h2>Hva vi gjør</h2>
-        <div class="d1-grid">
-          <div class="d1-card"><p class="d1-num">01</p><h3>Helhetsdesign</h3><p>Fra planløsning til siste detalj — en gjennomtenkt helhet for hjem og næringslokaler.</p></div>
-          <div class="d1-card"><p class="d1-num">02</p><h3>Materialvalg</h3><p>Vi velger varige, naturlige materialer som blir vakrere med tiden.</p></div>
-          <div class="d1-card"><p class="d1-num">03</p><h3>Møblering</h3><p>Skreddersydde og utvalgte møbler som passer rommet og menneskene i det.</p></div>
-        </div>
-      </div>
-    </section>
+<section class="sec" id="tjenester" style="padding-top:0"><div class="wrap reveal">
+  <p class="kicker">Tjenester</p>
+  <h2>Hva vi gjør</h2>
+  <div class="grid">
+    <div class="card"><p class="num">01</p><h3>Helhetsdesign</h3><p>Fra planløsning til siste detalj — en gjennomtenkt helhet for hjem og næringslokaler.</p></div>
+    <div class="card"><p class="num">02</p><h3>Materialvalg</h3><p>Varige, naturlige materialer som blir vakrere med årene.</p></div>
+    <div class="card"><p class="num">03</p><h3>Møblering</h3><p>Skreddersydde og nøye utvalgte møbler som passer rommet og menneskene i det.</p></div>
+  </div>
+</div></section>
 
-    <section class="d1-sec" id="arbeid" style="padding-top:0">
-      <div class="d1-wrap">
-        <p class="d1-kicker">Utvalgt arbeid</p>
-        <h2>Noen rom vi er stolte av</h2>
-        <div class="d1-band" style="margin-top:2.5rem;background:linear-gradient(135deg,#C9BCA8,#A8987F)"></div>
-      </div>
-    </section>
+<section class="sec" id="arbeid" style="padding-top:0"><div class="wrap reveal">
+  <p class="kicker">Utvalgt arbeid</p>
+  <h2>Noen rom vi er stolte av</h2>
+  <div class="gal">
+    <div class="gal__i"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80" alt="" loading="lazy" onerror="this.remove()"></div>
+    <div class="gal__i"><img src="https://images.unsplash.com/photo-1567016432779-094069958ea5?w=800&q=80" alt="" loading="lazy" onerror="this.remove()"></div>
+    <div class="gal__i"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80" alt="" loading="lazy" onerror="this.remove()"></div>
+    <div class="gal__i"><img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&q=80" alt="" loading="lazy" onerror="this.remove()"></div>
+  </div>
+</div></section>
 
-    <section class="d1-sec" style="padding-top:0">
-      <div class="d1-wrap">
-        <div class="d1-cta">
-          <h2>La oss tegne ditt neste rom</h2>
-          <p>Fortell oss kort om prosjektet, så tar vi en uforpliktende prat.</p>
-          <a href="#kontakt" class="d1-btn">Ta kontakt</a>
-        </div>
-      </div>
-    </section>
+<section class="sec" style="padding-top:0"><div class="wrap reveal">
+  <div class="quote"><p>"De forsto hjemmet vårt bedre enn vi gjorde selv."</p><span>— Familie i Bærum</span></div>
+</div></section>
 
-    <section class="d1-sec" id="kontakt" style="padding-top:0">
-      <div class="d1-wrap d1-contact">
-        <div>
-          <p class="d1-kicker">Kontakt</p>
-          <h2>Si hei.</h2>
-        </div>
-        <div>
-          <p style="color:var(--muted);font-weight:300">E-post: <a href="#">hei@ateliernord.no</a><br>Telefon: <a href="#">+47 000 00 000</a><br>Studio: Oslo</p>
-        </div>
-      </div>
-    </section>
-  </main>
+<section class="sec" style="padding-top:0"><div class="wrap reveal">
+  <div class="band">
+    <h2>La oss tegne ditt neste rom</h2>
+    <p>Fortell oss kort om prosjektet, så tar vi en uforpliktende prat.</p>
+    <a href="#kontakt" class="btn">Ta kontakt</a>
+  </div>
+</div></section>
 
-  <footer class="d1-foot">
-    <div class="d1-wrap" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;width:90%">
-      <span>© 2026 Atelier Nord — fiktiv demo</span>
-      <span>Laget av <a href="https://nextnova.no">NextNova</a></span>
-    </div>
-  </footer>
+<section class="sec" id="kontakt" style="padding-top:0"><div class="wrap contact reveal">
+  <div><p class="kicker">Kontakt</p><h2>Si hei.</h2></div>
+  <div><p style="color:var(--muted);font-weight:300">E-post: <a href="#">hei@ateliernord.no</a><br>Telefon: <a href="#">+47 000 00 000</a><br>Studio: Oslo</p></div>
+</div></section>
+
+<footer class="foot"><div class="wrap" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;width:90%">
+  <span>© 2026 Atelier Nord — fiktiv demo</span>
+  <span>Laget av <a href="https://nextnova.no">NextNova</a></span>
+</div></footer>
+
+<div class="nnbar">
+  <span class="nnbar__txt">Vil du ha en side som dette? Fra <strong>14 900 kr</strong>.</span>
+  <a href="https://nextnova.no/#kontakt">Book gratis møte hos NextNova</a>
+</div>
+
+<script>
+const io=new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
 
 </body>
 </html>
