@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16243A"/>
+      <stop offset="1" stop-color="#0E1828"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g transform="translate(965,315)" fill="none" stroke="#E0A24E" stroke-opacity="0.26">
+    <circle r="210" stroke-width="1.5"/>
+    <circle r="150" stroke-width="1.5"/>
+    <circle r="92" stroke-width="1.5"/>
+  </g>
+  <g transform="translate(965,315) scale(3.4)">
+    <path d="M0 -13 L2.5 -2.5 L13 0 L2.5 2.5 L0 13 L-2.5 2.5 L-13 0 L-2.5 -2.5 Z" fill="#E0A24E"/>
+  </g>
+  <text x="90" y="150" font-family="Arial, sans-serif" font-size="26" letter-spacing="6" fill="#E0A24E" font-weight="600">NEXTNOVA</text>
+  <text x="86" y="300" font-family="Georgia, 'Times New Roman', serif" font-size="78" fill="#FAF9F6" font-weight="600">Nettsider folk</text>
+  <text x="86" y="392" font-family="Georgia, 'Times New Roman', serif" font-size="78" fill="#FAF9F6" font-weight="600">faktisk <tspan fill="#E9B463" font-style="italic">finner.</tspan></text>
+  <text x="90" y="452" font-family="Arial, sans-serif" font-size="30" fill="#9DA9BC">Bygget for Google og AI-søk · for hele Norge</text>
+  <rect x="90" y="500" width="300" height="62" rx="31" fill="#E0A24E"/>
+  <text x="240" y="540" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#16243A" font-weight="700">Fra 14 900 kr</text>
+  <text x="1110" y="585" text-anchor="end" font-family="Arial, sans-serif" font-size="26" fill="#E0A24E" letter-spacing="1">nextnova.no</text>
+</svg>
