@@ -267,11 +267,18 @@
     @media (max-width: 820px) { .nn-contact__grid { grid-template-columns: 1fr; } }
 
     /* ================= FOOTER ================= */
-    .nn-footer { background: #0A1220; color: rgba(234,239,246,0.6); padding-block: 3rem; border-top: 1px solid var(--nn-line-dk); }
-    .nn-footer__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; }
+    .nn-footer { background: #0A1220; color: rgba(234,239,246,0.6); padding-block: clamp(3rem, 6vw, 4.5rem) 2rem; border-top: 1px solid var(--nn-line-dk); }
+    /* Øvre del: merkevare + meny + kontakt i kolonner */
+    .nn-footer__top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: clamp(2rem, 5vw, 3.5rem); padding-bottom: 2.5rem; border-bottom: 1px solid var(--nn-line-dk); }
+    .nn-footer__brand { font-family: 'Fraunces', serif; color: var(--nn-paper); font-size: 1.5rem; display: block; margin-bottom: 0.85rem; }
+    .nn-footer__tagline { font-size: 0.95rem; line-height: 1.6; max-width: 360px; }
+    .nn-footer__col { display: flex; flex-direction: column; gap: 0.6rem; }
+    .nn-footer__h { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--nn-gold-2); margin-bottom: 0.35rem; }
+    .nn-footer__col a { font-size: 0.95rem; transition: color 0.2s ease; }
     .nn-footer a:hover { color: var(--nn-gold-2); }
-    .nn-footer__brand { font-family: 'Fraunces', serif; color: var(--nn-paper); font-size: 1.25rem; }
-    .nn-footer__meta { font-size: 0.9rem; }
+    /* Nedre del: copyright + firmainfo */
+    .nn-footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; padding-top: 1.75rem; font-size: 0.85rem; }
+    @media (max-width: 700px) { .nn-footer__top { grid-template-columns: 1fr; gap: 2rem; } }
 
     /* ================= RESPONSIVT ================= */
     @media (max-width: 960px) { .nn-nova { display: none; } .nn-hero h1 { max-width: 18ch; } }
@@ -636,9 +643,32 @@
 
   <!-- ================= FOOTER ================= -->
   <footer class="nn-footer">
-    <div class="nn-wrap nn-footer__inner">
-      <span class="nn-footer__brand">NextNova</span>
-      <span class="nn-footer__meta">© 2026 NextNova AS · Nettsider for hele Norge</span>
+    <div class="nn-wrap">
+      <div class="nn-footer__top">
+        <!-- Merkevare + tagline -->
+        <div>
+          <span class="nn-footer__brand">NextNova</span>
+          <p class="nn-footer__tagline">Nettsider for små og mellomstore bedrifter over hele Norge – bygget for å bli funnet på Google og i AI-søk.</p>
+        </div>
+        <!-- Meny -->
+        <nav class="nn-footer__col" aria-label="Bunnmeny">
+          <span class="nn-footer__h">Meny</span>
+          <a href="#tjenester">Tjenester</a>
+          <a href="#eksempler">Eksempler</a>
+          <a href="#priser">Priser</a>
+          <a href="#kontakt">Kontakt</a>
+        </nav>
+        <!-- Kontakt -->
+        <div class="nn-footer__col">
+          <span class="nn-footer__h">Kontakt</span>
+          <a href="mailto:cato@askergolflounge.no">cato@askergolflounge.no</a>
+          <a href="tel:+4741240024">+47 412 40 024</a>
+        </div>
+      </div>
+      <div class="nn-footer__bottom">
+        <span>© 2026 NextNova</span>
+        <span>ASD Media &amp; Production AS · Org.nr 916 585 993</span>
+      </div>
     </div>
   </footer>
 
