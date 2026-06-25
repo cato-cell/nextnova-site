@@ -922,5 +922,46 @@
       });
     })();
   </script>
+
+<style>
+.nn-cookie{position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:60;max-width:520px;margin:0 auto;background:var(--nn-navy);border:1px solid rgba(234,239,246,.14);border-radius:14px;padding:1.25rem 1.4rem;box-shadow:0 12px 40px rgba(0,0,0,.28);display:none;font-family:'Outfit',sans-serif}
+.nn-cookie.show{display:block;animation:nn-cookie-up .4s ease}
+@keyframes nn-cookie-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.nn-cookie.show{animation:none}}
+.nn-cookie p{font-size:.92rem;line-height:1.55;color:rgba(234,239,246,.82);margin:0 0 1rem}
+.nn-cookie__row{display:flex;gap:.6rem;flex-wrap:wrap}
+.nn-cookie__btn{flex:1;min-width:130px;padding:.62rem 1rem;border-radius:999px;font-size:.88rem;font-weight:600;cursor:pointer;border:0;font-family:'Outfit',sans-serif;transition:.2s}
+.nn-cookie__btn--yes{background:var(--nn-gold);color:var(--nn-navy)}
+.nn-cookie__btn--yes:hover{background:var(--nn-gold-2,#E9B463)}
+.nn-cookie__btn--no{background:transparent;color:rgba(234,239,246,.85);border:1px solid rgba(234,239,246,.3)}
+.nn-cookie__btn--no:hover{border-color:rgba(234,239,246,.6)}
+</style>
+
+<div class="nn-cookie" id="nn-cookie" role="dialog" aria-label="Informasjonskapsler">
+  <p>Vi bruker informasjonskapsler for å forstå hvordan siden brukes og gjøre den bedre. Du velger selv.</p>
+  <div class="nn-cookie__row">
+    <button class="nn-cookie__btn nn-cookie__btn--yes" id="nn-cookie-yes">Godta</button>
+    <button class="nn-cookie__btn nn-cookie__btn--no" id="nn-cookie-no">Bare nødvendige</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY='nn-samtykke';
+  var box=document.getElementById('nn-cookie');
+  var saved=null;
+  try{saved=localStorage.getItem(KEY);}catch(e){}
+  if(!saved){box.classList.add('show');}
+  else if(saved==='godtatt'){loadAnalytics();}
+  function lagre(v){try{localStorage.setItem(KEY,v);}catch(e){}box.classList.remove('show');}
+  document.getElementById('nn-cookie-yes').addEventListener('click',function(){lagre('godtatt');loadAnalytics();});
+  document.getElementById('nn-cookie-no').addEventListener('click',function(){lagre('avslaatt');});
+  function loadAnalytics(){
+    /* Legg Google Analytics / sporings-kode HER senere.
+       Kjører kun når brukeren har trykket "Godta". */
+  }
+})();
+</script>
+
 </body>
 </html>
