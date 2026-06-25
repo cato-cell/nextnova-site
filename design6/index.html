@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="robots" content="noindex">
+<title>Form Studio — Personlig trening i Oslo</title>
+<meta name="description" content="Form Studio — personlig trening og smågruppetimer som gir resultater. Demoside laget av NextNova.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0C0E0D;--bg2:#15201A;--card:#161918;--lime:#C6F432;--lime2:#A9D81F;--ink:#F2F5F0;--muted:#8E978F;--line:rgba(242,245,240,.12)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:64px}
+h1,h2,h3{font-family:'Anton',sans-serif;font-weight:400;line-height:.98;letter-spacing:.01em;text-transform:uppercase}
+a{color:inherit;text-decoration:none}
+img{display:block;width:100%;height:100%;object-fit:cover}
+.wrap{width:90%;max-width:1140px;margin:0 auto}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.hero::before{animation:none!important}}
+
+.promo{background:#16243A;color:#EAEFF6;font-size:.82rem;text-align:center;padding:.55rem 1rem}
+.promo a{color:#E0A24E;font-weight:600}
+
+.nav{position:sticky;top:0;z-index:30;background:rgba(12,14,13,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav__in{display:flex;align-items:center;justify-content:space-between;padding:1rem 0}
+.logo{font-family:'Anton';font-size:1.6rem;letter-spacing:.02em}
+.logo b{color:var(--lime)}
+.nav__links{display:flex;gap:1.9rem;font-size:.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.nav__links a:hover{color:var(--lime)}
+.nav__cta{background:var(--lime);color:#0C0E0D;padding:.6rem 1.3rem;border-radius:6px;font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;transition:.25s}
+.nav__cta:hover{background:var(--lime2)}
+@media(max-width:760px){.nav__links{display:none}}
+
+.hero{position:relative;min-height:90vh;display:flex;align-items:center;overflow:hidden;background:var(--bg)}
+.hero::before{content:"";position:absolute;inset:-30%;background:radial-gradient(circle at 30% 30%,rgba(198,244,50,.22),transparent 45%),radial-gradient(circle at 75% 70%,rgba(70,130,60,.28),transparent 50%);animation:move 14s ease-in-out infinite alternate}
+@keyframes move{from{transform:translate(-4%,-3%) scale(1)}to{transform:translate(4%,3%) scale(1.12)}}
+.heroimg{position:absolute;inset:0;opacity:.28}
+.heroimg img{filter:grayscale(.3) contrast(1.05)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,14,13,.85),rgba(12,14,13,.35))}
+.hero__in{position:relative;z-index:2}
+.tag{display:inline-block;background:rgba(198,244,50,.14);color:var(--lime);border:1px solid rgba(198,244,50,.4);padding:.4rem 1rem;border-radius:999px;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:1.6rem}
+.hero h1{font-size:clamp(3.4rem,13vw,8rem);max-width:14ch}
+.hero h1 em{font-style:normal;color:var(--lime)}
+.hero p{max-width:42ch;margin:1.5rem 0 2.3rem;font-size:1.15rem;font-weight:300;color:rgba(242,245,240,.82)}
+.btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{display:inline-block;padding:1rem 2.1rem;border-radius:6px;font-size:.86rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;transition:.25s}
+.btn--p{background:var(--lime);color:#0C0E0D}.btn--p:hover{background:var(--lime2);transform:translateY(-2px)}
+.btn--g{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn--g:hover{border-color:var(--lime);color:var(--lime)}
+
+.marquee{background:var(--lime);color:#0C0E0D;overflow:hidden;white-space:nowrap;padding:.7rem 0;font-family:'Anton';text-transform:uppercase;letter-spacing:.04em}
+.marquee span{display:inline-block;animation:scroll 18s linear infinite;font-size:1.05rem}
+.marquee b{margin:0 1.5rem;opacity:.55}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.sec{padding:clamp(4rem,10vw,7rem) 0}
+.kicker{color:var(--lime);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:.76rem;margin-bottom:1rem;font-family:'Inter'}
+.sec h2{font-size:clamp(2.4rem,7vw,4.2rem);max-width:16ch}
+.lead{max-width:54ch;margin-top:1.1rem;color:var(--muted);font-size:1.1rem;font-weight:300}
+.center{text-align:center}.center h2{margin:0 auto}.center .lead{margin-left:auto;margin-right:auto}
+
+/* tilbud */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-top:3rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:2rem 1.7rem;transition:transform .3s,border-color .3s}
+.card:hover{transform:translateY(-6px);border-color:var(--lime)}
+.card h3{font-size:1.7rem;margin-bottom:.6rem}
+.card p{color:var(--muted);font-size:.96rem;font-weight:300}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+
+/* priskort */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:3rem}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:2.3rem 1.9rem;display:flex;flex-direction:column}
+.plan--hot{background:linear-gradient(180deg,#1b2a16,#161918);border-color:var(--lime);position:relative}
+.plan--hot::before{content:"Mest valgt";position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--lime);color:#0C0E0D;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.3rem .9rem;border-radius:999px;font-family:'Inter'}
+.plan__name{font-family:'Anton';font-size:1.5rem;text-transform:uppercase}
+.plan__price{font-family:'Anton';font-size:3rem;margin:.6rem 0;color:var(--lime)}
+.plan__price small{font-family:'Inter';font-size:.9rem;color:var(--muted);font-weight:400}
+.plan ul{list-style:none;margin:1rem 0 2rem;font-size:.95rem;font-weight:300;color:rgba(242,245,240,.85)}
+.plan li{padding:.5rem 0;border-bottom:1px solid var(--line)}
+.plan li::before{content:"✓ ";color:var(--lime);font-weight:700}
+.plan .btn{margin-top:auto;text-align:center}
+@media(max-width:760px){.plans{grid-template-columns:1fr}}
+
+/* timeplan */
+.sched{margin-top:3rem;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.srow{display:grid;grid-template-columns:1.2fr 2fr 1fr;gap:1rem;padding:1.1rem 1.5rem;border-bottom:1px solid var(--line);align-items:center}
+.srow:last-child{border-bottom:0}
+.srow--h{background:var(--bg2);font-family:'Anton';text-transform:uppercase;letter-spacing:.04em;font-size:.85rem;color:var(--lime)}
+.srow b{font-weight:600}
+.srow .when{color:var(--muted);font-size:.92rem}
+@media(max-width:760px){.srow{grid-template-columns:1fr;gap:.2rem;text-align:left}.srow .when{order:-1}}
+
+.band{background:var(--lime);color:#0C0E0D;border-radius:18px;padding:clamp(2.8rem,7vw,4.5rem);text-align:center}
+.band h2{font-size:clamp(2.4rem,6vw,4rem)}
+.band p{margin:1rem auto 2rem;max-width:42ch;font-weight:500}
+.band .btn{background:#0C0E0D;color:var(--lime)}
+.band .btn:hover{transform:translateY(-2px)}
+
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
+.contact a{color:var(--lime)}
+@media(max-width:760px){.contact{grid-template-columns:1fr;gap:.8rem}}
+
+.foot{border-top:1px solid var(--line);padding:2.5rem 0;font-size:.85rem;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
+.foot a{color:var(--ink)}
+
+.nnbar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:#16243A;color:#EAEFF6;display:flex;align-items:center;justify-content:center;gap:1rem;padding:.85rem 1rem;font-size:.92rem;box-shadow:0 -6px 24px rgba(0,0,0,.2)}
+.nnbar strong{color:#E0A24E}
+.nnbar a{background:#E0A24E;color:#16243A;padding:.5rem 1.2rem;border-radius:999px;font-weight:600;white-space:nowrap;transition:.2s}
+.nnbar a:hover{transform:translateY(-2px)}
+.nnbar__txt{display:none}
+@media(min-width:640px){.nnbar__txt{display:inline}}
+</style>
+</head>
+<body>
+
+<div class="promo">Demoside laget av <strong>NextNova</strong> — <a href="https://nextnova.no">se hva vi kan lage for deg →</a></div>
+
+<header class="nav"><div class="wrap nav__in">
+  <span class="logo">Form<b>Studio</b></span>
+  <nav class="nav__links"><a href="#tilbud">Tilbud</a><a href="#priser">Medlemskap</a><a href="#timeplan">Timeplan</a></nav>
+  <a href="#kontakt" class="nav__cta">Prøvetime</a>
+</div></header>
+
+<section class="hero">
+  <div class="heroimg"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=80" alt="" onerror="this.remove()"></div>
+  <div class="wrap hero__in">
+    <span class="tag">● Personlig trening · Oslo</span>
+    <h1>Bli <em>sterkere</em> enn i går.</h1>
+    <p>Personlig trening og små grupper med en plan som faktisk passer livet ditt — og en PT som heier deg i mål.</p>
+    <div class="btns">
+      <a href="#kontakt" class="btn btn--p">Book gratis prøvetime</a>
+      <a href="#priser" class="btn btn--g">Se medlemskap</a>
+    </div>
+  </div>
+</section>
+
+<div class="marquee"><span>Styrke <b>◆</b> Kondisjon <b>◆</b> Vektnedgang <b>◆</b> Smågrupper <b>◆</b> Personlig oppfølging <b>◆</b> Resultater <b>◆</b> Styrke <b>◆</b> Kondisjon <b>◆</b> Vektnedgang <b>◆</b> Smågrupper <b>◆</b> Personlig oppfølging <b>◆</b> Resultater <b>◆</b> </span></div>
+
+<section class="sec" id="tilbud"><div class="wrap reveal center">
+  <p class="kicker">Hva vi tilbyr</p>
+  <h2>Trening som virker</h2>
+  <div class="grid" style="text-align:left">
+    <div class="card"><h3>1:1 PT</h3><p>Skreddersydd program og tett oppfølging, helt tilpasset ditt nivå og mål.</p></div>
+    <div class="card"><h3>Smågrupper</h3><p>Maks 6 personer. Energien fra gruppe, oppfølgingen fra en PT.</p></div>
+    <div class="card"><h3>Online-coaching</h3><p>Program og oppfølging i appen — tren når og hvor det passer.</p></div>
+  </div>
+</div></section>
+
+<section class="sec" id="priser" style="padding-top:0"><div class="wrap reveal center">
+  <p class="kicker">Medlemskap</p>
+  <h2>Velg din vei</h2>
+  <div class="plans" style="text-align:left">
+    <div class="plan">
+      <span class="plan__name">Start</span>
+      <div class="plan__price">499<small> /mnd</small></div>
+      <ul><li>2 smågrupper i uka</li><li>Treningsapp</li><li>Oppstartssamtale</li></ul>
+      <a href="#kontakt" class="btn btn--g">Velg Start</a>
+    </div>
+    <div class="plan plan--hot">
+      <span class="plan__name">Pluss</span>
+      <div class="plan__price">999<small> /mnd</small></div>
+      <ul><li>Ubegrenset smågrupper</li><li>1 PT-time i måneden</li><li>Kostholdsplan</li><li>Treningsapp</li></ul>
+      <a href="#kontakt" class="btn btn--p">Velg Pluss</a>
+    </div>
+    <div class="plan">
+      <span class="plan__name">Privat</span>
+      <div class="plan__price">1990<small> /mnd</small></div>
+      <ul><li>4 PT-timer i måneden</li><li>Full kost- og treningsplan</li><li>Ukentlig oppfølging</li></ul>
+      <a href="#kontakt" class="btn btn--g">Velg Privat</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="timeplan" style="padding-top:0"><div class="wrap reveal center">
+  <p class="kicker">Timeplan</p>
+  <h2>Smågrupper denne uka</h2>
+  <div class="sched" style="text-align:left">
+    <div class="srow srow--h"><span>Dag</span><span>Time</span><span>Tid</span></div>
+    <div class="srow"><b>Mandag</b><span>Styrke total</span><span class="when">06:00 & 17:00</span></div>
+    <div class="srow"><b>Tirsdag</b><span>HIIT & kondisjon</span><span class="when">17:30</span></div>
+    <div class="srow"><b>Onsdag</b><span>Core & mobilitet</span><span class="when">07:00 & 18:00</span></div>
+    <div class="srow"><b>Torsdag</b><span>Styrke overkropp</span><span class="when">17:30</span></div>
+    <div class="srow"><b>Lørdag</b><span>Helgeøkt</span><span class="when">10:00</span></div>
+  </div>
+</div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap reveal">
+  <div class="band">
+    <h2>Første time er gratis</h2>
+    <p>Kom innom, møt en PT og kjenn på stemningen. Ingen binding.</p>
+    <a href="#kontakt" class="btn">Book gratis prøvetime</a>
+  </div>
+</div></section>
+
+<section class="sec" id="kontakt" style="padding-top:0"><div class="wrap contact reveal">
+  <div><p class="kicker">Kontakt</p><h2>Klar når du er.</h2></div>
+  <div><p style="color:var(--muted);font-weight:300">E-post: <a href="#">hei@formstudio.no</a><br>Telefon: <a href="#">+47 000 00 000</a><br>Adresse: Oslo</p></div>
+</div></section>
+
+<footer class="foot"><div class="wrap" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;width:90%">
+  <span>© 2026 Form Studio — fiktiv demo</span>
+  <span>Laget av <a href="https://nextnova.no">NextNova</a></span>
+</div></footer>
+
+<div class="nnbar">
+  <span class="nnbar__txt">Vil du ha en side som dette? Fra <strong>14 900 kr</strong>.</span>
+  <a href="https://nextnova.no/#kontakt">Book gratis møte hos NextNova</a>
+</div>
+
+<script>
+const io=new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
