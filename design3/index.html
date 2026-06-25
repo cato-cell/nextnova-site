@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="robots" content="noindex">
+<title>Salong Lys — Frisør i Oslo</title>
+<meta name="description" content="Salong Lys — frisør med fokus på farge, klipp og velvære. Demoside laget av NextNova.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FBF3EF;--bg2:#F3E6DF;--ink:#2E2329;--plum:#4A2E3A;--rose:#C98A7D;--rose2:#B5705F;--muted:#7A6A6E;--line:rgba(46,35,41,.12)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Jost',sans-serif;line-height:1.65;font-weight:300;-webkit-font-smoothing:antialiased;padding-bottom:64px}
+h1,h2,h3{font-family:'Marcellus',serif;font-weight:400;line-height:1.12}
+a{color:inherit;text-decoration:none}
+img{display:block;width:100%;height:100%;object-fit:cover}
+.wrap{width:90%;max-width:1100px;margin:0 auto}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.heroimg img{animation:none!important}}
+
+.promo{background:#16243A;color:#EAEFF6;font-size:.82rem;text-align:center;padding:.55rem 1rem}
+.promo a{color:#E0A24E;font-weight:600}
+
+.nav{position:sticky;top:0;z-index:30;background:rgba(251,243,239,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav__in{display:flex;align-items:center;justify-content:space-between;padding:1.05rem 0}
+.logo{font-family:'Marcellus';font-size:1.6rem;letter-spacing:.04em}
+.nav__links{display:flex;gap:2rem;font-size:.92rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-size:.8rem}
+.nav__links a:hover{color:var(--rose2)}
+.nav__cta{border:1px solid var(--ink);padding:.55rem 1.3rem;border-radius:999px;font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;transition:.25s}
+.nav__cta:hover{background:var(--ink);color:var(--bg)}
+@media(max-width:760px){.nav__links{display:none}}
+
+.hero{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;background:var(--bg2)}
+.heroimg{position:absolute;inset:0;background:linear-gradient(135deg,#E8CFC4,#C98A7D)}
+.heroimg img{animation:ken 20s ease-out forwards}
+@keyframes ken{from{transform:scale(1.12)}to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(46,35,41,.5),rgba(46,35,41,.12))}
+.hero__in{position:relative;z-index:2;color:#fff}
+.eyebrow{text-transform:uppercase;letter-spacing:.28em;font-size:.74rem;margin-bottom:1.5rem;color:#F3E6DF}
+.hero h1{font-size:clamp(2.8rem,9vw,5.4rem);max-width:13ch}
+.hero p{max-width:42ch;margin:1.6rem 0 2.3rem;font-size:1.15rem;color:rgba(255,255,255,.92)}
+.btn{display:inline-block;background:var(--bg);color:var(--ink);padding:.95rem 2.1rem;border-radius:999px;font-size:.82rem;text-transform:uppercase;letter-spacing:.1em;font-weight:500;transition:.25s}
+.btn:hover{background:var(--rose);color:#fff;transform:translateY(-2px)}
+
+.sec{padding:clamp(4rem,10vw,7rem) 0}
+.kicker{text-transform:uppercase;letter-spacing:.22em;font-size:.74rem;color:var(--rose2);margin-bottom:1rem}
+.sec h2{font-size:clamp(2.1rem,5.5vw,3.4rem);max-width:18ch}
+.lead{max-width:52ch;margin-top:1.2rem;color:var(--muted);font-size:1.1rem}
+
+/* split om */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.split__img{aspect-ratio:4/5;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,#E8CFC4,#B5705F)}
+@media(max-width:760px){.split{grid-template-columns:1fr;gap:1.8rem}}
+
+/* prisliste */
+.price{background:var(--bg2);border-radius:20px;padding:clamp(2rem,5vw,3.5rem);margin-top:3rem}
+.price__row{display:flex;align-items:baseline;gap:.8rem;padding:1rem 0;border-bottom:1px solid var(--line)}
+.price__row:last-child{border-bottom:0}
+.price__name{font-family:'Marcellus';font-size:1.3rem}
+.price__dots{flex:1;border-bottom:1px dotted var(--muted);transform:translateY(-4px)}
+.price__val{font-weight:500;white-space:nowrap}
+.price__sub{font-size:.85rem;color:var(--muted);display:block;font-family:'Jost'}
+
+/* galleri lightbox */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:3rem}
+.gal__i{aspect-ratio:1/1;border-radius:14px;overflow:hidden;cursor:pointer;background:linear-gradient(135deg,#E8CFC4,#C98A7D);position:relative}
+.gal__i img{transition:transform .6s ease}
+.gal__i:hover img{transform:scale(1.08)}
+.gal__i::after{content:"⤢";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;background:rgba(46,35,41,.0);opacity:0;transition:.3s}
+.gal__i:hover::after{background:rgba(46,35,41,.35);opacity:1}
+@media(max-width:760px){.gal{grid-template-columns:1fr 1fr}}
+.lb{position:fixed;inset:0;z-index:80;background:rgba(20,14,17,.9);display:none;align-items:center;justify-content:center;padding:5vw}
+.lb.open{display:flex}
+.lb img{max-width:90vw;max-height:85vh;width:auto;height:auto;border-radius:10px}
+.lb__x{position:absolute;top:1.4rem;right:1.6rem;color:#fff;font-size:2rem;cursor:pointer;line-height:1}
+
+/* omtaler rotator */
+.revs{text-align:center;min-height:200px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.rev{position:absolute;left:0;right:0;opacity:0;transition:opacity .7s ease;pointer-events:none}
+.rev.show{opacity:1;position:relative;pointer-events:auto}
+.rev p{font-family:'Marcellus';font-size:clamp(1.5rem,4vw,2.4rem);line-height:1.3;max-width:24ch;margin:0 auto}
+.rev span{display:block;margin-top:1.4rem;font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+
+.band{background:var(--plum);color:#fff;border-radius:20px;padding:clamp(2.8rem,7vw,4.5rem);text-align:center}
+.band h2{font-size:clamp(2rem,5vw,3rem);color:#fff}
+.band p{color:rgba(255,255,255,.75);margin:1rem auto 2rem;max-width:40ch}
+.band .btn{background:var(--rose);color:#fff}
+.band .btn:hover{background:#fff;color:var(--ink)}
+
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
+.contact a{color:var(--rose2)}
+@media(max-width:760px){.contact{grid-template-columns:1fr;gap:.8rem}}
+
+.foot{border-top:1px solid var(--line);padding:2.5rem 0;font-size:.85rem;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
+.foot a{color:var(--ink)}
+
+.nnbar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:#16243A;color:#EAEFF6;display:flex;align-items:center;justify-content:center;gap:1rem;padding:.85rem 1rem;font-size:.92rem;box-shadow:0 -6px 24px rgba(0,0,0,.2)}
+.nnbar strong{color:#E0A24E}
+.nnbar a{background:#E0A24E;color:#16243A;padding:.5rem 1.2rem;border-radius:999px;font-weight:600;white-space:nowrap;transition:.2s}
+.nnbar a:hover{transform:translateY(-2px)}
+.nnbar__txt{display:none}
+@media(min-width:640px){.nnbar__txt{display:inline}}
+</style>
+</head>
+<body>
+
+<div class="promo">Demoside laget av <strong>NextNova</strong> — <a href="https://nextnova.no">se hva vi kan lage for deg →</a></div>
+
+<header class="nav"><div class="wrap nav__in">
+  <span class="logo">Salong Lys</span>
+  <nav class="nav__links"><a href="#om">Om oss</a><a href="#priser">Priser</a><a href="#galleri">Galleri</a></nav>
+  <a href="#kontakt" class="nav__cta">Bestill time</a>
+</div></header>
+
+<section class="hero">
+  <div class="heroimg"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=80" alt="" onerror="this.remove()"></div>
+  <div class="wrap hero__in">
+    <p class="eyebrow">Frisørsalong · Oslo</p>
+    <h1>Et hår du føler deg hjemme i.</h1>
+    <p>Farge, klipp og styling i rolige omgivelser — med tid til deg og det du ønsker.</p>
+    <a href="#kontakt" class="btn">Bestill time</a>
+  </div>
+</section>
+
+<section class="sec" id="om"><div class="wrap split reveal">
+  <div>
+    <p class="kicker">Om oss</p>
+    <h2>Håndverk, ro og litt magi.</h2>
+    <p class="lead">Hos Salong Lys får du en frisør som lytter. Vi tar oss tid til å forstå hva du vil ha, og gir deg et resultat som er like fint å stelle hjemme som dagen du går ut herfra.</p>
+  </div>
+  <div class="split__img"><img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=900&q=80" alt="" loading="lazy" onerror="this.remove()"></div>
+</div></section>
+
+<section class="sec" id="priser" style="padding-top:0"><div class="wrap reveal">
+  <p class="kicker">Prisliste</p>
+  <h2>Tydelige priser</h2>
+  <div class="price">
+    <div class="price__row"><span class="price__name">Klipp & føn<span class="price__sub">Inkl. vask og styling</span></span><span class="price__dots"></span><span class="price__val">fra 650 kr</span></div>
+    <div class="price__row"><span class="price__name">Farge<span class="price__sub">Helfarge eller ansatsfarge</span></span><span class="price__dots"></span><span class="price__val">fra 1 200 kr</span></div>
+    <div class="price__row"><span class="price__name">Striper / balayage<span class="price__sub">Etter hårlengde</span></span><span class="price__dots"></span><span class="price__val">fra 1 600 kr</span></div>
+    <div class="price__row"><span class="price__name">Styling & oppsett<span class="price__sub">Fest, bryllup, anledning</span></span><span class="price__dots"></span><span class="price__val">fra 800 kr</span></div>
+  </div>
+</div></section>
+
+<section class="sec" id="galleri" style="padding-top:0"><div class="wrap reveal">
+  <p class="kicker">Galleri</p>
+  <h2>Litt av det vi lager</h2>
+  <div class="gal">
+    <div class="gal__i"><img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=800&q=80" alt="" loading="lazy" onerror="this.parentNode.style.pointerEvents='none'"></div>
+    <div class="gal__i"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&q=80" alt="" loading="lazy" onerror="this.parentNode.style.pointerEvents='none'"></div>
+    <div class="gal__i"><img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=800&q=80" alt="" loading="lazy" onerror="this.parentNode.style.pointerEvents='none'"></div>
+    <div class="gal__i"><img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=800&q=80" alt="" loading="lazy" onerror="this.parentNode.style.pointerEvents='none'"></div>
+    <div class="gal__i"><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&q=80" alt="" loading="lazy" onerror="this.parentNode.style.pointerEvents='none'"></div>
+    <div class="gal__i"><img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=800&q=80" alt="" loading="lazy" onerror="this.parentNode.style.pointerEvents='none'"></div>
+  </div>
+</div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap reveal">
+  <div class="revs" id="revs">
+    <div class="rev show"><p>"Eneste salongen jeg stoler blindt på. Går aldri skuffet ut."</p><span>— Marte</span></div>
+    <div class="rev"><p>"De lyttet til hva jeg ville og traff helt perfekt."</p><span>— Sofie</span></div>
+    <div class="rev"><p>"Rolig, koselig og utrolig dyktige. Anbefales!"</p><span>— Ingrid</span></div>
+  </div>
+</div></section>
+
+<section class="sec" style="padding-top:0"><div class="wrap reveal">
+  <div class="band">
+    <h2>Klar for litt egentid?</h2>
+    <p>Bestill time i dag — vi gleder oss til å se deg.</p>
+    <a href="#kontakt" class="btn">Bestill time</a>
+  </div>
+</div></section>
+
+<section class="sec" id="kontakt" style="padding-top:0"><div class="wrap contact reveal">
+  <div><p class="kicker">Kontakt</p><h2>Velkommen innom.</h2></div>
+  <div><p style="color:var(--muted)">E-post: <a href="#">hei@salonglys.no</a><br>Telefon: <a href="#">+47 000 00 000</a><br>Åpent: man–fre 09–18, lør 10–15<br>Adresse: Oslo sentrum</p></div>
+</div></section>
+
+<footer class="foot"><div class="wrap" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;width:90%">
+  <span>© 2026 Salong Lys — fiktiv demo</span>
+  <span>Laget av <a href="https://nextnova.no">NextNova</a></span>
+</div></footer>
+
+<div class="lb" id="lb"><span class="lb__x" id="lbx">×</span><img id="lbimg" src="" alt=""></div>
+
+<div class="nnbar">
+  <span class="nnbar__txt">Vil du ha en side som dette? Fra <strong>14 900 kr</strong>.</span>
+  <a href="https://nextnova.no/#kontakt">Book gratis møte hos NextNova</a>
+</div>
+
+<script>
+/* scroll-reveal */
+const io=new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+/* lightbox */
+const lb=document.getElementById('lb'),lbimg=document.getElementById('lbimg');
+document.querySelectorAll('.gal__i img').forEach(img=>img.addEventListener('click',()=>{lbimg.src=img.src;lb.classList.add('open')}));
+function closeLb(){lb.classList.remove('open');lbimg.src=''}
+document.getElementById('lbx').addEventListener('click',closeLb);
+lb.addEventListener('click',e=>{if(e.target===lb)closeLb()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb()});
+/* omtaler rotator */
+(function(){const r=document.querySelectorAll('.rev');if(r.length<2)return;let i=0;setInterval(()=>{r[i].classList.remove('show');i=(i+1)%r.length;r[i].classList.add('show')},4200)})();
+</script>
+
+</body>
+</html>
