@@ -267,6 +267,15 @@
     .nn-project__link { font-weight: 600; color: var(--nn-text-dk); display: inline-flex; align-items: center; gap: 0.4rem; transition: color 0.2s ease, gap 0.2s ease; }
     .nn-project:hover .nn-project__link { color: var(--nn-gold-2); gap: 0.6rem; }
 
+    /* ================= OM (lys, tonet) ================= */
+    /* Lys paper-2-flate som puster mellom det mørke designgalleriet og prisene */
+    .nn-om { background: var(--nn-paper-2); padding-block: clamp(4.5rem, 9vw, 7.5rem); }
+    .nn-om__inner { max-width: 720px; }
+    .nn-om__title { font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(2rem, 4.6vw, 3.4rem); line-height: 1.08; letter-spacing: -0.02em; color: var(--nn-navy); max-width: 20ch; margin-bottom: 1.5rem; text-wrap: balance; }
+    .nn-om__lead { font-size: clamp(1.05rem, 1.8vw, 1.2rem); color: var(--nn-slate); max-width: 62ch; line-height: 1.7; margin-bottom: 1.25rem; }
+    /* Dempet firmalinje under brødteksten */
+    .nn-om__small { font-size: 0.9rem; color: var(--nn-slate); opacity: 0.7; margin: 0.5rem 0 2rem; }
+
     /* ================= PRISER (lys) ================= */
     .nn-prices { background: var(--nn-paper); padding-block: clamp(4.5rem, 9vw, 7.5rem); }
     .nn-prices__head { text-align: center; max-width: 640px; margin: 0 auto clamp(2.5rem, 5vw, 3.5rem); }
@@ -385,6 +394,7 @@
         <a href="#tjenester">Tjenester</a>
         <a href="#eksempler">Eksempler</a>
         <a href="#designeksempler">Design</a>
+        <a href="#om">Om</a>
         <a href="#priser">Priser</a>
         <a class="nn-btn nn-btn--primary" href="#kontakt">Book gratis møte</a>
       </nav>
@@ -671,6 +681,20 @@
               <span class="nn-project__link">Se designet →</span>
             </span>
           </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= OM ================= -->
+    <section class="nn-om" id="om">
+      <div class="nn-wrap nn-om__inner">
+        <p class="nn-eyebrow nn-up">Hvem står bak</p>
+        <h2 class="nn-om__title nn-up">Bygget av en som driver bedrift selv.</h2>
+        <p class="nn-om__lead nn-up">NextNova drives av Cato Eriksen – gründer og forretningsutvikler fra Asker, med flere egne virksomheter innen alt fra HR-teknologi til lokale opplevelser. Derfor vet vi hva en nettside faktisk skal gjøre for en liten bedrift: bli funnet, skape tillit og få kunden til å ta kontakt.</p>
+        <p class="nn-om__lead nn-up">Vi bygger moderne, raske nettsider som er laget for å synes – både i Google og i de nye AI-søkene der stadig flere leter etter leverandører. Ingen lange prosesser, ingen byråfakturaer. Du forteller om bedriften din, vi bygger siden.</p>
+        <p class="nn-om__small nn-up">NextNova er en del av ASD Media &amp; Production AS (org.nr 916 585 993).</p>
+        <div class="nn-up">
+          <a class="nn-btn nn-btn--primary" href="#kontakt">Book gratis møte</a>
         </div>
       </div>
     </section>
