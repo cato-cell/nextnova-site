@@ -253,6 +253,9 @@
     .nn-project__url { margin-left: 8px; font-size: 0.76rem; color: var(--nn-muted-dk); background: rgba(255,255,255,0.06); padding: 3px 11px; border-radius: 999px; }
     .nn-project__art { flex: 1; display: grid; place-items: center; padding: 1.25rem; }
     .nn-project__art span { font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(1.2rem, 3vw, 1.9rem); color: rgba(234,239,246,0.92); letter-spacing: -0.01em; text-align: center; line-height: 1.15; text-wrap: balance; overflow-wrap: anywhere; }
+    /* Ekte skjermbilder skal fylle rammen kant til kant, ikke ha luft rundt tekst */
+    .nn-project__art:has(img) { padding: 0; }
+    .nn-project__art img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .nn-project--1 .nn-project__art { background: radial-gradient(120% 120% at 80% 10%, rgba(233,180,99,0.22), transparent 60%), linear-gradient(135deg, #1b2c46, #0E1828); }
     .nn-project--2 .nn-project__art { background: radial-gradient(120% 120% at 15% 90%, rgba(64,110,180,0.28), transparent 60%), linear-gradient(135deg, #16243A, #0c1626); }
     .nn-project--3 .nn-project__art { background: radial-gradient(120% 120% at 50% 15%, rgba(233,180,99,0.18), transparent 62%), linear-gradient(135deg, #13203A, #0b1422); }
@@ -545,7 +548,7 @@
           <a class="nn-project nn-project--1 nn-up" href="https://finnoss.no" target="_blank" rel="noopener">
             <span class="nn-project__frame">
               <span class="nn-project__bar"><i></i><i></i><i></i><span class="nn-project__url">finnoss.no</span></span>
-              <span class="nn-project__art"><span>FinnOss</span></span>
+              <span class="nn-project__art"><img src="finnoss-preview.jpg" alt="Skjermbilde av FinnOss – forsiden" loading="lazy"></span>
             </span>
             <span class="nn-project__body">
               <span class="nn-tag">Lokal plattform</span>
@@ -559,7 +562,7 @@
           <a class="nn-project nn-project--2 nn-up" href="https://askergolflounge.no" target="_blank" rel="noopener">
             <span class="nn-project__frame">
               <span class="nn-project__bar"><i></i><i></i><i></i><span class="nn-project__url">askergolflounge.no</span></span>
-              <span class="nn-project__art"><span>Asker Golf Lounge</span></span>
+              <span class="nn-project__art"><img src="asker-golf-lounge-preview.jpg" alt="Skjermbilde av Asker Golf Lounge – forsiden" loading="lazy"></span>
             </span>
             <span class="nn-project__body">
               <span class="nn-tag">Booking &amp; opplevelse</span>
@@ -573,7 +576,7 @@
           <a class="nn-project nn-project--3 nn-up" href="https://smgolf.no" target="_blank" rel="noopener">
             <span class="nn-project__frame">
               <span class="nn-project__bar"><i></i><i></i><i></i><span class="nn-project__url">smgolf.no</span></span>
-              <span class="nn-project__art"><span>SM Golf</span></span>
+              <span class="nn-project__art"><img src="sm-golf-preview.jpg" alt="Skjermbilde av SM Golf – forsiden" loading="lazy"></span>
             </span>
             <span class="nn-project__body">
               <span class="nn-tag">Personlig merkevare</span>
