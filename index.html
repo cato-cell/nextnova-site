@@ -140,8 +140,12 @@
       background: rgba(250, 249, 246, 0.82);
       backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--nn-line);
+      transition: box-shadow 0.3s ease, background-color 0.3s ease;
     }
-    .nn-header__inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 76px; }
+    .nn-header__inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 76px; transition: min-height 0.3s ease; }
+    /* Header krymper litt og får skygge når man har scrollet forbi toppen */
+    .nn-header--scrolled { background: rgba(250, 249, 246, 0.94); box-shadow: 0 8px 24px rgba(22, 36, 58, 0.08); }
+    .nn-header--scrolled .nn-header__inner { min-height: 62px; }
     .nn-logo { display: flex; align-items: center; }
     .nn-logo img { height: 36px; width: auto; }
 
@@ -151,8 +155,15 @@
     .nn-nav a:not(.nn-btn):hover::after { width: 100%; }
 
     .nn-btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1rem; padding: 0.85rem 1.5rem; border-radius: 999px; cursor: pointer; border: 1.5px solid transparent; transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease; white-space: nowrap; }
-    .nn-btn--primary { background: var(--nn-gold); color: var(--nn-navy-900); box-shadow: 0 8px 24px rgba(224, 162, 78, 0.32); }
+    .nn-btn--primary { position: relative; overflow: hidden; background: var(--nn-gold); color: var(--nn-navy-900); box-shadow: 0 8px 24px rgba(224, 162, 78, 0.32); }
     .nn-btn--primary:hover { background: var(--nn-gold-dim); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(224, 162, 78, 0.42); }
+    /* Lys-sveip: en diskré glans som glir over knappen ved hover */
+    .nn-btn--primary::after {
+      content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+      transform: skewX(-20deg); transition: left 0.65s ease;
+    }
+    .nn-btn--primary:hover::after { left: 130%; }
     .nn-btn--ghost { background: transparent; color: var(--nn-navy); border-color: var(--nn-line); }
     .nn-btn--ghost:hover { border-color: var(--nn-navy); transform: translateY(-2px); }
     .nn-header .nn-btn { padding: 0.6rem 1.3rem; font-size: 0.95rem; }
@@ -160,11 +171,14 @@
     /* ================= HERO (lys) ================= */
     .nn-hero { position: relative; padding-block: clamp(4.5rem, 11vw, 8.5rem) clamp(4rem, 10vw, 7rem); overflow: hidden; }
     .nn-hero__glow {
-      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      position: absolute; inset: -15%; z-index: 0; pointer-events: none;
       background:
         radial-gradient(44% 38% at 80% 14%, rgba(224, 162, 78, 0.20), transparent 70%),
         radial-gradient(46% 42% at 8% 92%, rgba(22, 36, 58, 0.06), transparent 72%);
+      animation: nn-mesh-drift 18s ease-in-out infinite alternate;
     }
+    /* Rolig drift på hero-gløden, gir liv uten å stjele oppmerksomhet fra teksten */
+    @keyframes nn-mesh-drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(-2.5%, 2%) scale(1.08); } }
     .nn-nova { position: absolute; z-index: 0; pointer-events: none; right: clamp(-60px, -2vw, 0px); top: 50%; transform: translateY(-50%); width: min(46vw, 460px); height: min(46vw, 460px); opacity: 0.9; }
     .nn-nova circle.orbit { fill: none; stroke: var(--nn-navy); stroke-opacity: 0.12; }
     @keyframes nn-twinkle { 0%,100% { opacity: 1; transform: scale(1);} 50% { opacity: 0.55; transform: scale(0.86);} }
@@ -214,8 +228,8 @@
     .nn-dark__note svg { flex: none; }
     .nn-dark .nn-btn { margin-top: 1.75rem; }
 
-    /* Scroll-reveal (mykt, settes på via JS) */
-    .nn-up { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2,0.7,0.2,1); }
+    /* Scroll-reveal (mykt, settes på via JS) – lett fjærende easing med et snev overshoot */
+    .nn-up { opacity: 0; transform: translateY(26px) scale(0.98); transition: opacity 0.7s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
     .nn-up.is-in { opacity: 1; transform: none; }
 
     /* ================= SLIK JOBBER JEG (lys, tonet) ================= */
@@ -255,7 +269,8 @@
     .nn-project__art span { font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(1.2rem, 3vw, 1.9rem); color: rgba(234,239,246,0.92); letter-spacing: -0.01em; text-align: center; line-height: 1.15; text-wrap: balance; overflow-wrap: anywhere; }
     /* Ekte skjermbilder skal fylle rammen kant til kant, ikke ha luft rundt tekst */
     .nn-project__art:has(img) { padding: 0; }
-    .nn-project__art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .nn-project__art img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .nn-project:hover .nn-project__art img { transform: scale(1.06); }
     .nn-project--1 .nn-project__art { background: radial-gradient(120% 120% at 80% 10%, rgba(233,180,99,0.22), transparent 60%), linear-gradient(135deg, #1b2c46, #0E1828); }
     .nn-project--2 .nn-project__art { background: radial-gradient(120% 120% at 15% 90%, rgba(64,110,180,0.28), transparent 60%), linear-gradient(135deg, #16243A, #0c1626); }
     .nn-project--3 .nn-project__art { background: radial-gradient(120% 120% at 50% 15%, rgba(233,180,99,0.18), transparent 62%), linear-gradient(135deg, #13203A, #0b1422); }
@@ -379,8 +394,12 @@
       html { scroll-behavior: auto; }
       .nn-hero .nn-reveal { animation: none; opacity: 1; transform: none; }
       .nn-nova .nn-nova__star, .nn-nova .nn-nova__dot1, .nn-nova .nn-nova__dot2 { animation: none; }
+      .nn-hero__glow { animation: none; }
       .nn-up { opacity: 1; transform: none; transition: none; }
       .nn-btn:hover, .nn-card:hover { transform: none; }
+      .nn-btn--primary::after { transition: none; }
+      .nn-project:hover .nn-project__art img { transform: none; }
+      .nn-header, .nn-header__inner { transition: none; }
     }
   </style>
 </head>
@@ -874,6 +893,17 @@
   </footer>
 
   <script>
+    // Header krymper og får skygge når siden er scrollet forbi toppen
+    (function () {
+      var header = document.querySelector('.nn-header');
+      if (!header) return;
+      function oppdaterHeader() {
+        header.classList.toggle('nn-header--scrolled', window.scrollY > 8);
+      }
+      oppdaterHeader();
+      window.addEventListener('scroll', oppdaterHeader, { passive: true });
+    })();
+
     // Myk scroll til ankerlenker
     document.querySelectorAll('a[href^="#"]').forEach(function (lenke) {
       lenke.addEventListener('click', function (e) {
