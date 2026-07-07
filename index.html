@@ -291,6 +291,24 @@
     .nn-project__link { font-weight: 600; color: var(--nn-text-dk); display: inline-flex; align-items: center; gap: 0.4rem; transition: color 0.2s ease, gap 0.2s ease; }
     .nn-project:hover .nn-project__link { color: var(--nn-gold-2); gap: 0.6rem; }
 
+    /* ================= REFERANSER (mørk) ================= */
+    .nn-voices { background: var(--nn-navy-900); color: var(--nn-muted-dk); padding-block: clamp(4.5rem, 9vw, 7.5rem); }
+    .nn-voices__head { max-width: 640px; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+    .nn-voices__eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--nn-gold-2); margin-bottom: 1.25rem; }
+    .nn-voices__eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--nn-gold-2); box-shadow: 0 0 0 4px rgba(233,180,99,0.2); }
+    .nn-voices h2 { font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(2rem, 4.4vw, 3.2rem); line-height: 1.08; letter-spacing: -0.02em; color: var(--nn-text-dk); margin-bottom: 1rem; text-wrap: balance; max-width: 16ch; }
+    .nn-voices__lead { font-size: 1.1rem; color: #B7C0CF; max-width: 560px; }
+    .nn-voices__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+    .nn-quote { background: var(--nn-navy-800); border: 1px solid var(--nn-line-dk); border-radius: 18px; padding: 2rem 1.9rem; display: flex; flex-direction: column; transition: transform 0.25s ease, border-color 0.25s ease; }
+    .nn-quote:hover { transform: translateY(-6px); border-color: rgba(233,180,99,0.35); }
+    .nn-quote__mark { font-family: 'Fraunces', serif; font-size: 3.4rem; line-height: 0.7; color: var(--nn-gold-2); margin-bottom: 0.5rem; }
+    .nn-quote blockquote { font-family: 'Fraunces', serif; font-weight: 500; font-style: italic; font-size: 1.15rem; line-height: 1.5; color: var(--nn-text-dk); margin: 0 0 1.5rem; text-wrap: pretty; }
+    .nn-quote figcaption { margin-top: auto; }
+    .nn-quote__name { display: block; font-weight: 600; color: var(--nn-text-dk); font-size: 0.98rem; }
+    .nn-quote__role { display: block; font-size: 0.85rem; color: var(--nn-muted-dk); margin-top: 3px; }
+    .nn-quote__role a { color: var(--nn-gold-2); transition: color 0.2s ease; }
+    .nn-quote__role a:hover { color: var(--nn-gold); }
+
     /* ================= OM (lys, tonet) ================= */
     /* Lys paper-2-flate som puster mellom det mørke designgalleriet og prisene */
     .nn-om { background: var(--nn-paper-2); padding-block: clamp(4.5rem, 9vw, 7.5rem); }
@@ -410,7 +428,7 @@
       .nn-eyebrow::before, .nn-dark__eyebrow::before, .nn-steps__eyebrow::before, .nn-work__eyebrow::before, .nn-prices__eyebrow::before, .nn-contact__eyebrow::before { animation: none; }
       .nn-hero__glow { animation: none; }
       .nn-up { opacity: 1; transform: none; transition: none; }
-      .nn-btn:hover, .nn-card:hover { transform: none; }
+      .nn-btn:hover, .nn-card:hover, .nn-quote:hover { transform: none; }
       .nn-btn--primary::after { transition: none; }
       .nn-project:hover .nn-project__art img { transform: none; }
       .nn-header, .nn-header__inner { transition: none; }
@@ -431,6 +449,7 @@
         <a href="#eksempler">Eksempler</a>
         <a href="#designeksempler">Design</a>
         <a href="#om">Om</a>
+        <a href="#referanser">Referanser</a>
         <a href="#priser">Priser</a>
         <a class="nn-btn nn-btn--primary" href="#kontakt">Book gratis møte</a>
       </nav>
@@ -735,6 +754,49 @@
       </div>
     </section>
 
+    <!-- ================= REFERANSER ================= -->
+    <section class="nn-voices" id="referanser">
+      <div class="nn-wrap">
+        <div class="nn-voices__head nn-up">
+          <p class="nn-voices__eyebrow">Kundene sier</p>
+          <h2>Ekte ord fra ekte kunder.</h2>
+          <p class="nn-voices__lead">Alle under stiller gjerne som referanse — ta kontakt om du vil høre hvordan det var å jobbe sammen.</p>
+        </div>
+
+        <div class="nn-voices__grid">
+          <!-- FinnOss -->
+          <figure class="nn-quote nn-up">
+            <div class="nn-quote__mark" aria-hidden="true">“</div>
+            <blockquote>Vi er et lite sentrum med mange små aktører som trenger én felles plattform å bli funnet på. FinnOss ble akkurat det — et sted der alle drar nytte av hverandre.</blockquote>
+            <figcaption>
+              <span class="nn-quote__name">Styret, Sentrumsforeningen Heggedal</span>
+              <span class="nn-quote__role"><a href="https://finnoss.no" target="_blank" rel="noopener">finnoss.no</a></span>
+            </figcaption>
+          </figure>
+
+          <!-- Asker Golf Lounge -->
+          <figure class="nn-quote nn-up">
+            <div class="nn-quote__mark" aria-hidden="true">“</div>
+            <blockquote>Vi har alltid ønsket oss en nettside som står i stil med ambisjonen vår om å være en premium lounge. Nå har vi det.</blockquote>
+            <figcaption>
+              <span class="nn-quote__name">Bente Eriksen, daglig leder</span>
+              <span class="nn-quote__role"><a href="https://askergolflounge.no" target="_blank" rel="noopener">askergolflounge.no</a></span>
+            </figcaption>
+          </figure>
+
+          <!-- SM Golf -->
+          <figure class="nn-quote nn-up">
+            <div class="nn-quote__mark" aria-hidden="true">“</div>
+            <blockquote>Jeg er utrolig stolt av en nettside som bygger opp under satsingen min som paragolfer — og jeg har fått veldig gode tilbakemeldinger fra samarbeidspartnerne mine.</blockquote>
+            <figcaption>
+              <span class="nn-quote__name">Sven Magne Hagen, paragolfer</span>
+              <span class="nn-quote__role"><a href="https://smgolf.no" target="_blank" rel="noopener">smgolf.no</a></span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
     <!-- ================= PRISER ================= -->
     <section class="nn-prices" id="priser">
       <div class="nn-wrap">
@@ -887,6 +949,7 @@
           <span class="nn-footer__h">Meny</span>
           <a href="#tjenester">Tjenester</a>
           <a href="#eksempler">Eksempler</a>
+          <a href="#referanser">Referanser</a>
           <a href="#priser">Priser</a>
           <a href="#kontakt">Kontakt</a>
           <a href="/nettside-handverker/">For håndverkere</a>
