@@ -215,7 +215,7 @@
     .nn-nova .nn-nova__dot1 { animation: nn-twinkle 5.5s ease-in-out 0.6s infinite; transform-box: fill-box; transform-origin: center; }
     .nn-nova .nn-nova__dot2 { animation: nn-twinkle 6s ease-in-out 1.2s infinite; transform-box: fill-box; transform-origin: center; }
 
-    .nn-hero__inner { position: relative; z-index: 1; max-width: 720px; }
+    .nn-hero__inner { position: relative; z-index: 1; }
     .nn-eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--nn-navy); margin-bottom: 1.5rem; }
     .nn-eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--nn-gold); box-shadow: 0 0 0 4px rgba(224,162,78,0.22); }
 
@@ -287,22 +287,21 @@
 
     .nn-worklist { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 0.5rem; }
     .nn-project { display: block; background: var(--nn-navy-800); border: 1px solid var(--nn-line-dk); border-radius: 18px; overflow: hidden; transition: transform 0.25s ease, border-color 0.25s ease; }
-    .nn-project:hover { transform: translateY(-6px); border-color: rgba(233,180,99,0.35); }
+    .nn-project { transition: transform 0.3s cubic-bezier(.22,.61,.36,1), border-color 0.3s ease, box-shadow 0.3s ease; }
+    .nn-project:hover { transform: translateY(-8px); border-color: rgba(233,180,99,0.45); box-shadow: 0 30px 60px -28px rgba(0,0,0,0.6); }
 
-    /* "nettleser"-ramme som preview (bytt ut .nn-project__art med <img> når du har skjermbilder) */
-    .nn-project__frame { display: flex; flex-direction: column; aspect-ratio: 16 / 10; }
-    .nn-project__bar { display: flex; align-items: center; gap: 6px; padding: 10px 12px; background: rgba(255,255,255,0.04); border-bottom: 1px solid var(--nn-line-dk); }
-    .nn-project__bar i { width: 9px; height: 9px; border-radius: 50%; background: rgba(234,239,246,0.22); display: inline-block; }
-    .nn-project__url { margin-left: 8px; font-size: 0.76rem; color: var(--nn-muted-dk); background: rgba(255,255,255,0.06); padding: 3px 11px; border-radius: 999px; }
-    .nn-project__art { flex: 1; display: grid; place-items: center; padding: 1.25rem; }
-    .nn-project__art span { font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(1.2rem, 3vw, 1.9rem); color: rgba(234,239,246,0.92); letter-spacing: -0.01em; text-align: center; line-height: 1.15; text-wrap: balance; overflow-wrap: anywhere; }
-    /* Ekte skjermbilder skal fylle rammen kant til kant, ikke ha luft rundt tekst */
-    .nn-project__art:has(img) { padding: 0; }
-    .nn-project__art img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
-    .nn-project:hover .nn-project__art img { transform: scale(1.06); }
-    .nn-project--1 .nn-project__art { background: radial-gradient(120% 120% at 80% 10%, rgba(233,180,99,0.22), transparent 60%), linear-gradient(135deg, #1b2c46, #0E1828); }
-    .nn-project--2 .nn-project__art { background: radial-gradient(120% 120% at 15% 90%, rgba(64,110,180,0.28), transparent 60%), linear-gradient(135deg, #16243A, #0c1626); }
-    .nn-project--3 .nn-project__art { background: radial-gradient(120% 120% at 50% 15%, rgba(233,180,99,0.18), transparent 62%), linear-gradient(135deg, #13203A, #0b1422); }
+    /* Full-bleed skjermbilde med diskré domene-chip — rent, moderne, uten falsk nettleser-chrome */
+    .nn-project__frame { display: block; position: relative; aspect-ratio: 16 / 10; overflow: hidden; }
+    .nn-project__bar { position: absolute; top: 12px; left: 12px; z-index: 3; display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; background: rgba(14, 24, 40, 0.5); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 999px; }
+    .nn-project__bar i { display: none; }
+    .nn-project__url { margin: 0; padding: 0; background: none; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.01em; color: rgba(255, 255, 255, 0.92); }
+    .nn-project__art { position: absolute; inset: 0; display: block; padding: 0; background: linear-gradient(135deg, #16243A, #0E1828); }
+    /* Myk toning i toppen så domene-chipen alltid er lesbar, også på lyse skjermbilder */
+    .nn-project__art::after { content: ""; position: absolute; inset: 0 0 auto 0; height: 42%; background: linear-gradient(to bottom, rgba(14, 24, 40, 0.5), transparent); pointer-events: none; z-index: 1; }
+    .nn-project__art img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(.22,.61,.36,1); }
+    .nn-project:hover .nn-project__art img { transform: scale(1.05); }
+    /* Tynn skillelinje mellom bilde og kort-tekst så lyse skjermbilder ikke møter bunnen brått */
+    .nn-project__frame::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: rgba(255, 255, 255, 0.12); z-index: 2; }
 
     .nn-project__body {
       display: block;
@@ -336,6 +335,10 @@
     /* Lys paper-2-flate som puster mellom det mørke designgalleriet og prisene */
     .nn-om { background: var(--nn-paper-2); padding-block: clamp(4.5rem, 9vw, 7.5rem); }
     .nn-om__inner { max-width: 720px; }
+    /* To-kolonners redaksjonelt oppsett: overskrift til venstre, brødtekst til høyre */
+    .nn-om__grid2 { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+    .nn-om__text { max-width: 640px; }
+    @media (max-width: 860px) { .nn-om__grid2 { grid-template-columns: 1fr; gap: 1.75rem; } }
     /* Personlig «signatur»: lite, skarpt portrett med navn */
     .nn-om__sign { display: flex; align-items: center; gap: 1rem; margin: 2.25rem 0 2rem; }
     .nn-om__avatar { width: 74px; height: 74px; border-radius: 50%; object-fit: cover; flex: none; box-shadow: 0 0 0 3px var(--nn-paper-2), 0 0 0 4.5px var(--nn-gold); }
@@ -804,21 +807,25 @@
 
     <!-- ================= OM ================= -->
     <section class="nn-om" id="om">
-      <div class="nn-wrap nn-om__inner">
-        <p class="nn-eyebrow nn-up">Hvem står bak</p>
-        <h2 class="nn-om__title nn-up">Bygget av en som driver bedrift selv.</h2>
-        <p class="nn-om__lead nn-up">NextNova drives av Cato Eriksen – gründer og forretningsutvikler fra Asker, med flere egne virksomheter innen alt fra HR-teknologi til lokale opplevelser. Derfor vet jeg hva en nettside faktisk skal gjøre for en liten bedrift: bli funnet, skape tillit og få kunden til å ta kontakt.</p>
-        <p class="nn-om__lead nn-up">Jeg bygger moderne, raske nettsider som er laget for å synes – både i Google og i de nye AI-søkene der stadig flere leter etter leverandører. Ingen lange prosesser, ingen byråfakturaer. Du forteller om bedriften din, jeg bygger siden.</p>
-        <div class="nn-om__sign nn-up">
-          <img class="nn-om__avatar" src="cato-eriksen.png" alt="Cato Eriksen, gründer av NextNova" loading="lazy" width="250" height="250">
-          <div>
-            <span class="nn-om__name">Cato Eriksen</span>
-            <span class="nn-om__role">Gründer, NextNova</span>
-          </div>
+      <div class="nn-wrap nn-om__grid2">
+        <div class="nn-om__head">
+          <p class="nn-eyebrow nn-up">Hvem står bak</p>
+          <h2 class="nn-om__title nn-up">Bygget av en som driver bedrift selv.</h2>
         </div>
-        <p class="nn-om__small nn-up">NextNova er en del av ASD Media &amp; Production AS (org.nr 916 585 993).</p>
-        <div class="nn-up">
-          <a class="nn-btn nn-btn--primary" href="#kontakt">Book gratis møte</a>
+        <div class="nn-om__text">
+          <p class="nn-om__lead nn-up">NextNova drives av Cato Eriksen – gründer og forretningsutvikler fra Asker, med flere egne virksomheter innen alt fra HR-teknologi til lokale opplevelser. Derfor vet jeg hva en nettside faktisk skal gjøre for en liten bedrift: bli funnet, skape tillit og få kunden til å ta kontakt.</p>
+          <p class="nn-om__lead nn-up">Jeg bygger moderne, raske nettsider som er laget for å synes – både i Google og i de nye AI-søkene der stadig flere leter etter leverandører. Ingen lange prosesser, ingen byråfakturaer. Du forteller om bedriften din, jeg bygger siden.</p>
+          <div class="nn-om__sign nn-up">
+            <img class="nn-om__avatar" src="cato-eriksen.png" alt="Cato Eriksen, gründer av NextNova" loading="lazy" width="250" height="250">
+            <div>
+              <span class="nn-om__name">Cato Eriksen</span>
+              <span class="nn-om__role">Gründer, NextNova</span>
+            </div>
+          </div>
+          <p class="nn-om__small nn-up">NextNova er en del av ASD Media &amp; Production AS (org.nr 916 585 993).</p>
+          <div class="nn-up">
+            <a class="nn-btn nn-btn--primary" href="#kontakt">Book gratis møte</a>
+          </div>
         </div>
       </div>
     </section>
