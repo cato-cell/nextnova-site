@@ -179,8 +179,14 @@
     }
     /* Rolig drift på hero-gløden, gir liv uten å stjele oppmerksomhet fra teksten */
     @keyframes nn-mesh-drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(-2.5%, 2%) scale(1.08); } }
-    .nn-nova { position: absolute; z-index: 0; pointer-events: none; right: clamp(-60px, -2vw, 0px); top: 50%; transform: translateY(-50%); width: min(46vw, 460px); height: min(46vw, 460px); opacity: 0.9; }
-    .nn-nova circle.orbit { fill: none; stroke: var(--nn-navy); stroke-opacity: 0.12; }
+    .nn-nova { position: absolute; z-index: 0; pointer-events: none; right: clamp(-60px, -2vw, 0px); top: 50%; transform: translateY(-50%); width: min(46vw, 460px); height: min(46vw, 460px); opacity: 0.9; transform-origin: center; animation: nn-nova-orbit 42s linear infinite; }
+    /* Hele nova-motivet roterer sakte: prikkene orbiterer rundt stjernen */
+    @keyframes nn-nova-orbit { from { transform: translateY(-50%) rotate(0deg); } to { transform: translateY(-50%) rotate(360deg); } }
+    .nn-nova circle.orbit { fill: none; stroke: var(--nn-navy); stroke-opacity: 0.12; transform-box: fill-box; transform-origin: center; animation: nn-ring-breathe 7s ease-in-out infinite; }
+    .nn-nova circle.orbit:nth-of-type(2) { animation-delay: 1s; }
+    .nn-nova circle.orbit:nth-of-type(3) { animation-delay: 2s; }
+    /* Ringene puster forsiktig i styrke */
+    @keyframes nn-ring-breathe { 0%,100% { stroke-opacity: 0.10; } 50% { stroke-opacity: 0.22; } }
     @keyframes nn-twinkle { 0%,100% { opacity: 1; transform: scale(1);} 50% { opacity: 0.55; transform: scale(0.86);} }
     .nn-nova .nn-nova__star { animation: nn-twinkle 4.5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
     .nn-nova .nn-nova__dot1 { animation: nn-twinkle 5.5s ease-in-out 0.6s infinite; transform-box: fill-box; transform-origin: center; }
@@ -305,7 +311,13 @@
     .nn-pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; align-items: stretch; }
     .nn-pcard { background: #fff; border: 1px solid var(--nn-line); border-radius: 20px; padding: 2rem 1.75rem; display: flex; flex-direction: column; position: relative; }
     .nn-pcard--featured { background: var(--nn-navy); border-color: var(--nn-navy); box-shadow: 0 20px 50px rgba(22,36,58,0.18); }
-    .nn-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--nn-gold); color: var(--nn-navy-900); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; white-space: nowrap; }
+    .nn-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--nn-gold); color: var(--nn-navy-900); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; white-space: nowrap; overflow: hidden; }
+    /* Gull-skimmer som glir over «Mest populær»-etiketten */
+    .nn-badge::after { content: ""; position: absolute; top: 0; left: -60%; width: 45%; height: 100%; background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent); transform: skewX(-20deg); animation: nn-badge-shine 3.8s ease-in-out infinite; }
+    @keyframes nn-badge-shine { 0% { left: -60%; } 55%, 100% { left: 130%; } }
+    /* Pulserende gull-prikk foran alle etiketter */
+    .nn-eyebrow::before, .nn-dark__eyebrow::before, .nn-steps__eyebrow::before, .nn-work__eyebrow::before, .nn-prices__eyebrow::before, .nn-contact__eyebrow::before { animation: nn-dot-pulse 2.6s ease-in-out infinite; }
+    @keyframes nn-dot-pulse { 0%,100% { transform: scale(0.85); opacity: 0.75; } 50% { transform: scale(1.1); opacity: 1; } }
 
     .nn-pcard__name { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.35rem; color: var(--nn-navy); margin-bottom: 0.5rem; }
     .nn-pcard--featured .nn-pcard__name { color: var(--nn-text-dk); }
@@ -393,7 +405,9 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .nn-hero .nn-reveal { animation: none; opacity: 1; transform: none; }
-      .nn-nova .nn-nova__star, .nn-nova .nn-nova__dot1, .nn-nova .nn-nova__dot2 { animation: none; }
+      .nn-nova, .nn-nova circle.orbit, .nn-nova .nn-nova__star, .nn-nova .nn-nova__dot1, .nn-nova .nn-nova__dot2 { animation: none; }
+      .nn-badge::after { animation: none; display: none; }
+      .nn-eyebrow::before, .nn-dark__eyebrow::before, .nn-steps__eyebrow::before, .nn-work__eyebrow::before, .nn-prices__eyebrow::before, .nn-contact__eyebrow::before { animation: none; }
       .nn-hero__glow { animation: none; }
       .nn-up { opacity: 1; transform: none; transition: none; }
       .nn-btn:hover, .nn-card:hover { transform: none; }
@@ -931,6 +945,36 @@
         });
       }, { threshold: 0.15 });
       elementer.forEach(function (el) { io.observe(el); });
+    })();
+
+    // Priser teller opp fra 0 når kortet kommer til syne
+    (function () {
+      var redusert = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var priser = document.querySelectorAll('.nn-pcard__price');
+      if (!priser.length) return;
+
+      function tellOpp(el) {
+        // Leser malverdien for teksten nullstilles, ellers blir malet alltid 0
+        var mal = parseInt(el.textContent.replace(/\D/g, ''), 10) || 0;
+        el.textContent = '0';
+        var varighet = 1300, start = performance.now();
+        function format(n) { return Math.round(n).toLocaleString('nb-NO').replace(/\u00A0/g, ' '); }
+        function steg(naa) {
+          var t = Math.min(1, (naa - start) / varighet);
+          t = 1 - Math.pow(1 - t, 3);
+          el.textContent = format(mal * t);
+          if (t < 1) requestAnimationFrame(steg); else el.textContent = format(mal);
+        }
+        requestAnimationFrame(steg);
+      }
+
+      if (redusert || !('IntersectionObserver' in window)) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { tellOpp(e.target); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.6 });
+      priser.forEach(function (el) { io.observe(el); });
     })();
 
     // Kontaktskjema: send via Web3Forms uten sideomlasting + vis kvittering
