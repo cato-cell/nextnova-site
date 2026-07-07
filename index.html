@@ -85,6 +85,21 @@
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Hvor lang tid tar det å få siden ferdig?", "acceptedAnswer": { "@type": "Answer", "text": "De fleste sidene er klare på 1–2 uker fra vi har innholdet på plass. Enkle one-pagere går ofte raskere. Du får en konkret tidsplan i det gratis møtet." } },
+      { "@type": "Question", "name": "Eier jeg nettsiden selv?", "acceptedAnswer": { "@type": "Answer", "text": "Ja. Du eier siden, innholdet og domenet – alt står i ditt navn." } },
+      { "@type": "Question", "name": "Hva med domene, e-post og drift?", "acceptedAnswer": { "@type": "Answer", "text": "Jeg hjelper deg med oppsett av domene og e-post. Vil du slippe å tenke på det tekniske, kan jeg drifte siden for deg fra 490 kr/mnd – eller du kan stå for det selv." } },
+      { "@type": "Question", "name": "Trenger jeg å kunne noe teknisk?", "acceptedAnswer": { "@type": "Answer", "text": "Nei. Du forteller om bedriften din, så gjør jeg alt det tekniske – fra design og tekst til SEO og lansering." } },
+      { "@type": "Question", "name": "Hva koster det etter at siden er lansert?", "acceptedAnswer": { "@type": "Answer", "text": "Ingenting du er nødt til å betale. Ønsker du at jeg holder siden oppdatert, sikker og synlig, starter drift og support på 490 kr/mnd." } },
+      { "@type": "Question", "name": "Kan jeg endre ting på siden senere?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, absolutt. Vi kan avtale endringer løpende, eller du kan få enkel opplæring så du gjør små justeringer selv." } }
+    ]
+  }
+  </script>
+
   <style>
     /* ============================================================
        NEXTNOVA – index.html
@@ -153,6 +168,14 @@
     .nn-nav a:not(.nn-btn) { font-size: 0.95rem; font-weight: 500; color: var(--nn-navy); position: relative; padding-block: 4px; }
     .nn-nav a:not(.nn-btn)::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--nn-gold-ink); transition: width 0.28s ease; }
     .nn-nav a:not(.nn-btn):hover::after { width: 100%; }
+
+    /* På desktop oppfører lenke-wrapperen seg som om lenkene ligger rett i .nn-nav */
+    .nn-nav__links { display: contents; }
+    .nn-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 42px; height: 42px; padding: 9px; border: none; background: transparent; cursor: pointer; }
+    .nn-burger span { display: block; height: 2px; width: 100%; background: var(--nn-navy); border-radius: 2px; transition: transform 0.3s ease, opacity 0.2s ease; }
+    .nn-header.nav-open .nn-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nn-header.nav-open .nn-burger span:nth-child(2) { opacity: 0; }
+    .nn-header.nav-open .nn-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     .nn-btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1rem; padding: 0.85rem 1.5rem; border-radius: 999px; cursor: pointer; border: 1.5px solid transparent; transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease; white-space: nowrap; }
     .nn-btn--primary { position: relative; overflow: hidden; background: var(--nn-gold); color: var(--nn-navy-900); box-shadow: 0 8px 24px rgba(224, 162, 78, 0.32); }
@@ -356,6 +379,19 @@
 
     @media (max-width: 820px) { .nn-pgrid { grid-template-columns: 1fr; max-width: 440px; margin-inline: auto; } }
 
+    /* ================= FAQ (lys, tonet) ================= */
+    .nn-faq { background: var(--nn-paper-2); padding-block: clamp(4.5rem, 9vw, 7.5rem); }
+    .nn-faq__head { text-align: center; max-width: 640px; margin: 0 auto clamp(2.5rem, 5vw, 3.5rem); }
+    .nn-faq h2 { font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(2rem, 4.4vw, 3.2rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--nn-navy); text-wrap: balance; }
+    .nn-faq__list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+    .nn-faq details { background: #fff; border: 1px solid var(--nn-line); border-radius: 14px; overflow: hidden; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .nn-faq details[open] { border-color: rgba(224,162,78,0.4); box-shadow: 0 10px 30px rgba(22,36,58,0.06); }
+    .nn-faq summary { cursor: pointer; list-style: none; padding: 1.15rem 1.4rem; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1.05rem; color: var(--nn-navy); display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .nn-faq summary::-webkit-details-marker { display: none; }
+    .nn-faq summary::after { content: "+"; font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 400; line-height: 1; color: var(--nn-gold-ink); transition: transform 0.25s ease; flex: none; }
+    .nn-faq details[open] summary::after { transform: rotate(45deg); }
+    .nn-faq details p { margin: 0; padding: 0 1.4rem 1.3rem; color: var(--nn-slate); font-size: 0.98rem; line-height: 1.65; }
+
     /* ================= KONTAKT (lys) ================= */
     .nn-contact { position: relative; padding-block: clamp(4.5rem, 9vw, 7.5rem); overflow: hidden; }
     .nn-contact__glow {
@@ -414,7 +450,22 @@
     /* ================= RESPONSIVT ================= */
     @media (max-width: 960px) { .nn-nova { display: none; } .nn-hero h1 { max-width: 18ch; } }
     @media (max-width: 700px) {
-      .nn-nav a:not(.nn-btn) { display: none; }
+      .nn-burger { display: flex; }
+      .nn-nav { gap: 0.5rem; }
+      .nn-nav__links {
+        display: flex; flex-direction: column; align-items: stretch; gap: 0;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(250, 249, 246, 0.98);
+        -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--nn-line);
+        box-shadow: 0 12px 28px rgba(22, 36, 58, 0.10);
+        padding: 0.25rem var(--nn-gut) 1rem;
+        max-height: 0; overflow: hidden; opacity: 0; pointer-events: none;
+        transition: max-height 0.35s ease, opacity 0.25s ease;
+      }
+      .nn-header.nav-open .nn-nav__links { max-height: 360px; opacity: 1; pointer-events: auto; }
+      .nn-nav__links a { display: block; padding: 0.9rem 0.25rem; font-size: 1.05rem; border-bottom: 1px solid var(--nn-line); }
+      .nn-nav__links a:last-child { border-bottom: none; }
       .nn-logo img { height: 26px; }            /* mindre logo på mobil */
       .nn-header .nn-btn { padding: 0.55rem 1.05rem; font-size: 0.88rem; }
       .nn-header__inner { min-height: 64px; }
@@ -445,12 +496,18 @@
         <img src="NextNova_logo_navy_1024px_transparent.png" alt="NextNova">
       </a>
       <nav class="nn-nav" aria-label="Hovedmeny">
-        <a href="#tjenester">Tjenester</a>
-        <a href="#eksempler">Eksempler</a>
-        <a href="#designeksempler">Design</a>
-        <a href="#om">Om</a>
-        <a href="#referanser">Referanser</a>
-        <a href="#priser">Priser</a>
+        <div class="nn-nav__links" id="hovedmeny">
+          <a href="#tjenester">Tjenester</a>
+          <a href="#eksempler">Eksempler</a>
+          <a href="#designeksempler">Design</a>
+          <a href="#om">Om</a>
+          <a href="#referanser">Referanser</a>
+          <a href="#priser">Priser</a>
+          <a href="#faq">Spørsmål</a>
+        </div>
+        <button class="nn-burger" type="button" aria-label="Åpne meny" aria-expanded="false" aria-controls="hovedmeny">
+          <span></span><span></span><span></span>
+        </button>
         <a class="nn-btn nn-btn--primary" href="#kontakt">Book gratis møte</a>
       </nav>
     </div>
@@ -861,6 +918,42 @@
       </div>
     </section>
 
+    <!-- ================= FAQ ================= -->
+    <section class="nn-faq" id="faq">
+      <div class="nn-wrap">
+        <div class="nn-faq__head nn-up">
+          <p class="nn-steps__eyebrow">Ofte stilte spørsmål</p>
+          <h2>Det folk lurer på.</h2>
+        </div>
+        <div class="nn-faq__list nn-up">
+          <details>
+            <summary>Hvor lang tid tar det å få siden ferdig?</summary>
+            <p>De fleste sidene er klare på 1–2 uker fra vi har innholdet på plass. Enkle one-pagere går ofte raskere. Du får en konkret tidsplan i det gratis møtet.</p>
+          </details>
+          <details>
+            <summary>Eier jeg nettsiden selv?</summary>
+            <p>Ja. Du eier siden, innholdet og domenet — alt står i ditt navn.</p>
+          </details>
+          <details>
+            <summary>Hva med domene, e-post og drift?</summary>
+            <p>Jeg hjelper deg med oppsett av domene og e-post. Vil du slippe å tenke på det tekniske, kan jeg drifte siden for deg fra 490 kr/mnd — eller du kan stå for det selv.</p>
+          </details>
+          <details>
+            <summary>Trenger jeg å kunne noe teknisk?</summary>
+            <p>Nei. Du forteller om bedriften din, så gjør jeg alt det tekniske — fra design og tekst til SEO og lansering.</p>
+          </details>
+          <details>
+            <summary>Hva koster det etter at siden er lansert?</summary>
+            <p>Ingenting du er nødt til å betale. Ønsker du at jeg holder siden oppdatert, sikker og synlig, starter drift og support på 490 kr/mnd.</p>
+          </details>
+          <details>
+            <summary>Kan jeg endre ting på siden senere?</summary>
+            <p>Ja, absolutt. Vi kan avtale endringer løpende, eller du kan få enkel opplæring så du gjør små justeringer selv.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <!-- ================= KONTAKT ================= -->
     <section class="nn-contact" id="kontakt">
       <div class="nn-contact__glow" aria-hidden="true"></div>
@@ -951,6 +1044,7 @@
           <a href="#eksempler">Eksempler</a>
           <a href="#referanser">Referanser</a>
           <a href="#priser">Priser</a>
+          <a href="#faq">Spørsmål</a>
           <a href="#kontakt">Kontakt</a>
           <a href="/nettside-handverker/">For håndverkere</a>
           <a href="/nettside-elektriker/">For elektrikere</a>
@@ -979,6 +1073,22 @@
       }
       oppdaterHeader();
       window.addEventListener('scroll', oppdaterHeader, { passive: true });
+    })();
+
+    // Mobilmeny: hamburger åpner/lukker navigasjonen
+    (function () {
+      var header = document.querySelector('.nn-header');
+      var burger = document.querySelector('.nn-burger');
+      if (!header || !burger) return;
+      function lukk() { header.classList.remove('nav-open'); burger.setAttribute('aria-expanded', 'false'); }
+      burger.addEventListener('click', function () {
+        var apen = header.classList.toggle('nav-open');
+        burger.setAttribute('aria-expanded', apen ? 'true' : 'false');
+      });
+      // Lukk menyen når man trykker en lenke eller knappen
+      header.querySelectorAll('.nn-nav__links a, .nn-nav .nn-btn').forEach(function (a) {
+        a.addEventListener('click', lukk);
+      });
     })();
 
     // Myk scroll til ankerlenker
