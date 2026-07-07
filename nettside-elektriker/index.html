@@ -190,6 +190,14 @@
     .nn-nav a:not(.nn-btn)::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--nn-gold-ink); transition: width 0.28s ease; }
     .nn-nav a:not(.nn-btn):hover::after { width: 100%; }
 
+    /* På desktop oppfører lenke-wrapperen seg som om lenkene ligger rett i .nn-nav */
+    .nn-nav__links { display: contents; }
+    .nn-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 42px; height: 42px; padding: 9px; border: none; background: transparent; cursor: pointer; }
+    .nn-burger span { display: block; height: 2px; width: 100%; background: var(--nn-navy); border-radius: 2px; transition: transform 0.3s ease, opacity 0.2s ease; }
+    .nn-header.nav-open .nn-burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nn-header.nav-open .nn-burger span:nth-child(2) { opacity: 0; }
+    .nn-header.nav-open .nn-burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
     .nn-btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1rem; padding: 0.85rem 1.5rem; border-radius: 999px; cursor: pointer; border: 1.5px solid transparent; transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease; white-space: nowrap; }
     .nn-btn--primary { position: relative; overflow: hidden; background: var(--nn-gold); color: var(--nn-navy-900); box-shadow: 0 8px 24px rgba(224, 162, 78, 0.32); }
     .nn-btn--primary:hover { background: var(--nn-gold-dim); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(224, 162, 78, 0.42); }
@@ -323,7 +331,22 @@
     /* ================= RESPONSIVT ================= */
     @media (max-width: 960px) { .nn-nova { display: none; } .nn-hero h1 { max-width: 18ch; } }
     @media (max-width: 700px) {
-      .nn-nav a:not(.nn-btn) { display: none; }
+      .nn-burger { display: flex; }
+      .nn-nav { gap: 0.5rem; }
+      .nn-nav__links {
+        display: flex; flex-direction: column; align-items: stretch; gap: 0;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(250, 249, 246, 0.98);
+        -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--nn-line);
+        box-shadow: 0 12px 28px rgba(22, 36, 58, 0.10);
+        padding: 0.25rem var(--nn-gut) 1rem;
+        max-height: 0; overflow: hidden; opacity: 0; pointer-events: none;
+        transition: max-height 0.35s ease, opacity 0.25s ease;
+      }
+      .nn-header.nav-open .nn-nav__links { max-height: 360px; opacity: 1; pointer-events: auto; }
+      .nn-nav__links a { display: block; padding: 0.9rem 0.25rem; font-size: 1.05rem; border-bottom: 1px solid var(--nn-line); }
+      .nn-nav__links a:last-child { border-bottom: none; }
       .nn-logo img { height: 26px; }            /* mindre logo på mobil */
       .nn-header .nn-btn { padding: 0.55rem 1.05rem; font-size: 0.88rem; }
       .nn-header__inner { min-height: 64px; }
@@ -352,11 +375,18 @@
         <img src="/NextNova_logo_navy_1024px_transparent.png" alt="NextNova">
       </a>
       <nav class="nn-nav" aria-label="Hovedmeny">
-        <a href="/#tjenester">Tjenester</a>
-        <a href="/#eksempler">Eksempler</a>
-        <a href="/#designeksempler">Design</a>
-        <a href="/#om">Om</a>
-        <a href="/#priser">Priser</a>
+        <div class="nn-nav__links" id="hovedmeny">
+          <a href="/#tjenester">Tjenester</a>
+          <a href="/#eksempler">Eksempler</a>
+          <a href="/#designeksempler">Design</a>
+          <a href="/#om">Om</a>
+          <a href="/#referanser">Referanser</a>
+          <a href="/#priser">Priser</a>
+          <a href="#faq">Spørsmål</a>
+        </div>
+        <button class="nn-burger" type="button" aria-label="Åpne meny" aria-expanded="false" aria-controls="hovedmeny">
+          <span></span><span></span><span></span>
+        </button>
         <a class="nn-btn nn-btn--primary" href="/#kontakt">Book gratis møte</a>
       </nav>
     </div>
@@ -636,6 +666,22 @@
       }
       oppdaterHeader();
       window.addEventListener('scroll', oppdaterHeader, { passive: true });
+    })();
+
+    // Mobilmeny: hamburger åpner/lukker navigasjonen
+    (function () {
+      var meny = document.querySelector('.nn-header');
+      var burger = document.querySelector('.nn-burger');
+      if (!meny || !burger) return;
+      function lukkMeny() { meny.classList.remove('nav-open'); burger.setAttribute('aria-expanded', 'false'); }
+      burger.addEventListener('click', function () {
+        var apen = meny.classList.toggle('nav-open');
+        burger.setAttribute('aria-expanded', apen ? 'true' : 'false');
+      });
+      // Lukk menyen når man trykker en lenke eller knappen
+      meny.querySelectorAll('.nn-nav__links a, .nn-nav .nn-btn').forEach(function (a) {
+        a.addEventListener('click', lukkMeny);
+      });
     })();
 
     // Myk scroll til ankerlenker på denne siden (kun hopp-til-innhold-lenken bruker dette)
