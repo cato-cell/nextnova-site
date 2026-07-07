@@ -444,10 +444,13 @@
     /* ================= FOOTER ================= */
     .nn-footer { background: #0A1220; color: rgba(234,239,246,0.6); padding-block: clamp(3rem, 6vw, 4.5rem) 2rem; border-top: 1px solid var(--nn-line-dk); }
     /* Øvre del: merkevare + meny + kontakt i kolonner */
-    .nn-footer__top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: clamp(2rem, 5vw, 3.5rem); padding-bottom: 2.5rem; border-bottom: 1px solid var(--nn-line-dk); }
+    .nn-footer__top { display: grid; grid-template-columns: 2fr 1.7fr 1fr; gap: clamp(2rem, 5vw, 3.5rem); padding-bottom: 2.25rem; border-bottom: 1px solid var(--nn-line-dk); }
     .nn-footer__brand { font-family: 'Fraunces', serif; color: var(--nn-paper); font-size: 1.5rem; display: block; margin-bottom: 0.85rem; }
     .nn-footer__tagline { font-size: 0.95rem; line-height: 1.6; max-width: 360px; }
     .nn-footer__col { display: flex; flex-direction: column; gap: 0.6rem; }
+    /* Menyen flyter i to kolonner så footeren ikke blir høy og smal */
+    .nn-footer__menu { display: grid; grid-template-columns: repeat(2, minmax(0, auto)); column-gap: 2.5rem; row-gap: 0.6rem; align-content: start; }
+    .nn-footer__menu .nn-footer__h { grid-column: 1 / -1; }
     .nn-footer__h { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--nn-gold-2); margin-bottom: 0.35rem; }
     .nn-footer__col a { font-size: 0.95rem; transition: color 0.2s ease; }
     .nn-footer a:hover { color: var(--nn-gold-2); }
@@ -1057,7 +1060,7 @@
           <p class="nn-footer__tagline">Nettsider for små og mellomstore bedrifter over hele Norge – bygget for å bli funnet på Google og i AI-søk.</p>
         </div>
         <!-- Meny -->
-        <nav class="nn-footer__col" aria-label="Bunnmeny">
+        <nav class="nn-footer__col nn-footer__menu" aria-label="Bunnmeny">
           <span class="nn-footer__h">Meny</span>
           <a href="#tjenester">Tjenester</a>
           <a href="#eksempler">Eksempler</a>
