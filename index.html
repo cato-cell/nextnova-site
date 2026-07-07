@@ -336,14 +336,11 @@
     /* Lys paper-2-flate som puster mellom det mørke designgalleriet og prisene */
     .nn-om { background: var(--nn-paper-2); padding-block: clamp(4.5rem, 9vw, 7.5rem); }
     .nn-om__inner { max-width: 720px; }
-    .nn-om__grid { display: grid; grid-template-columns: 300px 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; max-width: 1000px; }
-    .nn-om__text { max-width: 620px; }
-    .nn-om__portrait { position: relative; }
-    .nn-om__portrait img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 20px; box-shadow: 0 20px 50px rgba(22, 36, 58, 0.20); }
-    /* Diskret gull-ramme bak portrettet */
-    .nn-om__portrait::before { content: ""; position: absolute; inset: 14px -14px -14px 14px; border: 1.5px solid var(--nn-gold); border-radius: 20px; z-index: 0; }
-    .nn-om__portrait img { position: relative; z-index: 1; }
-    @media (max-width: 820px) { .nn-om__grid { grid-template-columns: 1fr; max-width: 620px; } .nn-om__portrait { max-width: 260px; } }
+    /* Personlig «signatur»: lite, skarpt portrett med navn */
+    .nn-om__sign { display: flex; align-items: center; gap: 1rem; margin: 2.25rem 0 2rem; }
+    .nn-om__avatar { width: 74px; height: 74px; border-radius: 50%; object-fit: cover; flex: none; box-shadow: 0 0 0 3px var(--nn-paper-2), 0 0 0 4.5px var(--nn-gold); }
+    .nn-om__name { display: block; font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.15rem; color: var(--nn-navy); line-height: 1.2; }
+    .nn-om__role { display: block; font-size: 0.9rem; color: var(--nn-slate); margin-top: 2px; }
     .nn-om__title { font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(2rem, 4.6vw, 3.4rem); line-height: 1.08; letter-spacing: -0.02em; color: var(--nn-navy); max-width: 20ch; margin-bottom: 1.5rem; text-wrap: balance; }
     .nn-om__lead { font-size: clamp(1.05rem, 1.8vw, 1.2rem); color: var(--nn-slate); max-width: 62ch; line-height: 1.7; margin-bottom: 1.25rem; }
     /* Dempet firmalinje under brødteksten */
@@ -807,19 +804,21 @@
 
     <!-- ================= OM ================= -->
     <section class="nn-om" id="om">
-      <div class="nn-wrap nn-om__grid">
-        <div class="nn-om__portrait nn-up">
-          <img src="cato-eriksen.png" alt="Cato Eriksen, gründer av NextNova" loading="lazy" width="250" height="250">
-        </div>
-        <div class="nn-om__text">
-          <p class="nn-eyebrow nn-up">Hvem står bak</p>
-          <h2 class="nn-om__title nn-up">Bygget av en som driver bedrift selv.</h2>
-          <p class="nn-om__lead nn-up">NextNova drives av Cato Eriksen – gründer og forretningsutvikler fra Asker, med flere egne virksomheter innen alt fra HR-teknologi til lokale opplevelser. Derfor vet jeg hva en nettside faktisk skal gjøre for en liten bedrift: bli funnet, skape tillit og få kunden til å ta kontakt.</p>
-          <p class="nn-om__lead nn-up">Jeg bygger moderne, raske nettsider som er laget for å synes – både i Google og i de nye AI-søkene der stadig flere leter etter leverandører. Ingen lange prosesser, ingen byråfakturaer. Du forteller om bedriften din, jeg bygger siden.</p>
-          <p class="nn-om__small nn-up">NextNova er en del av ASD Media &amp; Production AS (org.nr 916 585 993).</p>
-          <div class="nn-up">
-            <a class="nn-btn nn-btn--primary" href="#kontakt">Book gratis møte</a>
+      <div class="nn-wrap nn-om__inner">
+        <p class="nn-eyebrow nn-up">Hvem står bak</p>
+        <h2 class="nn-om__title nn-up">Bygget av en som driver bedrift selv.</h2>
+        <p class="nn-om__lead nn-up">NextNova drives av Cato Eriksen – gründer og forretningsutvikler fra Asker, med flere egne virksomheter innen alt fra HR-teknologi til lokale opplevelser. Derfor vet jeg hva en nettside faktisk skal gjøre for en liten bedrift: bli funnet, skape tillit og få kunden til å ta kontakt.</p>
+        <p class="nn-om__lead nn-up">Jeg bygger moderne, raske nettsider som er laget for å synes – både i Google og i de nye AI-søkene der stadig flere leter etter leverandører. Ingen lange prosesser, ingen byråfakturaer. Du forteller om bedriften din, jeg bygger siden.</p>
+        <div class="nn-om__sign nn-up">
+          <img class="nn-om__avatar" src="cato-eriksen.png" alt="Cato Eriksen, gründer av NextNova" loading="lazy" width="250" height="250">
+          <div>
+            <span class="nn-om__name">Cato Eriksen</span>
+            <span class="nn-om__role">Gründer, NextNova</span>
           </div>
+        </div>
+        <p class="nn-om__small nn-up">NextNova er en del av ASD Media &amp; Production AS (org.nr 916 585 993).</p>
+        <div class="nn-up">
+          <a class="nn-btn nn-btn--primary" href="#kontakt">Book gratis møte</a>
         </div>
       </div>
     </section>
