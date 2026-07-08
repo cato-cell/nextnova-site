@@ -206,7 +206,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 
 <section class="sec" id="kontakt" style="padding-top:0"><div class="wrap contact reveal">
   <div><p class="kicker">Kontakt</p><h2>Ta kontakt.</h2></div>
-  <div><p style="color:var(--muted);font-weight:300">E-post: <a href="#">post@nordvvs.no</a><br>Telefon: <a href="tel:+4722000000">22 00 00 00</a><br>Område: Oslo og Akershus</p></div>
+  <div><p style="color:var(--muted);font-weight:300">E-post: <a href="mailto:post@nordvvs.no">post@nordvvs.no</a><br>Telefon: <a href="tel:+4722000000">22 00 00 00</a><br>Område: Oslo og Akershus</p></div>
 </div></section>
 
 <footer class="foot"><div class="wrap" style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;width:90%">
@@ -215,7 +215,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 </div></footer>
 
 <div class="nnbar">
-  <span class="nnbar__txt">Vil du ha en side som dette? Fra <strong>14 900 kr</strong>.</span>
+  <span class="nnbar__txt">Vil du ha en side som dette? Fra <strong>990 kr/mnd</strong>.</span>
   <a href="https://nextnova.no/#kontakt">Book gratis møte hos NextNova</a>
 </div>
 
@@ -224,7 +224,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 const io=new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');if(x.target.querySelector('[data-target]'))runStats(x.target);io.unobserve(x.target)}})},{threshold:.2});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 /* animerte telleverk */
-function runStats(scope){scope.querySelectorAll('[data-target]').forEach(el=>{const t=parseFloat(el.dataset.target),dec=el.dataset.dec?1:0,extra=el.querySelector('span')?el.querySelector('span').outerHTML:'';let s=0,d=900,t0=performance.now();function f(now){let p=Math.min((now-t0)/d,1);let v=(t*p);el.firstChild&&el.firstChild.nodeType===3?null:null;el.childNodes[0]&&el.childNodes[0].nodeType===3?el.removeChild(el.childNodes[0]):null;el.insertAdjacentHTML('afterbegin',(dec?v.toFixed(1):Math.floor(v))+(p>=.999&&t>=100?'+':''));if(p<1){el.removeChild(el.firstChild);requestAnimationFrame(f)}}requestAnimationFrame(f)})}
+function runStats(scope){scope.querySelectorAll('[data-target]').forEach(el=>{const t=parseFloat(el.dataset.target),dec=el.dataset.dec?1:0;let d=900,t0=performance.now();function f(now){let p=Math.min((now-t0)/d,1);let v=(t*p);if(el.childNodes[0]&&el.childNodes[0].nodeType===3){el.removeChild(el.childNodes[0])}el.insertAdjacentHTML('afterbegin',(dec?v.toFixed(1):Math.floor(v))+(p>=.999&&t>=100?'+':''));if(p<1){requestAnimationFrame(f)}}requestAnimationFrame(f)})}
 /* før-etter slider */
 (function(){const r=document.getElementById('baRange'),b=document.getElementById('baBefore'),h=document.getElementById('baHandle');if(!r)return;function upd(){const v=r.value;b.style.width=v+'%';h.style.left=v+'%'}r.addEventListener('input',upd);upd()})();
 </script>
