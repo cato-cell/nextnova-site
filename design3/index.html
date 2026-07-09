@@ -33,7 +33,18 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 .nav__links a:hover{color:var(--rose2)}
 .nav__cta{border:1px solid var(--ink);padding:.55rem 1.3rem;border-radius:999px;font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;transition:.25s}
 .nav__cta:hover{background:var(--ink);color:var(--bg)}
-@media(max-width:760px){.nav__links{display:none}}
+.burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:38px;height:38px;padding:8px;border:none;background:transparent;cursor:pointer}
+.burger span{display:block;height:2px;width:100%;background:var(--ink);border-radius:2px;transition:transform .3s ease,opacity .2s ease}
+.nav.open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav.open .burger span:nth-child(2){opacity:0}
+.nav.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:760px){
+.burger{display:flex}
+.nav__links{display:flex;flex-direction:column;align-items:stretch;gap:0;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);max-height:0;overflow:hidden;opacity:0;pointer-events:none;transition:max-height .35s ease,opacity .25s ease}
+.nav.open .nav__links{max-height:320px;opacity:1;pointer-events:auto}
+.nav__links a{display:block;padding:.9rem 5%;border-bottom:1px solid var(--line)}
+.nav__links a:last-child{border-bottom:none}
+}
 
 .hero{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;background:var(--bg2)}
 .heroimg{position:absolute;inset:0;background:linear-gradient(135deg,#E8CFC4,#C98A7D)}
@@ -114,6 +125,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 <header class="nav"><div class="wrap nav__in">
   <span class="logo">Salong Lys</span>
   <nav class="nav__links"><a href="#om">Om oss</a><a href="#priser">Priser</a><a href="#galleri">Galleri</a></nav>
+  <button class="burger" type="button" aria-label="Åpne meny" aria-expanded="false"><span></span><span></span><span></span></button>
   <a href="#kontakt" class="nav__cta">Bestill time</a>
 </div></header>
 
@@ -121,7 +133,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   <div class="heroimg"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=80" alt="" onerror="this.remove()"></div>
   <div class="wrap hero__in">
     <p class="eyebrow">Frisørsalong · Oslo</p>
-    <h1>Et hår du føler deg hjemme i.</h1>
+    <h1>En frisyre du føler deg hjemme i.</h1>
     <p>Farge, klipp og styling i rolige omgivelser — med tid til deg og det du ønsker.</p>
     <a href="#kontakt" class="btn">Bestill time</a>
   </div>
@@ -206,6 +218,8 @@ lb.addEventListener('click',e=>{if(e.target===lb)closeLb()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb()});
 /* omtaler rotator */
 (function(){const r=document.querySelectorAll('.rev');if(r.length<2)return;let i=0;setInterval(()=>{r[i].classList.remove('show');i=(i+1)%r.length;r[i].classList.add('show')},4200)})();
+
+(function(){var nav=document.querySelector('.nav'),burger=document.querySelector('.burger');if(!nav||!burger)return;function close(){nav.classList.remove('open');burger.setAttribute('aria-expanded','false')}burger.addEventListener('click',function(){var open=nav.classList.toggle('open');burger.setAttribute('aria-expanded',open?'true':'false')});nav.querySelectorAll('.nav__links a').forEach(function(a){a.addEventListener('click',close)})})();
 </script>
 
 </body>

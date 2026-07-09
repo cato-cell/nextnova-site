@@ -34,7 +34,18 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 .nav__links a:hover{color:var(--ink)}
 .nav__cta{background:var(--blue);color:#fff;padding:.6rem 1.25rem;border-radius:10px;font-size:.9rem;font-weight:600;transition:.25s}
 .nav__cta:hover{background:var(--blue2)}
-@media(max-width:760px){.nav__links{display:none}}
+.burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:38px;height:38px;padding:8px;border:none;background:transparent;cursor:pointer}
+.burger span{display:block;height:2px;width:100%;background:var(--ink);border-radius:2px;transition:transform .3s ease,opacity .2s ease}
+.nav.open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav.open .burger span:nth-child(2){opacity:0}
+.nav.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:760px){
+.burger{display:flex}
+.nav__links{display:flex;flex-direction:column;align-items:stretch;gap:0;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);max-height:0;overflow:hidden;opacity:0;pointer-events:none;transition:max-height .35s ease,opacity .25s ease}
+.nav.open .nav__links{max-height:320px;opacity:1;pointer-events:auto}
+.nav__links a{display:block;padding:.9rem 5%;border-bottom:1px solid var(--line)}
+.nav__links a:last-child{border-bottom:none}
+}
 
 .hero{position:relative;min-height:84vh;display:flex;align-items:center;overflow:hidden;background:var(--steel)}
 .heroimg{position:absolute;inset:0;background:linear-gradient(135deg,#22425f,#0E1B2A)}
@@ -123,6 +134,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 <header class="nav"><div class="wrap nav__in">
   <span class="logo">Nord<span>VVS</span></span>
   <nav class="nav__links"><a href="#tjenester">Tjenester</a><a href="#arbeid">Arbeid</a><a href="#prosess">Slik jobber vi</a></nav>
+  <button class="burger" type="button" aria-label="Åpne meny" aria-expanded="false"><span></span><span></span><span></span></button>
   <a href="#kontakt" class="nav__cta">Be om tilbud</a>
 </div></header>
 
@@ -227,6 +239,8 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 function runStats(scope){scope.querySelectorAll('[data-target]').forEach(el=>{const t=parseFloat(el.dataset.target),dec=el.dataset.dec?1:0;let d=900,t0=performance.now();function f(now){let p=Math.min((now-t0)/d,1);let v=(t*p);if(el.childNodes[0]&&el.childNodes[0].nodeType===3){el.removeChild(el.childNodes[0])}el.insertAdjacentHTML('afterbegin',(dec?v.toFixed(1):Math.floor(v))+(p>=.999&&t>=100?'+':''));if(p<1){requestAnimationFrame(f)}}requestAnimationFrame(f)})}
 /* før-etter slider */
 (function(){const r=document.getElementById('baRange'),b=document.getElementById('baBefore'),h=document.getElementById('baHandle');if(!r)return;function upd(){const v=r.value;b.style.width=v+'%';h.style.left=v+'%'}r.addEventListener('input',upd);upd()})();
+
+(function(){var nav=document.querySelector('.nav'),burger=document.querySelector('.burger');if(!nav||!burger)return;function close(){nav.classList.remove('open');burger.setAttribute('aria-expanded','false')}burger.addEventListener('click',function(){var open=nav.classList.toggle('open');burger.setAttribute('aria-expanded',open?'true':'false')});nav.querySelectorAll('.nav__links a').forEach(function(a){a.addEventListener('click',close)})})();
 </script>
 
 </body>
