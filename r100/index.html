@@ -116,6 +116,7 @@ button{font:inherit;cursor:pointer}
 .hero__trust svg{flex:none}
 .hero__img{position:relative}
 .hero__imgcard{border-radius:20px;height:clamp(320px,34vw,460px);overflow:hidden;box-shadow:0 2px 8px rgba(28,48,38,.05),0 40px 82px rgba(28,48,38,.2)}
+.hero__imgcard img{object-position:50% 20%}
 .badge{position:absolute;left:-24px;bottom:36px;background:var(--kort);border-radius:18px;padding:22px 26px;box-shadow:0 2px 6px rgba(28,48,38,.05),0 26px 52px rgba(28,48,38,.2);animation:sveve 8s ease-in-out infinite}
 .badge b{display:block;font-size:40px;font-weight:600;line-height:1.05}
 .badge span{display:block;font-size:13px;color:var(--tekst-dempet);margin-top:4px}
@@ -197,6 +198,7 @@ button{font:inherit;cursor:pointer}
 .om__grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(40px,6vw,80px);align-items:center}
 .om__imgwrap{position:relative}
 .om__imgcard{border-radius:20px;height:clamp(400px,46vw,560px);overflow:hidden;box-shadow:0 2px 8px rgba(28,48,38,.05),0 34px 70px rgba(28,48,38,.18)}
+.om__imgcard img{object-position:50% 15%}
 .om__imgcard--tom{background:repeating-linear-gradient(135deg,#e5ddce,#e5ddce 10px,#dcd2bd 10px,#dcd2bd 20px);border:1px dashed rgba(28,48,38,.32);display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem}
 .om__imgcard--tom span{font-size:.9rem;color:var(--tekst-dempet);font-weight:500}
 .om__badge{position:absolute;right:-20px;bottom:32px;background:var(--skog);border-radius:14px;padding:16px 22px;max-width:78%}
@@ -462,7 +464,7 @@ button{font:inherit;cursor:pointer}
 <!-- ============ OM MARIT ============ -->
 <section class="sec" id="om"><div class="wrap om__grid">
   <div class="om__imgwrap reveal">
-    <div class="om__imgcard om__imgcard--tom"><span>Marit-portrett<br>kommer her</span></div>
+    <div class="om__imgcard"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&q=80&auto=format&fit=crop" alt="" onerror="this.remove()"></div>
     <div class="om__badge"><b>Marit Schjødt</b><span>Daglig leder &amp; statsautorisert regnskapsfører</span></div>
   </div>
   <div class="reveal">
