@@ -1,0 +1,145 @@
+<svg viewBox="0 0 680 520" xmlns="http://www.w3.org/2000/svg" font-family="Hanken Grotesk, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+  <!-- ============ r100 dashboard-mockup ============
+       Palett: krem #f5efe4 / kort #fbf9f4 / skoggrønn #35594a / dyp blå #163b4d
+       Grønn = penger inn, blå = penger ut (rolig, on-brand – ingen rød) -->
+
+  <defs>
+    <clipPath id="cardClip"><rect x="0" y="0" width="680" height="520" rx="20"/></clipPath>
+    <linearGradient id="donutBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbf9f4"/><stop offset="1" stop-color="#f3ecdf"/>
+    </linearGradient>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <!-- bakgrunn -->
+    <rect x="0" y="0" width="680" height="520" fill="#fbf9f4"/>
+    <rect x="0.5" y="0.5" width="679" height="519" rx="20" fill="none" stroke="rgba(28,48,38,0.12)"/>
+
+    <!-- ===== Header ===== -->
+    <text x="26" y="42" font-size="17" font-weight="700" fill="#23302a" letter-spacing="-0.2">Kontantstrøm</text>
+    <text x="26" y="60" font-size="12" font-weight="500" fill="#5d675e">Full oversikt · siste 90 dager</text>
+
+    <!-- period-pills -->
+    <g font-size="11.5" font-weight="600">
+      <rect x="486" y="30" width="58" height="26" rx="8" fill="#163b4d"/>
+      <text x="515" y="47" fill="#eef2f4" text-anchor="middle">90 dager</text>
+      <rect x="550" y="30" width="58" height="26" rx="8" fill="none" stroke="rgba(28,48,38,0.16)"/>
+      <text x="579" y="47" fill="#5d675e" text-anchor="middle">30 dager</text>
+      <rect x="614" y="30" width="40" height="26" rx="8" fill="none" stroke="rgba(28,48,38,0.16)"/>
+      <text x="634" y="47" fill="#5d675e" text-anchor="middle">14 d</text>
+    </g>
+
+    <!-- ===== Saldo-kort ===== -->
+    <!-- Brukskonto -->
+    <rect x="26" y="76" width="306" height="72" rx="14" fill="#f1ede3" stroke="rgba(28,48,38,0.08)"/>
+    <circle cx="48" cy="100" r="4" fill="#35594a"/>
+    <text x="62" y="104" font-size="12" font-weight="500" fill="#5d675e">Brukskonto</text>
+    <text x="26" y="134" font-size="22" font-weight="700" fill="#23302a"><tspan dx="14">NOK 2 777 009</tspan></text>
+    <!-- Skattetrekk -->
+    <rect x="348" y="76" width="306" height="72" rx="14" fill="#f1ede3" stroke="rgba(28,48,38,0.08)"/>
+    <circle cx="370" cy="100" r="4" fill="#163b4d"/>
+    <text x="384" y="104" font-size="12" font-weight="500" fill="#5d675e">Skattetrekk</text>
+    <text x="348" y="134" font-size="22" font-weight="700" fill="#23302a"><tspan dx="14">NOK 94 200</tspan></text>
+
+    <!-- ===== Midtbånd: donut + barer ===== -->
+    <!-- Donut-panel -->
+    <rect x="26" y="164" width="306" height="168" rx="14" fill="url(#donutBg)" stroke="rgba(28,48,38,0.08)"/>
+    <text x="46" y="192" font-size="12.5" font-weight="700" fill="#23302a">Transaksjonsoversikt</text>
+
+    <!-- donut (inn 51.3% grønn, ut 48.7% blå), start topp -->
+    <g transform="translate(104,262) rotate(-90)">
+      <circle r="46" fill="none" stroke="#e7dfce" stroke-width="22"/>
+      <!-- inn: 51.3% -->
+      <circle r="46" fill="none" stroke="#35594a" stroke-width="22"
+        stroke-dasharray="148.3 140.7" stroke-linecap="butt"/>
+      <!-- ut: 48.7% -->
+      <circle r="46" fill="none" stroke="#163b4d" stroke-width="22"
+        stroke-dasharray="140.7 148.3" stroke-dashoffset="-148.3" stroke-linecap="butt"/>
+    </g>
+
+    <!-- legende -->
+    <g transform="translate(178,238)">
+      <rect x="0" y="0" width="10" height="10" rx="2.5" fill="#35594a"/>
+      <text x="18" y="9" font-size="11.5" font-weight="600" fill="#4e5951">Inn · 51,3 %</text>
+      <text x="0" y="28" font-size="14.5" font-weight="700" fill="#23302a">1 988 438 kr</text>
+      <rect x="0" y="46" width="10" height="10" rx="2.5" fill="#163b4d"/>
+      <text x="18" y="55" font-size="11.5" font-weight="600" fill="#4e5951">Ut · 48,7 %</text>
+      <text x="0" y="74" font-size="14.5" font-weight="700" fill="#23302a">1 890 001 kr</text>
+    </g>
+
+    <!-- Bar-panel -->
+    <rect x="348" y="164" width="306" height="168" rx="14" fill="url(#donutBg)" stroke="rgba(28,48,38,0.08)"/>
+
+    <!-- Største inn og ut -->
+    <g transform="translate(368,186)">
+      <text x="0" y="4" font-size="12.5" font-weight="700" fill="#23302a">Største bevegelser</text>
+
+      <!-- inn 1 -->
+      <circle cx="4" cy="26" r="4" fill="#35594a"/>
+      <text x="16" y="30" font-size="10.5" font-weight="600" fill="#5d675e">Innbetaling Elavon</text>
+      <text x="266" y="30" font-size="10.5" font-weight="700" fill="#23302a" text-anchor="end">89 763</text>
+      <rect x="0" y="37" width="266" height="6" rx="3" fill="#e7dfce"/>
+      <rect x="0" y="37" width="248" height="6" rx="3" fill="#35594a"/>
+
+      <!-- inn 2 -->
+      <circle cx="4" cy="62" r="4" fill="#35594a"/>
+      <text x="16" y="66" font-size="10.5" font-weight="600" fill="#5d675e">Innbetaling Z1844</text>
+      <text x="266" y="66" font-size="10.5" font-weight="700" fill="#23302a" text-anchor="end">87 977</text>
+      <rect x="0" y="73" width="266" height="6" rx="3" fill="#e7dfce"/>
+      <rect x="0" y="73" width="243" height="6" rx="3" fill="#35594a"/>
+
+      <!-- ut 1 -->
+      <circle cx="4" cy="98" r="4" fill="#163b4d"/>
+      <text x="16" y="102" font-size="10.5" font-weight="600" fill="#5d675e">Lønnsbilag</text>
+      <text x="266" y="102" font-size="10.5" font-weight="700" fill="#23302a" text-anchor="end">−644 699</text>
+      <rect x="0" y="109" width="266" height="6" rx="3" fill="#e7dfce"/>
+      <rect x="0" y="109" width="205" height="6" rx="3" fill="#163b4d"/>
+
+      <!-- ut 2 -->
+      <circle cx="4" cy="134" r="4" fill="#163b4d"/>
+      <text x="16" y="138" font-size="10.5" font-weight="600" fill="#5d675e">FlowerDirect AS</text>
+      <text x="266" y="138" font-size="10.5" font-weight="700" fill="#23302a" text-anchor="end">−449 366</text>
+      <rect x="0" y="145" width="266" height="6" rx="3" fill="#e7dfce"/>
+      <rect x="0" y="145" width="143" height="6" rx="3" fill="#163b4d"/>
+    </g>
+
+    <!-- ===== Mini-tabell ===== -->
+    <text x="26" y="368" font-size="12.5" font-weight="700" fill="#23302a">Siste transaksjoner</text>
+    <!-- header -->
+    <g font-size="10.5" font-weight="700" fill="#8a938b" letter-spacing="0.3">
+      <text x="26" y="392">NAVN</text>
+      <text x="330" y="392">DATO</text>
+      <text x="654" y="392" text-anchor="end">BELØP (NOK)</text>
+    </g>
+    <line x1="26" y1="400" x2="654" y2="400" stroke="rgba(28,48,38,0.12)"/>
+
+    <!-- rad 1 -->
+    <g font-size="12" font-weight="500" fill="#23302a">
+      <circle cx="36" cy="422" r="9" fill="#e6ede8"/>
+      <text x="34" y="426" font-size="9" font-weight="700" fill="#35594a" text-anchor="middle">F</text>
+      <text x="54" y="426">Leverandør 1</text>
+      <text x="330" y="426" fill="#5d675e">2025-03-13</text>
+      <text x="654" y="426" text-anchor="end" fill="#163b4d" font-weight="700">−8 737,50</text>
+    </g>
+    <line x1="26" y1="438" x2="654" y2="438" stroke="rgba(28,48,38,0.08)"/>
+
+    <!-- rad 2 -->
+    <g font-size="12" font-weight="500" fill="#23302a">
+      <circle cx="36" cy="460" r="9" fill="#e6ede8"/>
+      <text x="34" y="464" font-size="9" font-weight="700" fill="#35594a" text-anchor="middle">SN</text>
+      <text x="54" y="464">Faktura 258-2025</text>
+      <text x="330" y="464" fill="#5d675e">2025-03-13</text>
+      <text x="654" y="464" text-anchor="end" fill="#35594a" font-weight="700">+9 231,00</text>
+    </g>
+    <line x1="26" y1="476" x2="654" y2="476" stroke="rgba(28,48,38,0.08)"/>
+
+    <!-- rad 3 -->
+    <g font-size="12" font-weight="500" fill="#23302a">
+      <circle cx="36" cy="498" r="9" fill="#e9e4d6"/>
+      <text x="34" y="502" font-size="9" font-weight="700" fill="#a08a4e" text-anchor="middle">D</text>
+      <text x="54" y="502">Drivstoff</text>
+      <text x="330" y="502" fill="#5d675e">2025-03-12</text>
+      <text x="654" y="502" text-anchor="end" fill="#163b4d" font-weight="700">−302,29</text>
+    </g>
+  </g>
+</svg>
